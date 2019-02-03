@@ -1,5 +1,5 @@
 <?php 
-    class Application{
+    class Application extends CI_Model{
         public $id; // int
         public $code; //String
         public $isNew; //Boolean
@@ -30,11 +30,16 @@
             }
         }
 
-        public function insert(){
+        public static function insert(){
             if(!$this->id){
-                // TODO: Inserting here.
+                
             }
             return false;
+        }
+
+        
+        public function construct_from_id($id){
+
         }
     }
 ?>
