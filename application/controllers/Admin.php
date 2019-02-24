@@ -103,6 +103,18 @@ class Admin extends CI_Controller
 
         $data = array('view'=>'admin/application/step2_view');
 
+        if($this->session->flashdata('application')){
+            $data['application'] = new Application();
+            $data['application']->set_instance_array($this->session->flashdata('application'));
+            
+            $data['owner'] = new Owner();
+            $data['owner']->set_instance_array($this->session->flashdata('owner'));
+
+            $data['business'] = new Business();
+            $data['business']->set_instance_array($this->session->flashdata('business'));
+        }
+        
+
         if($this->input->post('submit')){
             redirect('admin/step3');
         }
