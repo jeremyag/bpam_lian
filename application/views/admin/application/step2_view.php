@@ -35,10 +35,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label>Date of Application</label>
-                            <!-- TODO: Set the Date of Application as Today-->
                             <?php echo form_input(array(
                                 'type'=>'date',
-                                'value'=>'2019-01-26',
+                                'value'=>date('Y-m-d'),
                                 'class'=>'form-control',
                                 'name'=>'form_date_application'
                             ))?>
@@ -66,7 +65,7 @@
                                 'type'=>'date',
                                 'class'=>'form-control',
                                 'name'=>'form_registration_date',
-                                'value'=>'2019-01-26'
+                                'value'=>''
                             ))?>
                         </div>
                     </div>

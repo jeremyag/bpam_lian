@@ -3,12 +3,18 @@
     <div class="col-md-12">
         <a class="btn btn-danger" href="<?php echo base_url()?>admin/accounts"><i class="fa fa-chevron-left"></i> Back</a>
         <br><br>
+
+        <?php if($this->session->flashdata('register_errors')): ?>
+            <div class="alert alert-danger">
+                <?php echo $this->session->flashdata('register_errors'); ?>
+            </div>
+        <?php endif; ?>
         <div class="card">
             <div class="card-header">
                 <h4>Register Account</h4>
             </div>
             <div class="card-body">
-                <?php echo form_open(); ?>
+                <?php echo form_open('Account_Controller/register'); ?>
                 <div class="row">
                     <div class="col-md-4">
                         <label>First name:</label>
@@ -33,6 +39,29 @@
                             'name'=>'form_last_name',
                             'placeholder'=>'Last name'
                         )); ?>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Gender:</label> <br>
+                        Male <?php echo form_radio('form_gender', 'male', TRUE) ?>
+                        Female <?php echo form_radio('form_gender', 'female') ?>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Position:</label>
+                        <?php echo form_dropdown(array(
+                            'class'=>'form-control',
+                            'name'=>'form_position'
+                        ), array(
+                            'Administrator'=>'Administrator',
+                            'Checker'=>'Checker',
+                            'Treasurer'=>'Treasurer'
+                        ));
+                        ?>
                     </div>
                 </div>
                 <br>
@@ -73,6 +102,7 @@
                             'name'=>'form_contact_no',
                             'placeholder'=>'Contact No.'
                         )) ?>
+                        <br>
                     </div>
                 </div>
                 <br>

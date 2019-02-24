@@ -3,10 +3,12 @@
     <title>BPAM - Lian Municipality: Administrator</title>
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bpm_lian.css">
 
     <script src="<?php echo base_url();?>assets/js/popper.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/jquery-3.3.1.slim.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/bpm_lian.js"></script>
 </head>
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index: 1; width: 100%; position: fixed;">

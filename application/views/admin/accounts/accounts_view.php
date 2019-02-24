@@ -1,4 +1,5 @@
 <br>
+
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -8,7 +9,7 @@
                         <a class="nav-link active" href="<?php echo base_url()?>admin/accounts"><i class="fa fa-users"></i> Accounts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url()?>admin/profile"><i class="fa fa-user"></i> My Profile</a>
+                        <a class="nav-link" href="<?php echo base_url()?>admin/profile"><i class="fa fa-user"></i> View Profile</a>
                     </li>
                 </ul>
             </div>
@@ -22,7 +23,7 @@
             <table style="width: 100%">
                 <tr>
                     <th><i class="fa fa-user"></i> Administrators</th>
-                    <td>1</td>
+                    <td><?=$statistics->administrator?></td>
                 </tr>
             </table>
         </div>
@@ -32,7 +33,7 @@
             <table style="width: 100%">
                 <tr>
                     <th><i class="fa fa-user-check"></i> Checkers</th>
-                    <td>1</td>
+                    <td><?=$statistics->checkers?></td>
                 </tr>
             </table>
         </div>
@@ -42,7 +43,7 @@
             <table style="width: 100%">
                 <tr>
                     <th><i class="fa fa-money-bill-wave"></i> Treasurer</th>
-                    <td>1</td>
+                    <td><?=$statistics->treasurer?></td>
                 </tr>
             </table>
         </div>
@@ -76,25 +77,32 @@
                         <th>
                             Position
                         </th>
+                        <th>
+                            Status
+                        </th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="row-clickable" onclick="rowClick('profile.php','id','1')">
-                        <td>16-26971</td>
-                        <td>Jeremy</td>
-                        <td>Pasiona</td>
-                        <td>Agcaoili</td>
-                        <td>Checker</td>
-                        <td><i class="fa fa-chevron-right"></i> </td>
-                    </tr><tr class="row-clickable" onclick="rowClick('profile.php','id','2')">
-                        <td>16-26977</td>
-                        <td>John</td>
-                        <td>De la Cruz</td>
-                        <td>Doe</td>
-                        <td>Treasurer</td>
+                    <?php 
+                        if(count($users)>0):
+                            foreach($users as $user):
+                    ?>
+
+                    <tr class="row-clickable <?=($user->isActive ? "" : "table-danger")?>" onclick="rowClick('profile','id','<?=$user->id?>')">
+                        <td><?php echo $user->username; ?></td>
+                        <td><?php echo $user->first_name; ?></td>
+                        <td><?php echo $user->middle_name; ?></td>
+                        <td><?php echo $user->last_name; ?></td>
+                        <td><?php echo $user->position; ?></td>
+                        <td><?php echo ($user->isActive ? "Active <i class='text-success fa fa-check-circle'></i>" : "Disabled <i class='text-danger fa fa-times-circle'></i>"); ?></td>
                         <td><i class="fa fa-chevron-right"></i> </td>
                     </tr>
+
+                    <?php  
+                            endforeach;
+                        endif;
+                    ?>
                     </tbody>
                 </table>
             </div>

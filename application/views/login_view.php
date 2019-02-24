@@ -13,7 +13,11 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <?php echo form_open(); ?>
+                    <br>
+                    <?php if($this->session->flashdata('login_errors')): ?>
+                        <div class="alert alert-danger"><?=$this->session->flashdata('login_errors')?></div>
+                    <?php endif;?>
+                    <?php echo form_open('Account_Controller/login'); ?>
                     <br>
                     <div class="card">
                         <div class="card-header">

@@ -8,7 +8,7 @@
                         <a class="nav-link" href="<?php echo base_url();?>admin/accounts"><i class="fa fa-users"></i> Accounts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?php echo base_url();?>admin/profile"><i class="fa fa-user"></i> My Profile</a>
+                        <a class="nav-link active" href="<?php echo base_url();?>admin/profile"><i class="fa fa-user"></i> View Profile</a>
                     </li>
                 </ul>
             </div>
@@ -22,11 +22,11 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-6">
-                        <h2>My Profile</h2>
+                        <h2>Edit: <?=$profile->get_fullname()?></h2>
                     </div>
                     <div class="col-md-6">
                         <div class="text-right">
-                            <a href="<?php echo base_url() ?>/admin/profile" class="btn btn-danger">Cancel</a>
+                            <a href="<?php echo base_url() ?>admin/profile" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>
                 </div>
@@ -34,13 +34,14 @@
             <div class="card-body">
 
                 <br>
-                <?php echo form_open(); ?>
+                <?php echo form_open('Account_Controller/update'); ?>
+                    <?=form_hidden('id',$profile->id)?>
                     <table class="table table-bordered">
                         <tr>
                             <th>First name:</th>
                             <td style="width: 75%"><?php echo form_input(array(
                                     'name'=>'form_first_name',
-                                    'value'=>'Jeremy',
+                                    'value'=>$profile->first_name,
                                     'class'=>'form-control'
                                 ));?></td>
                         </tr>
@@ -48,7 +49,7 @@
                             <th>Middle name:</th>
                             <td style="width: 75%"><?php echo form_input(array(
                                     'name'=>'form_middle_name',
-                                    'value'=>'Pasiona',
+                                    'value'=>$profile->middle_name,
                                     'class'=>'form-control'
                                 ));?></td>
                         </tr>
@@ -56,13 +57,20 @@
                             <th>Last name:</th>
                             <td style="width: 75%"><?php echo form_input(array(
                                     'name'=>'form_last_name',
-                                    'value'=>'Agcaoili',
+                                    'value'=>$profile->last_name,
                                     'class'=>'form-control'
                                 ))?></td>
                         </tr>
                         <tr>
                             <th>Username:</th>
-                            <td style="width: 75%">16-26971</td>
+                            <td style="width: 75%"><?=$profile->username?></td>
+                        </tr>
+                        <tr>
+                            <th>Password</th>
+                            <td style="width: 75%"><?=form_password(array(
+                                'name'=>'form_password',
+                                'class'=>'form-control'
+                            ))?><br><small>Note: Leave this field blank if you don't want to change the password.</small></td>
                         </tr>
                         <tr>
                             <th>Position:</th>
@@ -70,20 +78,20 @@
                                     'name'=>'form_position',
                                     'class'=>'form-control'
                                 ), array(
-                                    '1'=>'Administrator',
-                                    '2'=>'Checker',
-                                    '3'=>'Treasurer'
-                                ),1)?></td>
+                                    'Administrator'=>'Administrator',
+                                    'Checker'=>'Checker',
+                                    'Treasurer'=>'Treasurer'
+                                ),$profile->position)?></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <th>Privilege:</th>
                             <td style="width: 75%">Full Privilege</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <th>Contact no:</th>
                             <td style="width: 75%"><?php echo form_input(array(
                                     'name'=>'form_contact_no',
-                                    'value'=>'09275894583',
+                                    'value'=>$profile->contact_no,
                                     'class'=>'form-control'
                                 ));?></td>
                         </tr>
@@ -91,7 +99,7 @@
                             <th>Email:</th>
                             <td style="width: 75%"><?php echo form_input(array(
                                     'name'=>'form_email',
-                                    'value'=>'agcaoili.jeremy@gmail.com',
+                                    'value'=>$profile->email,
                                     'type'=>'email',
                                     'class'=>'form-control'
                                 ));?></td>
@@ -162,9 +170,18 @@
                         </div>
                     </div>
                     <div class="text-right">
+                        <?php if($profile->isActive): ?>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#disableModal">
                             Disable Account
                         </button>
+                        <?php else: ?>
+                            <?php echo form_submit(array(
+                                'class'=>'btn btn-success',
+                                'value'=>'Activate',
+                                'name'=>'submit'
+                            ))?>
+                        <?php endif;?>
+
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">
                             Update
                         </button>
