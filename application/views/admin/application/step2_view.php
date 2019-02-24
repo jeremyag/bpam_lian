@@ -1,18 +1,28 @@
 <div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <?php echo form_open(); ?>
+        <?php 
+            //Set boolean if application already exist.
+            $isSet = isset($application);
+        ?>
+        <?php echo form_open('Application_Controller/step2_submit'); ?>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">New Application</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-info">
                         <h5>INSTRUCTION:</h5>
                         <ol>
                             <li>Make sure to provide accurate information. An incomplete application form will not be saved to the database.</li>
                             <li>Ensure that the form are aligned to the document and all are complete and properly filled out.</li>
                         </ol>
                     </div>
+                    <?php if($this->session->flashdata('step2_errors')):?>
+                    <div class="alert alert-danger">
+                        <h6>Form Errors:</h6>
+                        <p><?=$this->session->flashdata('step2_errors')?></p>
+                    </div>
+                    <?php endif;?>
                     <h4>1. BASIC INFORMATION</h4>
                     <div class="row">
                         <div class="col-md-12">
@@ -26,7 +36,7 @@
                                         'Annually'=>'Annually',
                                         'Semi-Annually'=>'Semi-Annually',
                                         'Quarterly'=>'Quarterly'
-                                    ))
+                                    ),($isSet ? $business->mode_of_payment : ''))
                                 ?>
                             </div>
                         </div>
@@ -37,7 +47,7 @@
                             <label>Date of Application</label>
                             <?php echo form_input(array(
                                 'type'=>'date',
-                                'value'=>date('Y-m-d'),
+                                'value'=>($isSet ? $application->date_of_application : date('Y-m-d')),
                                 'class'=>'form-control',
                                 'name'=>'form_date_application'
                             ))?>
@@ -46,7 +56,8 @@
                             <label>DTI/SEC/CDA Registration No.:</label>
                             <?php echo form_input(array(
                                 'class'=>'form-control',
-                                'name'=>'form_registration_no',
+                                'name'=>'form_dti_registration_no',
+                                'value'=>($isSet ? $business->dti_reg_no : '')
                             ))?>
                         </div>
                     </div>
@@ -56,7 +67,8 @@
                             <label>TIN No.:</label>
                             <?php echo form_input(array(
                                 'class'=>'form-control',
-                                'name'=>'form_tin'
+                                'name'=>'form_tin',
+                                'value'=>($isSet ? $owner->tin : '')
                             ))?>
                         </div>
                         <div class="col-md-6">
@@ -64,8 +76,8 @@
                             <?php echo form_input(array(
                                 'type'=>'date',
                                 'class'=>'form-control',
-                                'name'=>'form_registration_date',
-                                'value'=>''
+                                'name'=>'form_dti_registration_date',
+                                'value'=>($isSet ? $business->dti_reg_date : '')
                             ))?>
                         </div>
                     </div>
@@ -82,7 +94,7 @@
                                     'Partnership'=>'Partnership',
                                     'Corporation'=>'Corporation',
                                     'Cooperative'=>'Cooperative'
-                                ))
+                                ),($isSet ? $business->type : ''))
                             ?>
                         </div>
                     </div>
@@ -99,7 +111,7 @@
                                     'Single'=>'Single',
                                     'Partnership'=>'Partnership',
                                     'Corporation'=>'Corporation'
-                                ))
+                                ), ($isSet ? $application->amendment_from : ""))
                             ?>
                         </div>
                         <div class="col-md-6">
@@ -112,7 +124,7 @@
                                     'Single'=>'Single',
                                     'Partnership'=>'Partnership',
                                     'Corporation'=>'Corporation'
-                                ))
+                                ), ($isSet ? $application->amendment_to : ""))
                             ?>
                         </div>
                     </div>
@@ -127,7 +139,7 @@
                                 ),array(
                                     'yes'=>'Yes',
                                     'no'=>'No'
-                                ), 'no')
+                                ),'no')
                             ?>
                             <br>
                             <div class="collapse" id="collapseExample">
@@ -136,7 +148,8 @@
                                     <?php
                                         echo form_input(array(
                                             'class'=>'form-control',
-                                            'name'=>'form_tax_incentive'
+                                            'name'=>'form_tax_incentives',
+                                            'value'=>($isSet ? $business->tax_incentives : '')
                                         ))
                                     ?>
                                 </div>
@@ -151,7 +164,8 @@
                             <?php
                                 echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_taxpayer_last_name'
+                                    'name'=>'form_taxpayer_last_name',
+                                    'value'=>($isSet ? $owner->last_name : '')
                                 ))
                             ?>
                         </div>
@@ -159,7 +173,8 @@
                             <label>First Name:</label>
                             <?php echo form_input(array(
                                 'class'=>'form-control',
-                                'name'=>'form_taxpayer_first_name'
+                                'name'=>'form_taxpayer_first_name',
+                                'value'=>($isSet ? $owner->first_name : '')
                             ))?>
                         </div>
                         <div class="col-md-4">
@@ -167,7 +182,8 @@
                             <?php
                                 echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_taxpayer_middle_name'
+                                    'name'=>'form_taxpayer_middle_name',
+                                    'value'=>($isSet ? $owner->middle_name : '')
                                 ))
                             ?>
                         </div>
@@ -179,7 +195,8 @@
                             <label>Business Name:</label>
                             <?php echo form_input(array(
                                 'class'=>'form-control',
-                                'name'=>'form_business_name'
+                                'name'=>'form_business_name',
+                                'value'=>($isSet ? $business->business_name : '')
                             ))?>
                         </div>
                     </div>
@@ -190,7 +207,8 @@
                             <?php
                                 echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_trade_name'
+                                    'name'=>'form_trade_name',
+                                    'value'=>($isSet ? $business->trade_name : '')
                                 ))
                             ?>
                         </div>
