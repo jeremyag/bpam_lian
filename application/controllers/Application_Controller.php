@@ -66,15 +66,26 @@
                     'owner'=>$owner,
                     'business'=>$business
                 );
-            // Form validation fail.
-            if(!$this->form_validation->run()){
-                $data['step2_errors'] = validation_errors();
-                $this->session->set_flashdata($data);
-                redirect('admin/step2');
-            }
 
             $this->session->set_flashdata($data);
-            redirect('admin/step3');
+
+            if($this->input->post('submit')){
+                // Form validation fail.
+                if(!$this->form_validation->run()){
+                    $data['step2_errors'] = validation_errors();
+                    $this->session->set_flashdata($data);
+                    redirect('admin/step2');
+                }
+                redirect('admin/step3');
+            }
+    
+            if($this->input->post('cancel')){
+                redirect('admin/applications');
+            }
+    
+            if($this->input->post('back')){
+                redirect('admin/step1');
+            }
         }
     }
 

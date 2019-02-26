@@ -6,7 +6,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">New Application</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-info">
                         <h5>INSTRUCTION:</h5>
                         <ol>
                             <li>Make sure to provide accurate information. An incomplete application form will not be saved to the database.</li>
