@@ -1,6 +1,6 @@
 <div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <?php echo form_open(); ?>
+        <?php echo form_open('Application_Controller/step3_submit'); ?>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">New Application</h5>
@@ -12,6 +12,7 @@
                             <li>Make sure to provide accurate information. An incomplete application form will not be saved to the database.</li>
                             <li>Ensure that the form are aligned to the document and all are complete and properly filled out.</li>
                         </ol>
+                        Application:<br>
                     </div>
                     <h4>2. OTHER INFORMATION</h4>
                     <div class="card card-body">

@@ -13,6 +13,7 @@
             $this->form_validation->set_rules('form_taxpayer_first_name', 'First Name', 'required|trim');
             $this->form_validation->set_rules('form_taxpayer_middle_name', 'Middle Name', 'required|trim');
             $this->form_validation->set_rules('form_trade_name', 'Trade Name/Franchise', 'required|trim');
+            $this->form_validation->set_rules('form_business_name', 'Business Name', 'required|trim');
 
             //Create application array instance
             $application =  array(
@@ -62,12 +63,15 @@
             );
 
             $data = array(
+                'application_form'=> array(
                     'application'=>$application,
                     'owner'=>$owner,
                     'business'=>$business
-                );
+                )
+            );
 
-            $this->session->set_flashdata($data);
+            $this->session->set_userdata($data);
+
 
             if($this->input->post('submit')){
                 // Form validation fail.
@@ -86,6 +90,24 @@
             if($this->input->post('back')){
                 redirect('admin/step1');
             }
+        }
+
+        public function step3_submit(){
+            $this->form_validation->set_rules('form_business_sitio', 'Street/Sitio', 'required|trim');
+            $this->form_validation->set_rules('form_business_brgy', 'Barangay', 'required|trim');
+            $this->form_validation->set_rules('form_business_postal', 'Postal Code', 'required|trim');
+            $this->form_validation->set_rules('form_business_email', 'Business Email Address', 'required|trim');
+            $this->form_validation->set_rules('form_owner_sitio', 'Owner\'s Sitio/Street','required|trim');
+            $this->form_validation->set_rules('form_owner_brgy', 'Owner Barangay', 'required|trim');
+            $this->form_validation->set_rules('form_owner_municipality','Owner Municipality / City', 'required|trim');
+            $this->form_validation->set_rules('form_owner_province', 'Owner Province','required|trim');
+            $this->form_validation->set_rules('form_owner_postal', 'Owner Postal Code', 'required|trim');
+            $this->form_validation->set_rules('form_owner_email', 'Owner Email', 'required|trim');
+            $this->form_validation->set_rules('form_emergency_person','Name of Contact Person (Emergency)','required|trim');
+            $this->form_validation->set_rules('form_emergency_contact', 'Emergency Contact No.','required|trim');
+            $this->form_validation->set_rules('form_emergency_email', 'Emergency Email', 'required|trim');
+
+            
         }
     }
 

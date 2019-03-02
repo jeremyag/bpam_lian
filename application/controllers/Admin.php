@@ -103,15 +103,8 @@ class Admin extends CI_Controller
 
         $data = array('view'=>'admin/application/step2_view');
 
-        if($this->session->flashdata('application')){
-            $data['application'] = new Application();
-            $data['application']->set_instance_array($this->session->flashdata('application'));
-            
-            $data['owner'] = new Owner();
-            $data['owner']->set_instance_array($this->session->flashdata('owner'));
-
-            $data['business'] = new Business();
-            $data['business']->set_instance_array($this->session->flashdata('business'));
+        if($this->session->userdata('application_form')){
+            $data = array_merge($data, $this->setApplicationInstanceArray());
         }
 
         $this->load->view('admin/main_view', $data);
@@ -120,12 +113,14 @@ class Admin extends CI_Controller
     public function step3(){
         $this->acccount_check();
 
+        $this->checkApplicationExist();
+
         $data = array('view'=>'admin/application/step3_view');
 
-        if($this->input->post('submit')){
-            redirect('admin/step4');
+        if($this->session->userdata('application_form')){
+            $data = array_merge($data, $this->setApplicationInstanceArray());
         }
-
+        
         if($this->input->post('cancel')){
             redirect('admin/applications');
         }
@@ -229,5 +224,26 @@ class Admin extends CI_Controller
        if($this->session->userdata('user_position') != 'Administrator'){
            redirect('/');
        }
+    }
+
+    private function checkApplicationExist(){
+        if(!$this->session->userdata('application_form')){
+            redirect('admin/step1');
+        }
+    }
+
+    private function setApplicationInstanceArray(){
+        $data = array();
+
+        $data['application'] = new Application();
+        $data['application']->set_instance_array($this->session->userdata('application_form')['application']);
+        
+        $data['owner'] = new Owner();
+        $data['owner']->set_instance_array($this->session->userdata('application_form')['owner']);
+
+        $data['business'] = new Business();
+        $data['business']->set_instance_array($this->session->userdata('application_form')['business']);
+
+        return $data;
     }
 }
