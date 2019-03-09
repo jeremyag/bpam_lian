@@ -1,18 +1,25 @@
 <div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <form method="post">
+        <?php $isset = isset($business_details); ?>
+        <?=form_open('Application_Controller/step4_submit')?>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">New Application</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-info">
                         <h5>INSTRUCTION:</h5>
                         <ol>
                             <li>Make sure to provide accurate information. An incomplete application form will not be saved to the database.</li>
                             <li>Ensure that the form are aligned to the document and all are complete and properly filled out.</li>
                         </ol>
                     </div>
+                    <?php if($this->session->flashdata('step4_errors')): ?>
+                        <div class="alert alert-danger">
+                            <h6>Form errors:</h6>
+                            <?=$this->session->flashdata('step4_errors')?>
+                        </div>
+                    <?php endif;?>
                     <h4>2. OTHER INFORMATION</h4>
                     <div class="row">
                         <div class="col-md-4">
@@ -20,7 +27,8 @@
                             <?php
                                 echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_business_area'
+                                    'name'=>'form_business_area',
+                                    'value'=>($isset ? $business_details->business_area : '')
                                 ))
                             ?>
                         </div>
@@ -30,7 +38,8 @@
                             echo form_input(array(
                                 'class'=>'form-control',
                                 'name'=>'form_employee_no',
-                                'type'=>'number'
+                                'type'=>'number',
+                                'value'=>($isset ? $business_details->total_no_employees : '')
                             ))
                             ?>
                         </div>
@@ -40,7 +49,8 @@
                             echo form_input(array(
                                 'class'=>'form-control',
                                 'name'=>'form_employee_lgu',
-                                'type'=>'number'
+                                'type'=>'number',
+                                'value'=>($isset ? $business_details->no_lgu_residing : '')
                             ))
                             ?>
                         </div>
@@ -68,7 +78,8 @@
                                             <?php
                                             echo form_input(array(
                                                 'class'=>'form-control',
-                                                'name'=>'form_lessor_name'
+                                                'name'=>'form_lessor_name',
+                                                'value'=>($isset ? $lessor->full_name : '')
                                             ))
                                             ?>
                                         </div>
@@ -80,7 +91,8 @@
                                             echo form_textarea(array(
                                                 'class'=>'form-control',
                                                 'name'=>'form_lessor_address',
-                                                'rows'=>'2'
+                                                'rows'=>'2',
+                                                'value'=>($isset ? $lessor->full_address : '')
                                             ))
                                             ?>
                                         </div>
@@ -91,7 +103,8 @@
                                             <?php
                                             echo form_input(array(
                                                 'class'=>'form-control',
-                                                'name'=>'form_lessor_contact'
+                                                'name'=>'form_lessor_contact',
+                                                'value'=>($isset ? $lessor->contact : '')
                                             ))
                                             ?>
                                         </div>
@@ -103,7 +116,8 @@
                                             echo form_input(array(
                                                 'class'=>'form-control',
                                                 'name'=>'form_lessor_email',
-                                                'type'=>'email'
+                                                'type'=>'email',
+                                                'value'=>($isset ? $lessor->email : '')
                                             ))
                                             ?>
                                         </div>
@@ -114,7 +128,8 @@
                                             <?php
                                             echo form_input(array(
                                                 'class'=>'form-control',
-                                                'name'=>'form_lessor_rental'
+                                                'name'=>'form_lessor_rental',
+                                                'value'=>($isset ? $lessor_details->monthly_rental : '')
                                             ))
                                             ?>
                                         </div>
@@ -173,7 +188,7 @@
                     ))?>
                 </div>
             </div>
-        </form>
+        <?=form_close()?>
     </div>
 </div>
 
