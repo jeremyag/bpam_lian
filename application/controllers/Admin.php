@@ -103,16 +103,8 @@ class Admin extends CI_Controller
 
         $data = array('view'=>'admin/application/step2_view');
 
-        if($this->input->post('submit')){
-            redirect('admin/step3');
-        }
-
-        if($this->input->post('cancel')){
-            redirect('admin/applications');
-        }
-
-        if($this->input->post('back')){
-            redirect('admin/step1');
+        if($this->session->userdata('application_form')){
+            $data = array_merge($data, $this->setApplicationInstanceArray());
         }
 
         $this->load->view('admin/main_view', $data);
@@ -121,12 +113,14 @@ class Admin extends CI_Controller
     public function step3(){
         $this->acccount_check();
 
+        $this->checkApplicationExist();
+
         $data = array('view'=>'admin/application/step3_view');
 
-        if($this->input->post('submit')){
-            redirect('admin/step4');
+        if($this->session->userdata('application_form')){
+            $data = array_merge($data, $this->setApplicationInstanceArray());
         }
-
+        
         if($this->input->post('cancel')){
             redirect('admin/applications');
         }
@@ -230,5 +224,42 @@ class Admin extends CI_Controller
        if($this->session->userdata('user_position') != 'Administrator'){
            redirect('/');
        }
+    }
+
+    private function checkApplicationExist(){
+        if(!$this->session->userdata('application_form')){
+            redirect('admin/step1');
+        }
+    }
+
+    private function setApplicationInstanceArray(){
+        $data = array();
+
+        if(isset($this->session->userdata('application_form')['application'])){
+            $data['application'] = new Application();
+            $data['application']->set_instance_array($this->session->userdata('application_form')['application']);
+        }
+
+        if(isset($this->session->userdata('application_form')['owner'])){
+            $data['owner'] = new Owner();
+            $data['owner']->set_instance_array($this->session->userdata('application_form')['owner']);
+        }
+
+        if(isset($this->session->userdata('application_form')['business'])){
+            $data['business'] = new Business();
+            $data['business']->set_instance_array($this->session->userdata('application_form')['business']);
+        }
+    
+        if(isset($this->session->userdata('application_form')['business_address'])){
+            $data['business_address'] = new Business_Address();
+            $data['business_address']->set_instance_array($this->session->userdata('application_form')['business_address']);
+        }
+
+        if(isset($this->session->userdata('application_form')['emergency_contact'])){
+            $data['emergency_contact'] = new Emergency_Contact_Details();
+            $data['emergency_contact']->set_instance_array($this->session->userdata('application_form')['emergency_contact']);
+        }
+
+        return $data;
     }
 }

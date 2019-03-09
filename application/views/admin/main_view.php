@@ -51,6 +51,15 @@
     <?php
         $this->load->view($view);
     ?>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-right">
+                <p><small>Business Permit Applications Manager v0.0</small></p>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
