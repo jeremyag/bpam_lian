@@ -6,6 +6,7 @@
         public $first_name;
         public $middle_name;
         public $street;
+        public $brgy;
         public $city;
         public $province;
         public $postal_code;
@@ -20,6 +21,7 @@
             $this->first_name = $arr['first_name'];
             $this->middle_name = $arr['middle_name'];
             $this->street = $arr['street'];
+            $this->brgy = $arr['brgy'];
             $this->city = $arr['city'];
             $this->province = $arr['province'];
             $this->postal_code = $arr['postal_code'];

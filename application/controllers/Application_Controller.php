@@ -35,6 +35,7 @@
                 'first_name'=>$this->input->post('form_taxpayer_first_name'),
                 'middle_name'=>$this->input->post('form_taxpayer_middle_name'),
                 'street'=>'',
+                'brgy'=>'',
                 'city'=>'',
                 'province'=>'',
                 'postal_code'=>'',
@@ -93,21 +94,80 @@
         }
 
         public function step3_submit(){
-            $this->form_validation->set_rules('form_business_sitio', 'Street/Sitio', 'required|trim');
-            $this->form_validation->set_rules('form_business_brgy', 'Barangay', 'required|trim');
-            $this->form_validation->set_rules('form_business_postal', 'Postal Code', 'required|trim');
-            $this->form_validation->set_rules('form_business_email', 'Business Email Address', 'required|trim');
-            $this->form_validation->set_rules('form_owner_sitio', 'Owner\'s Sitio/Street','required|trim');
-            $this->form_validation->set_rules('form_owner_brgy', 'Owner Barangay', 'required|trim');
-            $this->form_validation->set_rules('form_owner_municipality','Owner Municipality / City', 'required|trim');
-            $this->form_validation->set_rules('form_owner_province', 'Owner Province','required|trim');
-            $this->form_validation->set_rules('form_owner_postal', 'Owner Postal Code', 'required|trim');
-            $this->form_validation->set_rules('form_owner_email', 'Owner Email', 'required|trim');
-            $this->form_validation->set_rules('form_emergency_person','Name of Contact Person (Emergency)','required|trim');
-            $this->form_validation->set_rules('form_emergency_contact', 'Emergency Contact No.','required|trim');
-            $this->form_validation->set_rules('form_emergency_email', 'Emergency Email', 'required|trim');
+            if($this->input->post('submit')){
+                $this->form_validation->set_rules('form_business_sitio', 'Street/Sitio', 'required|trim');
+                $this->form_validation->set_rules('form_business_brgy', 'Barangay', 'required|trim');
+                $this->form_validation->set_rules('form_business_postal', 'Postal Code', 'required|trim');
+                $this->form_validation->set_rules('form_business_email', 'Business Email Address', 'required|trim');
+                $this->form_validation->set_rules('form_owner_sitio', 'Owner\'s Sitio/Street','required|trim');
+                $this->form_validation->set_rules('form_owner_brgy', 'Owner Barangay', 'required|trim');
+                $this->form_validation->set_rules('form_owner_municipality','Owner Municipality / City', 'required|trim');
+                $this->form_validation->set_rules('form_owner_province', 'Owner Province','required|trim');
+                $this->form_validation->set_rules('form_owner_postal', 'Owner Postal Code', 'required|trim');
+                $this->form_validation->set_rules('form_owner_email', 'Owner Email', 'required|trim');
+                $this->form_validation->set_rules('form_emergency_person','Name of Contact Person (Emergency)','required|trim');
+                $this->form_validation->set_rules('form_emergency_contact', 'Emergency Contact No.','required|trim');
+                $this->form_validation->set_rules('form_emergency_email', 'Emergency Email', 'required|trim');
 
-            
+                // Get Application Form
+                $application_form = $this->session->userdata('application_form');
+
+                $business_address = array(
+                    'id'=>'',
+                    'business_id'=>'',
+                    'street'=>$this->input->post('form_business_sitio'),
+                    'brgy'=>$this->input->post('form_business_brgy'),
+                    'postal_code'=>$this->input->post('form_business_postal'),
+                    'email'=>$this->input->post('form_business_email'),
+                    'mobile'=>$this->input->post('form_business_mobile_no'),
+                    'telephone'=>$this->input->post('form_business_tel_no')
+                );
+
+                $application_form['business_address'] = $business_address;
+
+                // Set Street, Barangay, Municipality, Province, Postal Code, Email
+                $owner = $application_form['owner'];
+
+                $owner['street'] = $this->input->post('form_owner_sitio');
+                $owner['brgy'] = $this->input->post('form_owner_brgy');
+                $owner['city'] = $this->input->post('form_owner_municipality');
+                $owner['province'] = $this->input->post('form_owner_province');
+                $owner['postal_code'] = $this->input->post('form_owner_postal');
+                $owner['email'] = $this->input->post('form_owner_email');
+                $owner['telephone'] = $this->input->post('form_owner_tel_no');
+                $owner['mobile'] = $this->input->post('form_owner_mobile_no');
+
+                $application_form['owner'] = $owner;
+
+                // Set full name, telephone, email (emergency)
+                $emergency_contact = array(
+                    'id'=>'',
+                    'full_name'=>$this->input->post('form_emergency_person'),
+                    'telephone'=>$this->input->post('form_emergency_contact'),
+                    'email'=>$this->input->post('form_emergency_email')
+                );
+
+                $application_form['emergency_contact'] = $emergency_contact;
+
+                $this->session->set_userdata('application_form', $application_form);
+                
+                if(!$this->form_validation->run()){
+                    $data = array();
+                    $data['step3_errors'] = validation_errors();
+                    $this->session->set_flashdata($data);
+                    print_r($this->session->flashdata('step3_errors'));
+                    redirect('admin/step3');
+                }
+                redirect('admin/step4');
+            }
+
+            if($this->input->post('cancel')){
+                redirect('admin/applications');
+            }
+    
+            if($this->input->post('back')){
+                redirect('admin/step2');
+            }
         }
     }
 

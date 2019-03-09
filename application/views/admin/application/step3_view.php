@@ -1,19 +1,25 @@
 <div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
+        <?php $isset = isset($business_address); ?>
         <?php echo form_open('Application_Controller/step3_submit'); ?>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">New Application</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-info">
                         <h5>INSTRUCTION:</h5>
                         <ol>
                             <li>Make sure to provide accurate information. An incomplete application form will not be saved to the database.</li>
                             <li>Ensure that the form are aligned to the document and all are complete and properly filled out.</li>
                         </ol>
-                        Application:<br>
                     </div>
+                    <?php if($this->session->flashdata('step3_errors')):?>
+                    <div class="alert alert-danger">
+                        <h6>Form Errors:</h6>
+                        <p><?=$this->session->flashdata('step3_errors')?></p>
+                    </div>
+                    <?php endif;?>
                     <h4>2. OTHER INFORMATION</h4>
                     <div class="card card-body">
                         <h5>Business Address:</h5>
@@ -23,8 +29,8 @@
                                 <?php echo form_textarea(array(
                                     'class'=>'form-control',
                                     'name'=>'form_business_sitio',
-                                    'rows'=>'2'
-                                ))?>
+                                    'rows'=>'2',
+                                ),($isset ? $business_address->street : ''))?>
                             </div>
                         </div>
                         <br>
@@ -36,8 +42,9 @@
                                     'class'=>'form-control',
                                     'name'=>'form_business_brgy'
                                 ), array(
+                                    'Brgy. 2'=>'Brgy. 2',
                                     'Brgy. 1'=>'Brgy 1'
-                                ))?>
+                                ), ($isset ? $business_address->brgy : ''))?>
                             </div>
                         </div>
                         <br>
@@ -47,7 +54,8 @@
                                 <?php
                                     echo form_input(array(
                                         'class'=>'form-control',
-                                        'name'=>'form_business_postal'
+                                        'name'=>'form_business_postal',
+                                        'value'=>($isset ? $business_address->postal_code : '')
                                     ))
                                 ?>
                             </div>
@@ -56,7 +64,29 @@
                                 <?php echo form_input(array(
                                     'class'=>'form-control',
                                     'name'=>'form_business_email',
-                                    'type'=>'email'
+                                    'type'=>'email',
+                                    'value'=>($isset ? $business_address->email : '')
+                                ))?>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Telephone No.:</label>
+                                <?php
+                                    echo form_input(array(
+                                        'class'=>'form-control',
+                                        'name'=>'form_business_tel_no',
+                                        'value'=>($isset ? $business_address->telephone : '')
+                                    ))
+                                ?>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Mobile No.:</label>
+                                <?php echo form_input(array(
+                                    'class'=>'form-control',
+                                    'name'=>'form_business_mobile_no',
+                                    'value'=>($isset ? $business_address->mobile : '')
                                 ))?>
                             </div>
                         </div>
@@ -71,7 +101,7 @@
                                     'class'=>'form-control',
                                     'name'=>'form_owner_sitio',
                                     'rows'=>'2'
-                                ))?>
+                                ), ($isset ? $owner->street : ''))?>
                             </div>
                         </div>
                         <br>
@@ -81,7 +111,8 @@
                                 <?php
                                 echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_owner_brgy'
+                                    'name'=>'form_owner_brgy',
+                                    'value'=>($isset ? $owner->brgy : '')
                                 ))
                                 ?>
                             </div>
@@ -93,7 +124,8 @@
                                 <?php
                                 echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_owner_municipality'
+                                    'name'=>'form_owner_municipality',
+                                    'value'=>($isset ? $owner->city : '')
                                 ))
                                 ?>
                             </div>
@@ -105,7 +137,8 @@
                                 <?php
                                 echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_owner_province'
+                                    'name'=>'form_owner_province',
+                                    'value'=>($isset ? $owner->province : '')
                                 ))
                                 ?>
                             </div>
@@ -117,7 +150,8 @@
                                 <?php
                                 echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_owner_postal'
+                                    'name'=>'form_owner_postal',
+                                    'value'=>($isset ? $owner->postal_code : '')
                                 ))
                                 ?>
                             </div>
@@ -127,9 +161,31 @@
                                 echo form_input(array(
                                     'class'=>'form-control',
                                     'name'=>'form_owner_email',
-                                    'type'=>'email'
+                                    'type'=>'email',
+                                    'value'=>($isset ? $owner->email : '')
                                 ))
                                 ?>
+                            </div>
+                        </div>
+                         <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Telephone No.:</label>
+                                <?php
+                                    echo form_input(array(
+                                        'class'=>'form-control',
+                                        'name'=>'form_owner_tel_no',
+                                        'value'=>($isset ? $owner->telephone : '')
+                                    ))
+                                ?>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Mobile No.:</label>
+                                <?php echo form_input(array(
+                                    'class'=>'form-control',
+                                    'name'=>'form_owner_mobile_no',
+                                    'value'=>($isset ? $owner->mobile : '')
+                                ))?>
                             </div>
                         </div>
                     </div>
@@ -142,7 +198,8 @@
                                 <?php
                                 echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_emergency_person'
+                                    'name'=>'form_emergency_person',
+                                    'value'=>($isset ? $emergency_contact->full_name : '')
                                 ))
                                 ?>
                             </div>
@@ -154,7 +211,8 @@
                                 <?php
                                 echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_emergency_contact'
+                                    'name'=>'form_emergency_contact',
+                                    'value'=>($isset ? $emergency_contact->telephone : '')
                                 ))
                                 ?>
                             </div>
@@ -164,7 +222,8 @@
                                 echo form_input(array(
                                     'class'=>'form-control',
                                     'name'=>'form_emergency_email',
-                                    'type'=>'email'
+                                    'type'=>'email',
+                                    'value'=>($isset ? $emergency_contact->email : '')
                                 ))
                                 ?>
                             </div>

@@ -235,14 +235,30 @@ class Admin extends CI_Controller
     private function setApplicationInstanceArray(){
         $data = array();
 
-        $data['application'] = new Application();
-        $data['application']->set_instance_array($this->session->userdata('application_form')['application']);
-        
-        $data['owner'] = new Owner();
-        $data['owner']->set_instance_array($this->session->userdata('application_form')['owner']);
+        if(isset($this->session->userdata('application_form')['application'])){
+            $data['application'] = new Application();
+            $data['application']->set_instance_array($this->session->userdata('application_form')['application']);
+        }
 
-        $data['business'] = new Business();
-        $data['business']->set_instance_array($this->session->userdata('application_form')['business']);
+        if(isset($this->session->userdata('application_form')['owner'])){
+            $data['owner'] = new Owner();
+            $data['owner']->set_instance_array($this->session->userdata('application_form')['owner']);
+        }
+
+        if(isset($this->session->userdata('application_form')['business'])){
+            $data['business'] = new Business();
+            $data['business']->set_instance_array($this->session->userdata('application_form')['business']);
+        }
+    
+        if(isset($this->session->userdata('application_form')['business_address'])){
+            $data['business_address'] = new Business_Address();
+            $data['business_address']->set_instance_array($this->session->userdata('application_form')['business_address']);
+        }
+
+        if(isset($this->session->userdata('application_form')['emergency_contact'])){
+            $data['emergency_contact'] = new Emergency_Contact_Details();
+            $data['emergency_contact']->set_instance_array($this->session->userdata('application_form')['emergency_contact']);
+        }
 
         return $data;
     }
