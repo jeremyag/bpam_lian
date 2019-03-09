@@ -155,7 +155,6 @@
                     $data = array();
                     $data['step3_errors'] = validation_errors();
                     $this->session->set_flashdata($data);
-                    print_r($this->session->flashdata('step3_errors'));
                     redirect('admin/step3');
                 }
                 redirect('admin/step4');
@@ -167,6 +166,62 @@
     
             if($this->input->post('back')){
                 redirect('admin/step2');
+            }
+        }
+
+        public function step4_submit(){
+            if($this->input->post('submit')){
+                $this->form_validation->set_rules('form_business_area', 'Business Area', 'required|trim');
+                $this->form_validation->set_rules('form_employee_no', 'Employee No.', 'required|trim');
+                $this->form_validation->set_rules('form_employee_lgu', 'Employee No. residing w/in LGU', 'required|trim');
+
+                $application_form = $this->session->userdata('application_form');
+
+                $business_details = array(
+                    'id'=>'',
+                    'business_area'=>$this->input->post('form_business_area'),
+                    'total_no_employees'=>$this->input->post('form_employee_no'),
+                    'no_lgu_residing'=>$this->input->post('form_employee_lgu')
+                );
+
+                $application_form['business_details'] = $business_details;
+
+                $lessor = array(
+                    'id'=>'',
+                    'full_name'=>$this->input->post('form_lessor_name'),
+                    'full_address'=>$this->input->post('form_lessor_address'),
+                    'contact'=>$this->input->post('form_lessor_contact'),
+                    'email'=>$this->input->post('form_lessor_email')
+                );
+
+                $application_form['lessor'] = $lessor;
+
+                $lessor_details = array(
+                    'id'=>'',
+                    'lessor_id'=>'',
+                    'business_id'=>'',
+                    'monthly_rental'=>$this->input->post('form_lessor_rental')
+                );
+
+                $application_form['lessor_details'] = $lessor_details;
+
+                $this->session->set_userdata('application_form', $application_form);
+
+                if(!$this->form_validation->run()){
+                    $data = array();
+                    $data['step4_errors'] = validation_errors();
+                    $this->session->set_flashdata($data);
+                    redirect('admin/step4');
+                }
+                redirect('admin/step5');
+            }
+
+            if($this->input->post('cancel')){
+                redirect('admin/applications');
+            }
+
+            if($this->input->post('back')){
+                redirect('admin/step3');
             }
         }
     }

@@ -120,14 +120,6 @@ class Admin extends CI_Controller
         if($this->session->userdata('application_form')){
             $data = array_merge($data, $this->setApplicationInstanceArray());
         }
-        
-        if($this->input->post('cancel')){
-            redirect('admin/applications');
-        }
-
-        if($this->input->post('back')){
-            redirect('admin/step2');
-        }
 
         $this->load->view('admin/main_view', $data);
     }
@@ -135,18 +127,12 @@ class Admin extends CI_Controller
     public function step4(){
         $this->acccount_check();
 
+        $this->checkApplicationExist();
+
         $data = array('view'=>'admin/application/step4_view');
 
-        if($this->input->post('submit')){
-            redirect('admin/step5');
-        }
-
-        if($this->input->post('cancel')){
-            redirect('admin/applications');
-        }
-
-        if($this->input->post('back')){
-            redirect('admin/step3');
+        if($this->session->userdata('application_form')){
+            $data = array_merge($data, $this->setApplicationInstanceArray());
         }
 
         $this->load->view('admin/main_view', $data);
@@ -260,6 +246,20 @@ class Admin extends CI_Controller
             $data['emergency_contact']->set_instance_array($this->session->userdata('application_form')['emergency_contact']);
         }
 
+        if(isset($this->session->userdata('application_form')['business_details'])){
+            $data['business_details'] = new Business_Details();
+            $data['business_details']->set_instance_array($this->session->userdata('application_form')['business_details']);
+        }
+
+        if(isset($this->session->userdata('application_form')['lessor'])){
+            $data['lessor'] = new Lessor();
+            $data['lessor']->set_instance_array($this->session->userdata('application_form')['lessor']);
+        }
+
+        if(isset($this->session->userdata('application_form')['lessor_details'])){
+            $data['lessor_details'] = new Lessor_Details();
+            $data['lessor_details']->set_instance_array($this->session->userdata('application_form')['lessor_details']);
+        }
         return $data;
     }
 }
