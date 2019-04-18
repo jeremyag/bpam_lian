@@ -224,6 +224,22 @@
                 redirect('admin/step3');
             }
         }
+
+        public function step5_submit(){
+            if($this->input->post('add')){
+                $application_form = $this->session->userdata('application_form');
+                print_r($this->input->post());
+                echo '<br>';
+                print_r($this->session->userdata('application_form'));
+                // 1. Kapag ang wala pang session for Business Activity, gumawa.
+                if(!isset($application_form['business_activities'])){
+                    echo 'not yet';
+                }
+
+                // 2. Add yung bagong input sa loob ng business Activity sa session.
+
+            }
+        }
     }
 
 ?>

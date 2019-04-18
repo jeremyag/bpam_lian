@@ -1,12 +1,12 @@
 <div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <?php echo form_open(); ?>
+        <?php echo form_open('Application_Controller/step5_submit'); ?>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">New Application</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-danger">
+                    <div class="alert alert-info">
                         <h5>INSTRUCTION:</h5>
                         <ol>
                             <li>Make sure to provide accurate information. An incomplete application form will not be saved to the database.</li>
@@ -22,13 +22,18 @@
                                 <tr>
                                     <th rowspan="2">Line of Business</th>
                                     <th rowspan="2">No. of Units</th>
-                                    <th rowspan="2">Capitalization</th>
-                                    <th colspan="2">Gross/Sales/Receipts</th>
+                                    <?php if($this->session->userdata('application_form')['application']['isNew']): ?>
+                                    <th rowspan="2">Capitalization (for New Business)</th>
+                                    <?php else:?>
+                                    <th colspan="2">Gross/Sales/Receipts (For Renewal)</th>
+                                    <?php endif;?>
                                     <th rowspan="2">Action</th>
                                 </tr>
                                 <tr>
+                                    <?php if(!$this->session->userdata('application_form')['application']['isNew']): ?>
                                     <th>Essential</th>
                                     <th>Non-Essential</th>
+                                    <?php endif;?>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -36,8 +41,10 @@
                                     <td>Ayuda</td>
                                     <td>2</td>
                                     <td>500</td>
+                                    <?php if(!$this->session->userdata('application_form')['application']['isNew']): ?>
                                     <td>500</td>
                                     <td>500</td>
+                                    <?php endif;?>
                                     <td>
                                         <?php echo form_button(array(
                                             'name'=>'delete',
@@ -50,10 +57,28 @@
                                 <tr>
                                     <td style="padding: 0">
                                         <?php echo form_input(array(
+                                            'name'=>'form_line_of_business',
                                             'placeholder'=>'click to input...',
                                             'style'=>'border: 0; width: 100%; height: 100%'
                                         ))?>
                                     </td>
+                                    <td style="padding: 0">
+                                        <?php echo form_input(array(
+                                            'name'=>'form_no_of_unit',
+                                            'placeholder'=>'click to input...',
+                                            'style'=>'border: 0; width: 100%; height: 100%'
+                                        ))?>
+                                    </td>
+                                    <?php if($this->session->userdata('application_form')['application']['isNew']): ?>
+                                    <td style="padding: 0">
+                                        <?php echo form_input(array(
+                                            'name'=>'form_capitalization',
+                                            'placeholder'=>'click to input...',
+                                            'style'=>'border: 0; width: 100%; height: 100%'
+                                        ))?>
+                                    </td>
+                                    <?php endif;?>
+                                    <?php if(!$this->session->userdata('application_form')['application']['isNew']): ?>
                                     <td style="padding: 0">
                                         <?php echo form_input(array(
                                             'placeholder'=>'click to input...',
@@ -66,18 +91,7 @@
                                             'style'=>'border: 0; width: 100%; height: 100%'
                                         ))?>
                                     </td>
-                                    <td style="padding: 0">
-                                        <?php echo form_input(array(
-                                            'placeholder'=>'click to input...',
-                                            'style'=>'border: 0; width: 100%; height: 100%'
-                                        ))?>
-                                    </td>
-                                    <td style="padding: 0">
-                                        <?php echo form_input(array(
-                                            'placeholder'=>'click to input...',
-                                            'style'=>'border: 0; width: 100%; height: 100%'
-                                        ))?>
-                                    </td>
+                                    <?php endif;?>
                                     <td></td>
                                 </tr>
                                 </tbody>
