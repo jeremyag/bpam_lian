@@ -57,10 +57,10 @@
                 'tax_incentives'=>$this->input->post('form_tax_incentives'),
                 'trade_name'=>$this->input->post('form_trade_name'),
                 'business_name'=>$this->input->post('form_business_name'),
-                'lessor_details_id'=>'',
                 'emergency_contact_details_id'=>'',
                 'owner_id'=>'',
                 'business_details_id'=>'',
+                'business_address_id'=>''
             );
 
             $data = array(
@@ -114,7 +114,6 @@
 
                 $business_address = array(
                     'id'=>'',
-                    'business_id'=>'',
                     'street'=>$this->input->post('form_business_sitio'),
                     'brgy'=>$this->input->post('form_business_brgy'),
                     'postal_code'=>$this->input->post('form_business_postal'),
@@ -198,8 +197,8 @@
 
                 $lessor_details = array(
                     'id'=>'',
-                    'lessor_id'=>'',
                     'business_id'=>'',
+                    'lessor_id'=>'',
                     'monthly_rental'=>$this->input->post('form_lessor_rental')
                 );
 
@@ -230,14 +229,105 @@
                 $application_form = $this->session->userdata('application_form');
                 print_r($this->input->post());
                 echo '<br>';
-                print_r($this->session->userdata('application_form'));
+
+                $business_activity = array(
+                    'id'=>'',
+                    'application_id'=>'',
+                    'line_of_business'=>$this->input->post('form_line_of_business'),
+                    'no_of_units'=>$this->input->post('form_no_of_unit'),
+                    'capitalization'=>$this->input->post('form_capitalization'),
+                    'essential_receipts'=>$this->input->post('form_essential_receipts'),
+                    'non_essential_receipts'=>$this->input->post('form_non_essential_receipts')
+                );
+
                 // 1. Kapag ang wala pang session for Business Activity, gumawa.
                 if(!isset($application_form['business_activities'])){
-                    echo 'not yet';
+                    $application_form['business_activities'] = array();
+
+                    $application_form['business_activities_cnt'] = count($application_form['business_activities']);
+
+                    $application_form['business_activities']['b-'. $application_form['business_activities_cnt']] = $business_activity;
+
+                    $application_form['business_activities_cnt']++;
+                }
+                else{
+
+                    $application_form['business_activities']['b-'. $application_form['business_activities_cnt']] = $business_activity;
+
+                    $application_form['business_activities_cnt']++;
                 }
 
-                // 2. Add yung bagong input sa loob ng business Activity sa session.
+                $this->session->set_userdata('application_form', $application_form);
 
+                redirect('admin/step5');
+            }
+            elseif($this->input->post('delete')){
+                unset($_SESSION['application_form']['business_activities'][$this->input->post('delete')]);
+                redirect('admin/step5');
+            }
+            elseif($this->input->post('submit')){
+                redirect('Application_Controller/submit_application');
+            }
+            elseif($this->input->post('cancel')){
+                redirect('admin/applications');
+            }
+            elseif($this->input->post('back')){
+                redirect('admin/step4');
+            }
+        }
+
+        public function submit_application(){
+            if($this->session->userdata('application_form')){
+                $application_form = $this->session->userdata('application_form');
+
+                
+                // Insert Owner
+                $owner_id = $this->Owner_Model->insert($application_form["owner"]);
+
+                // Insert Business_Address
+                $business_address_id = $this->Business_Address_Model->insert($application_form['business_address']);
+
+                // Insert Business_Details
+                $business_details_id = $this->Business_Details_Model->insert($application_form['business_details']);
+
+                // Insert Emergency_Contact_Details
+                $emergency_contact_details_id = $this->Emergency_Contact_Details_Model->insert($application_form['emergency_contact']);
+
+                // Insert Business
+                $application_form['business']['emergency_contact_details_id'] = $emergency_contact_details_id;
+                $application_form['business']['owner_id'] = $owner_id;
+                $application_form['business']['business_details_id'] = $business_details_id;
+                $application_form['business']['business_address_id'] = $business_address_id;
+
+                $business_id = $this->Business_Model->insert($application_form['business']);
+
+                // Insert Lessor
+                if($application_form['lessor']['full_name'] != "" && $application_form['lessor']['full_address'] != ""){
+                    $lessor_id = $this->Lessor_Model->insert($application_form["lessor"]);
+
+                    // Insert Lessor_Details
+                    $application_form['lessor_details']['lessor_id'] = $lessor_id;
+                    $application_form['lessor_details']['business_id'] = $business_id;
+
+                    $lessor_details_id = $this->Lessor_Details_Model->insert($application_form['lessor_details']);
+                }
+
+                $application_form['application']['business_id'] = $business_id;
+                $application_id = $this->Application_Model->insert($application_form['application']);
+
+                $business_activities_id = array();
+
+                if(count($application_form['business_activities'])){
+                    foreach($application_form['business_activities'] as $ba){
+                        $ba['application_id'] =$application_id;
+                        
+                        $business_activities_id[] = $this->Business_Activity_Model->insert($ba);
+                    }
+                }
+
+                unset($_SESSION['application_form']);
+
+                redirect('admin/submit_application?id='.$application_id);
             }
         }
     }

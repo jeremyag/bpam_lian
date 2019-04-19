@@ -36,24 +36,31 @@
                                     <?php endif;?>
                                 </tr>
                                 </thead>
-                                <tbody>
+                            <?php $business_activities = (isset($this->session->userdata('application_form')['business_activities']) ? $this->session->userdata('application_form')['business_activities']: array());
+                                if(count($business_activities)):
+                            ?>
+                               <?php foreach($business_activities as $index => $b):?>
                                 <tr>
-                                    <td>Ayuda</td>
-                                    <td>2</td>
-                                    <td>500</td>
+                                    <td><?=$b['line_of_business']?></td>
+                                    <td><?=$b['no_of_units']?></td>
+                                    <?php if($this->session->userdata('application_form')['application']['isNew']):?>
+                                    <td><?=$b['capitalization']?></td>
+                                    <?php endif;?>
                                     <?php if(!$this->session->userdata('application_form')['application']['isNew']): ?>
-                                    <td>500</td>
-                                    <td>500</td>
+                                    <td><?=$b['essential_receipts']?></td>
+                                    <td><?=$b['non_essential_receipts']?></td>
                                     <?php endif;?>
                                     <td>
                                         <?php echo form_button(array(
                                             'name'=>'delete',
-                                            'value'=>'',
+                                            'value'=>$index,
                                             'class'=>'btn btn-danger',
                                             'type'=>'submit'
                                         ),'<i class="fa fa-trash"></i>')?>
                                     </td>
                                 </tr>
+                               <?php endforeach; ?>
+                            <?php endif; ?>
                                 <tr>
                                     <td style="padding: 0">
                                         <?php echo form_input(array(

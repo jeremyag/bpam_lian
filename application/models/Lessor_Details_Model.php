@@ -14,6 +14,12 @@
     }
 
     class Lessor_Details_Model extends CI_Model{
+        public function insert($lessor_details){
+            $sql = "INSERT INTO `lessor_details` VALUES (?, ?, ?, ?)";
 
+            $this->db->query($sql, $lessor_details);
+
+            return $this->db->insert_id();
+        }
     }
 ?>

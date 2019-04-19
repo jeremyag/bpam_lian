@@ -10,7 +10,6 @@
         public $tax_incentives;
         public $trade_name;
         public $business_name;
-        public $lessor_details_id;
         public $emergency_contact_details_id;
         public $owner_id;
         public $business_details_id;
@@ -26,14 +25,32 @@
             $this->tax_incentives = $arr['tax_incentives'];
             $this->trade_name = $arr['trade_name'];
             $this->business_name = $arr['business_name'];
-            $this->lessor_details_id = $arr['lessor_details_id'];
             $this->emergency_contact_details_id = $arr['emergency_contact_details_id'];
             $this->owner_id = $arr['owner_id'];
             $this->business_details_id = $arr['business_details_id'];
         }
+
+        public function get_owner(){
+            $CI =& get_instance();
+            return $CI->Owner_Model->get_owner_from_id($this->owner_id);
+        }
     }
 
     class Business_Model extends CI_Model{
+        public function insert($business){
+            $sql = "INSERT INTO business VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+            $this->db->query($sql, $business);
+
+            return $this->db->insert_id();
+        }
+
+        public function get_business_from_id($id){
+            $sql = "SELECT * FROM `business` WHERE id = ?";
+
+            $query = $this->db->query($sql, $id);
+
+            return $query->row(0, 'Business');
+        }
     }
 ?>
