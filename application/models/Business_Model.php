@@ -13,6 +13,7 @@
         public $emergency_contact_details_id;
         public $owner_id;
         public $business_details_id;
+        public $business_address_id;
 
         public function set_instance_array($arr){
             $this->id = $arr['id'];
@@ -34,6 +35,43 @@
             $CI =& get_instance();
             return $CI->Owner_Model->get_owner_from_id($this->owner_id);
         }
+
+        public function get_dti_reg_date($format = "Y-m-d"){
+            $date = new DateTime($this->dti_reg_date);
+
+            return $date->format($format);
+        }
+
+        public function get_business_address(){
+            $CI =& get_instance();
+
+            return $CI->Business_Address_Model->get_business_address_from_id($this->business_address_id);
+        }
+
+        public function get_emergency_contact_details(){
+            $CI =& get_instance();
+
+            return $CI->Emergency_Contact_Details_Model->get_emergency_contact_details_from_id($this->emegency_contact_details_id);
+        }
+
+        public function get_business_details(){
+            $CI =& get_instance();
+
+            return $CI->Business_Details_Model->get_business_details_from_id($this->business_details_id);
+        }
+
+        public function get_lessor_details(){
+            $CI =& get_instance();
+
+            $has_lessor = $CI->Business_Model->has_lessor($this->id);
+
+            if($has_lessor->hasLessor){
+                return $CI->Lessor_Details_Model->get_lessor_details_from_business_id($this->id);
+            }
+            else{
+                return false;
+            }
+        }
     }
 
     class Business_Model extends CI_Model{
@@ -51,6 +89,14 @@
             $query = $this->db->query($sql, $id);
 
             return $query->row(0, 'Business');
+        }
+
+        public function has_lessor($id){
+            $sql = "SELECT IF((SELECT business_id FROM lessor_details WHERE business_id = ?) IS NULL, 0, 1) AS hasLessor";
+
+            $query = $this->db->query($sql, $id);
+
+            return $query->row(0);
         }
     }
 ?>

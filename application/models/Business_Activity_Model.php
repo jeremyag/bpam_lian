@@ -17,5 +17,13 @@
 
             return $this->db->insert_id();
         }
+
+        public function get_business_activities_from_application_id($id){
+            $sql = "SELECT * FROM business_activity WHERE application_id = ?";
+
+            $query = $this->db->query($sql, $id);
+
+            return $query->result("Business_Activity");
+        }
     }
 ?>

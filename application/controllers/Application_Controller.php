@@ -330,6 +330,26 @@
                 redirect('admin/submit_application?id='.$application_id);
             }
         }
+
+        public function view_other_information(){
+            if($this->input->get('business_id')){
+                $data = array(
+                    'business'=>$this->Business_Model->get_business_from_id($this->input->get('business_id'))
+                );
+
+                $this->load->view("admin/application/ajax/view_other_information", $data);
+            }
+            elseif($this->input->get('application_id')){
+                $data = array(
+                    'application'=>$this->Application_Model->get_application_from_id($this->input->get('application_id'))
+                );
+
+                $this->load->view("admin/application/ajax/view_business_activities", $data);
+            }
+            else{
+                echo 'An error occured.';
+            }
+        }
     }
 
 ?>

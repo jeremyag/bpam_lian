@@ -21,5 +21,13 @@
 
             return $this->db->insert_id();
         }
+
+        public function get_emergency_contact_details_from_id($id){
+            $sql = "SELECT * FROM emergency_contact_details WHERE id = ?";
+
+            $query = $this->db->query($sql, $id);
+
+            return $query->row(0, 'Emergency_Contact_Details');
+        }
     }
 ?>

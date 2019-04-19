@@ -29,7 +29,7 @@
                     <tbody>
                     <?php if(count($applications)):?>
                     <?php foreach($applications as $a):?>
-                    <tr class="table-warning row-clickable" onclick="rowClick('#','','')">
+                    <tr class="table-warning row-clickable" onclick="rowClick('view_application','id','<?=$a->id?>')">
                         <?php $b = $a->get_business(); ?>
                         <td><?=$a->id?></td>
                         <td><?=$a->get_type()?></td>

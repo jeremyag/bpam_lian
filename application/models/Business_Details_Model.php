@@ -21,5 +21,13 @@
 
             return $this->db->insert_id();
         }
+
+        public function get_business_details_from_id($id){
+            $sql = "SELECT * FROM business_details WHERE id = ?";
+
+            $query = $this->db->query($sql, $id);
+
+            return $query->row(0, "Business_Details");
+        }
     }
 ?>
