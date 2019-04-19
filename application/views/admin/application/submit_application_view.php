@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" value="cancel" name="cancel" class="btn btn-secondary">No
+                    <button type="submit" value="cancel" name="cancel" class="btn btn-secondary">Later
                     </button>
                     <button type="submit" value="submit" name="submit" class="btn btn-primary">Yes <i class="fa fa-chevron-right"></i> </button>
                 </div>

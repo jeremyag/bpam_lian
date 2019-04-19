@@ -14,6 +14,20 @@
     }
 
     class Business_Details_Model extends CI_Model{
+        public function insert($business_details){
+            $sql = "INSERT INTO business_details VALUES (?, ?, ?, ?)";
 
+            $this->db->query($sql, $business_details);
+
+            return $this->db->insert_id();
+        }
+
+        public function get_business_details_from_id($id){
+            $sql = "SELECT * FROM business_details WHERE id = ?";
+
+            $query = $this->db->query($sql, $id);
+
+            return $query->row(0, "Business_Details");
+        }
     }
 ?>

@@ -18,8 +18,24 @@ class Admin extends CI_Controller
     public function applications(){
         $this->acccount_check();
 
-        $data = array('view'=>'admin/application/application_view');
+        $data = array(
+            'view'=>'admin/application/application_view',
+            'applications'=>$this->Application_Model->get_all_application()
+        );
         $this->load->view('admin/main_view',$data);
+    }
+
+    public function view_application(){
+        if($this->input->get('id')){
+            $data = array(
+                'view'=>'admin/application/view_application_view',
+                'application'=>$this->Application_Model->get_application_from_id($this->input->get('id'))
+            );
+            $this->load->view('admin/main_view', $data);
+        }
+        else{
+            redirect('admin/applications');
+        }
     }
 
     public function businesses(){

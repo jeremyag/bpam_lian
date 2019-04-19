@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bpm_lian.css">
 
     <script src="<?php echo base_url();?>assets/js/popper.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/jquery-3.4.0.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/bpm_lian.js"></script>
 </head>

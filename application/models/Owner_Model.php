@@ -29,9 +29,27 @@
             $this->mobile = $arr['mobile'];
             $this->telephone = $arr['telephone'];
         }
+
+        public function get_full_name(){
+            return $this->first_name . " " . $this->middle_name . " " . $this->last_name;
+        }
     }
 
     class Owner_Model extends CI_Model{
+        public function insert($owner){
+            $sql = "INSERT INTO `owner` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+            $this->db->query($sql, $owner);
+
+            return $this->db->insert_id();
+        }
+
+        public function get_owner_from_id($id){
+            $sql = "SELECT * FROM `owner` WHERE id = ?";
+
+            $query = $this->db->query($sql, $id);
+
+            return $query->row(0, 'Owner');
+        }
     }
 ?>

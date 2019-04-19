@@ -14,6 +14,20 @@
     }
     
     class Emergency_Contact_Details_Model extends CI_Model{
+        public function insert($emergency_contact_details){
+            $sql = "INSERT INTO `emergency_contact_details` VALUES (?,?,?,?)";
 
+            $this->db->query($sql, $emergency_contact_details);
+
+            return $this->db->insert_id();
+        }
+
+        public function get_emergency_contact_details_from_id($id){
+            $sql = "SELECT * FROM emergency_contact_details WHERE id = ?";
+
+            $query = $this->db->query($sql, $id);
+
+            return $query->row(0, 'Emergency_Contact_Details');
+        }
     }
 ?>

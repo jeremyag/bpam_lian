@@ -141,5 +141,6 @@ $autoload['model'] = array(
     'Emergency_Contact_Details_Model',
     'Business_Details_Model',
     'Lessor_Model',
-    'Lessor_Details_Model'
+    'Lessor_Details_Model',
+    'Business_Activity_Model'
 );
