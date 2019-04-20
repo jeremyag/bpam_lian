@@ -2,7 +2,7 @@
     $business_activities = $application->get_business_activities();
 ?>
 <h5>Business Activities</h5>
-<table class="table table-sm table-bordered">
+<table class="table table-sm table-bordered table-hover">
     <?php if(count($business_activities)):?>
     <tr>
         <th class="text-center" rowspan="2">Line of Business</th>

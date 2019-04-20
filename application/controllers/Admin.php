@@ -27,8 +27,18 @@ class Admin extends CI_Controller
 
     public function view_application(){
         if($this->input->get('id')){
+            $view = "admin/application/view_application_view";
+
+            if($this->input->get('section')){
+                if($this->input->get('section') == 2){
+                    $view = "admin/application/view_lgu_view";
+                }
+                elseif($this->input->get('section') == 3){
+                    $view = "admin/application/view_city_view";
+                }
+            }
             $data = array(
-                'view'=>'admin/application/view_application_view',
+                'view'=>$view,
                 'application'=>$this->Application_Model->get_application_from_id($this->input->get('id'))
             );
             $this->load->view('admin/main_view', $data);
@@ -193,23 +203,43 @@ class Admin extends CI_Controller
     public function verification(){
         $this->acccount_check();
 
-        $data = array('view'=>'admin/application/verification_view');
+        if($this->input->get('id')){
+            $application = $this->Application_Model->get_application_from_id($this->input->get('id'));
+            $data = array(
+                'view'=>'admin/application/verification_view',
+                'application'=>$application,
+                'verification_documents'=>$this->Verification_Document_List_Model->get_all()
+            );
 
-        if($this->input->post('cancel')){
-            redirect('admin/applications');
+            $status = $application->get_status();
+
+            if($status->verifyAgain){
+                $data['verify_again'] = $application->get_verifications();
+            }
+
+            if($this->input->post('cancel')){
+                redirect('admin/applications');
+            }
+
+            if($this->input->post('submit')){
+                redirect('admin/check_verification');
+            }
+
+            $this->load->view('admin/main_view', $data);
         }
-
-        if($this->input->post('submit')){
-            redirect('admin/check_verification');
+        else{
+            echo "An error occured";
         }
-
-        $this->load->view('admin/main_view', $data);
     }
 
     public function check_verification(){
         $this->acccount_check();
 
-        $data = array('view'=>'admin/application/check_verification_view');
+        $data = array(
+            'view'=>'admin/application/check_verification_view'
+        );
+
+
 
         if($this->input->post('submit')){
             redirect('admin/applications');
