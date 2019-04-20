@@ -91,7 +91,10 @@
                 $this->User_Model->update($this->input->post());
             }
 
-            //redirect('admin/profile');
+            if($this->input->post('id') != $this->session->userdata('user_id')){
+                redirect('admin/profile?id='.$this->input->post('id'));
+            }
+            redirect('admin/profile');
         }
     }
 

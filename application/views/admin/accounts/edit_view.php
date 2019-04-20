@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="text-right">
-                            <a href="<?php echo base_url() ?>admin/profile" class="btn btn-danger">Cancel</a>
+                            <a href="<?php echo base_url() ?>admin/profile<?=($this->input->get('id') ? '?id='.$this->input->get('id') : '')?>" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>
                 </div>
