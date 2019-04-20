@@ -20,17 +20,52 @@
             </div>
         </div>
         <br>
+        <?php $status = $application->get_status(); ?>
+        <?php if($status->isVerified == 0):?>
+        <div class="alert alert-danger">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><b>Status:</b> This application hasn't been verified.</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="<?=base_url()?>admin/verification?id=<?=$application->id?>" class="btn btn-success"><i class="fa fa-check-circle"></i> Verify</a>
+                </div>
+            </div>
+        </div>
+        <?php elseif($status->verifyAgain == 1):?>
+        <div class="alert alert-danger">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><b>Status:</b> This application has been marked as <b>Unverified</b>. It's still missing some documents.</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="<?=base_url()?>admin/verification?id=<?=$application->id?>" class="btn btn-success"><i class="fa fa-check-circle"></i> Verify Again</a>
+                </div>
+            </div>
+        </div>
+        <?php elseif($status->isAssessed == 0):?>
+        <div class="alert alert-warning">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><b>Status:</b> This application hasn't been assessed by the treasurer.</p>
+                </div>
+                <!-- <div class="col-md-6 text-right">
+                    <a href="#" class="btn btn-success"><i class="fa fa-check-circle"></i> Assess</a>
+                </div> -->
+            </div>
+        </div>
+        <?php endif;?>
         <div class="card">
             <div class="card-header">
                 <ul class="nav nav-pills card-header-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Applicant Section</a>
+                        <a class="nav-link active" href="<?=base_url()?>admin/view_application?id=<?=$application->id?>">Applicant Section</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">LGU Section</a>
+                        <a class="nav-link" href="<?=base_url()?>admin/view_application?id=<?=$application->id?>&section=2">LGU Section</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">City / Municipality Section</a>
+                        <a class="nav-link" href="<?=base_url()?>admin/view_application?id=<?=$application->id?>&section=3">City / Municipality Section</a>
                     </li>
                 </ul>
             </div>
@@ -42,7 +77,7 @@
                 <h2 style="text-align: center">Application #<?=$application->id?></h2>
                 <br>
                 <h5>BASIC INFORMATION</h5>
-                <table class="table table-sm table-bordered">
+                <table class="table table-sm table-bordered table-hover">
                     <tr>
                         <td colspan="6" style="width: 50%">Type: <span class="value"><?=$application->get_date_of_application('Y-m-d')?></span></td>
                         <td colspan="6" style="width: 50%">Mode of Payment: <span class="value"><?=$business->mode_of_payment?></span></td>

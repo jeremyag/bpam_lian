@@ -11,7 +11,7 @@
     <button class="btn btn-secondary">Edit</button>
 </div>
     <h5>OTHER INFORMATION</h5>
-    <table class="table table-sm table-bordered">
+    <table class="table table-sm table-bordered table-hover">
         <tr>
             <td colspan="12">Business Address: <span class="value"><?=$business_address->get_full_address()?></span></td>
         </tr>

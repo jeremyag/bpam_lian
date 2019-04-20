@@ -40,6 +40,18 @@
 
             return $CI->Business_Activity_Model->get_business_activities_from_application_id($this->id);
         }
+
+        public function get_status(){
+            $CI =& get_instance();
+
+            return $CI->Application_Model->get_status_from_id($this->id);
+        }
+
+        public function get_verifications(){
+            $CI =& get_instance();
+
+            return $CI->Verification_Document_Details_Model->get_verifications_from_application_id($this->id);
+        }
     }
 
     class Application_Model extends CI_Model{
@@ -71,6 +83,29 @@
             $query = $this->db->query($sql, $id);
 
             return $query->row(0, 'Application');
+        }
+
+        public function get_status_from_id($id){
+            $sql = "SELECT 
+                        IF(
+                            (SELECT COUNT(*) FROM verification_document_details WHERE application_id = $id) > 0,
+                            1,
+                            0
+                        ) AS isVerified,
+                        IF(
+                            (SELECT COUNT(*) FROM verification_document_details WHERE application_id = $id AND remarks = 'No') > 0,
+                            1,
+                            0
+                        ) AS verifyAgain,
+                        IF(
+                            (SELECT COUNT(*) FROM assessment_fees WHERE application_id = 3) > 0,
+                            1,
+                            0
+                        ) AS isAssessed";
+            
+            $result = $this->db->query($sql);
+
+            return $result->row(0);
         }
     }
 ?>

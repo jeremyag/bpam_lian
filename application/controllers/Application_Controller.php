@@ -350,6 +350,33 @@
                 echo 'An error occured.';
             }
         }
+
+        public function verify(){
+            if($this->input->post('verification')){
+                $verifications = $this->input->post('verification');
+                $inserts = array();
+                $not_accomplished = array();
+                print_r($verifications);
+                foreach($verifications as $v){
+                    $v['application'] = intval($v['application']);
+                    if($v['id'] != ""){
+                            $v['id'] = intval($v['id']);
+
+                            $inserts[] = $this->Verification_Document_Details_Model->update($v);
+                    }
+                    else{
+                            $inserts[] = $this->Verification_Document_Details_Model->insert($v);
+                    }
+
+                    if($v['remarks'] == 'No'){
+                        $not_accomplished[] = $v;
+                    }
+                }
+
+                $this->session->set_flashdata('not_accomplished', $not_accomplished);
+                redirect('admin/check_verification');
+            }
+        }
     }
 
 ?>

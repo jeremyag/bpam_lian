@@ -142,5 +142,7 @@ $autoload['model'] = array(
     'Business_Details_Model',
     'Lessor_Model',
     'Lessor_Details_Model',
-    'Business_Activity_Model'
+    'Business_Activity_Model',
+    'Verification_Document_List_Model',
+    'Verification_Document_Details_Model'
 );
