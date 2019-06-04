@@ -63,9 +63,20 @@
             return $this->db->insert_id();
         }
 
-        public function get_all_application($order_by = "`id` DESC"){
-            $sql = "SELECT * FROM `application` ORDER BY $order_by ";
-
+        public function get_all_application($order_by = "`id` DESC", $type="all"){
+            if($type=="all"){
+                $sql = "SELECT *
+                        FROM `application`
+                        ORDER BY $order_by";
+            }
+            elseif("assessment"){
+                 $sql = "SELECT *
+                        FROM `application` a
+                        WHERE 
+                            (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id) > 0 AND
+                            (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id AND remarks = 'No') = 0
+                        ORDER BY $order_by ";
+            }
             $applications = array();
 
             $result = $this->db->query($sql);

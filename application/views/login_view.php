@@ -17,7 +17,7 @@
                     <?php if($this->session->flashdata('login_errors')): ?>
                         <div class="alert alert-danger"><?=$this->session->flashdata('login_errors')?></div>
                     <?php endif;?>
-                    <?php echo form_open('Account_Controller/login'); ?>
+                    <?php echo form_open(add_index().'Account_Controller/login'); ?>
                     <br>
                     <div class="card">
                         <div class="card-header">

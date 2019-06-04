@@ -1,16 +1,8 @@
-<br>
-<div class="row">
-    <div class="col-md-12">
-        <div class="alert alert-danger">
-            <a href="<?php echo base_url().add_index();?>admin/step1" class="btn btn-danger btn-lg"><i class="fa fa-folder-plus"></i> New Application</a>
-        </div>
-    </div>
-</div>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h2>Applications</h2>
+                <h2>Assessments</h2>
             </div>
             <div class="card-body">
                 <table class="table table-hover table-bordered table-sm">

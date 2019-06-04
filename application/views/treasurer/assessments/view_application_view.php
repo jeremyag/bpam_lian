@@ -12,7 +12,7 @@
     <div class="col-md-11">
         <div class="row">
             <div class="col-md-6">
-                <a href="<?=base_url().add_index()?>admin/applications" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
+                <a href="<?=base_url().add_index()?>treasurer/assessments" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
             </div>
             <div class="col-md-6 text-right">
                 <a href="#" class="btn btn-secondary"><i class="fa fa-download"></i> CSV</a>
@@ -27,9 +27,6 @@
                 <div class="col-md-6">
                     <p><b>Status:</b> This application hasn't been verified.</p>
                 </div>
-                <div class="col-md-6 text-right">
-                    <a href="<?=base_url().add_index()?>admin/verification?id=<?=$application->id?>" class="btn btn-success"><i class="fa fa-check-circle"></i> Verify</a>
-                </div>
             </div>
         </div>
         <?php elseif($status->verifyAgain == 1):?>
@@ -37,9 +34,6 @@
             <div class="row">
                 <div class="col-md-6">
                     <p><b>Status:</b> This application has been marked as <b>Unverified</b>. It's still missing some documents.</p>
-                </div>
-                <div class="col-md-6 text-right">
-                    <a href="<?=base_url().add_index()?>admin/verification?id=<?=$application->id?>" class="btn btn-success"><i class="fa fa-check-circle"></i> Verify Again</a>
                 </div>
             </div>
         </div>
@@ -49,9 +43,9 @@
                 <div class="col-md-6">
                     <p><b>Status:</b> This application hasn't been assessed by the treasurer.</p>
                 </div>
-                <!-- <div class="col-md-6 text-right">
-                    <a href="#" class="btn btn-success"><i class="fa fa-check-circle"></i> Assess</a>
-                </div> -->
+                <div class="col-md-6 text-right">
+                    <a href="#" class="btn btn-success m-action"><i class="fa fa-check-circle"></i> Assess</a>
+                </div>
             </div>
         </div>
         <?php endif;?>
@@ -59,21 +53,17 @@
             <div class="card-header">
                 <ul class="nav nav-pills card-header-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?=base_url().add_index()?>admin/view_application?id=<?=$application->id?>">Applicant Section</a>
+                        <a class="nav-link active" href="<?=base_url().add_index()?>treasurer/view_application?id=<?=$application->id?>">Applicant Section</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=base_url().add_index()?>admin/view_application?id=<?=$application->id?>&section=2">LGU Section</a>
+                        <a class="nav-link" href="<?=base_url().add_index()?>treasurer/view_application?id=<?=$application->id?>&section=2">LGU Section</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=base_url().add_index()?>admin/view_application?id=<?=$application->id?>&section=3">City / Municipality Section</a>
+                        <a class="nav-link" href="<?=base_url().add_index()?>treasurer/view_application?id=<?=$application->id?>&section=3">City / Municipality Section</a>
                     </li>
                 </ul>
             </div>
             <div class="card-body">
-                <div style="text-align: right">
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-secondary">Edit</button>
-                </div>
                 <h2 style="text-align: center">Application #<?=$application->id?></h2>
                 <br>
                 <h5>BASIC INFORMATION</h5>
@@ -138,9 +128,35 @@
         </div>
     </div>
 </div>
+<div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div id="action-page">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Application</h5>
+                </div>
+                <div class="modal-body">
+                    HEllo
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     let base_url = '<?=base_url().add_index();?>Application_Controller/view_other_information';
     let business = <?=$business->id?>;
     let application = <?=$application->id?>;
 </script>
 <script src="<?php echo base_url().add_index();?>assets/js/applications/view_applications.js"></script>
+
+<script>
+    $(function(){
+        $(".m-action").on("click", function(){
+            $(".modal").modal("show");
+        });
+    });
+</script>

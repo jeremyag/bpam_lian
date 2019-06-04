@@ -172,7 +172,7 @@
     }
 
     function open_cancel(){
-        window.location.href = '<?php echo base_url(); ?>admin/step5';
+        window.location.href = '<?php echo base_url().add_index(); ?>admin/step5';
     }
 
     open();

@@ -14,7 +14,7 @@
                     <br>
                     <div class="card">
                         <div class="card-header text-right">
-                            <a href="<?=base_url()?>admin/view_application?id=<?=$application->id?>" target="_blank" class="btn btn-primary"><i class="fa fa-eye"></i> View application form (Opens in new Tab)</a>
+                            <a href="<?=base_url().add_index()?>admin/view_application?id=<?=$application->id?>" target="_blank" class="btn btn-primary"><i class="fa fa-eye"></i> View application form (Opens in new Tab)</a>
                         </div>
                         <div class="card-body">
                             <h5>Verification for: Application form #<?=$application->id?>: <?=$application->get_business()->business_name?></h5>
@@ -103,7 +103,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <a href="<?=base_url()?>admin/view_application?id=<?=$application->id?>" class="btn btn-secondary">Cancel
+                    <a href="<?=base_url().add_index()?>admin/view_application?id=<?=$application->id?>" class="btn btn-secondary">Cancel
                     </a>
                     <button type="submit" value="submit" name="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> Verify</button>
                 </div>

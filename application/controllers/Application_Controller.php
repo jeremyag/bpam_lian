@@ -79,17 +79,17 @@
                 if(!$this->form_validation->run()){
                     $data['step2_errors'] = validation_errors();
                     $this->session->set_flashdata($data);
-                    redirect('admin/step2');
+                    redirect(add_index().'admin/step2');
                 }
                 redirect('admin/step3');
             }
     
             if($this->input->post('cancel')){
-                redirect('admin/applications');
+                redirect(add_index().'admin/applications');
             }
     
             if($this->input->post('back')){
-                redirect('admin/step1');
+                redirect(add_index().'admin/step1');
             }
         }
 
@@ -154,17 +154,17 @@
                     $data = array();
                     $data['step3_errors'] = validation_errors();
                     $this->session->set_flashdata($data);
-                    redirect('admin/step3');
+                    redirect(add_index().'admin/step3');
                 }
-                redirect('admin/step4');
+                redirect(add_index().'admin/step4');
             }
 
             if($this->input->post('cancel')){
-                redirect('admin/applications');
+                redirect(add_index().'admin/applications');
             }
     
             if($this->input->post('back')){
-                redirect('admin/step2');
+                redirect(add_index().'admin/step2');
             }
         }
 
@@ -210,17 +210,17 @@
                     $data = array();
                     $data['step4_errors'] = validation_errors();
                     $this->session->set_flashdata($data);
-                    redirect('admin/step4');
+                    redirect(add_index().'admin/step4');
                 }
-                redirect('admin/step5');
+                redirect(add_index().'admin/step5');
             }
 
             if($this->input->post('cancel')){
-                redirect('admin/applications');
+                redirect(add_index().'admin/applications');
             }
 
             if($this->input->post('back')){
-                redirect('admin/step3');
+                redirect(add_index().'admin/step3');
             }
         }
 
@@ -259,20 +259,20 @@
 
                 $this->session->set_userdata('application_form', $application_form);
 
-                redirect('admin/step5');
+                redirect(add_index().'admin/step5');
             }
             elseif($this->input->post('delete')){
                 unset($_SESSION['application_form']['business_activities'][$this->input->post('delete')]);
-                redirect('admin/step5');
+                redirect(add_index().'admin/step5');
             }
             elseif($this->input->post('submit')){
-                redirect('Application_Controller/submit_application');
+                redirect(add_index().'Application_Controller/submit_application');
             }
             elseif($this->input->post('cancel')){
-                redirect('admin/applications');
+                redirect(add_index().'admin/applications');
             }
             elseif($this->input->post('back')){
-                redirect('admin/step4');
+                redirect(add_index().'admin/step4');
             }
         }
 
@@ -327,7 +327,7 @@
 
                 unset($_SESSION['application_form']);
 
-                redirect('admin/submit_application?id='.$application_id);
+                redirect(add_index().'admin/submit_application?id='.$application_id);
             }
         }
 
@@ -374,7 +374,7 @@
                 }
 
                 $this->session->set_flashdata('not_accomplished', $not_accomplished);
-                redirect('admin/check_verification');
+                redirect(add_index().'admin/check_verification');
             }
         }
     }

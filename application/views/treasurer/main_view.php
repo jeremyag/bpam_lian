@@ -19,27 +19,15 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url().add_index(); ?>admin"><i class="fa fa-home"></i> Home</a>
+                <a class="nav-link" href="<?php echo base_url().add_index(); ?>treasurer"><i class="fa fa-home"></i> Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url().add_index(); ?>admin/applications"><i class="fa fa-file"></i> Applications</a>
+                <a class="nav-link" href="<?php echo base_url().add_index(); ?>treasurer/assessments"><i class="fa fa-file"></i> Assessments</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url().add_index(); ?>admin/businesses"><i class="fa fa-building"></i> Businesses</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url().add_index()?>admin/accounts"><i class="fa fa-users"></i> Accounts</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url().add_index()?>admin/settings"><i class="fa fa-cog"></i> Settings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url().add_index()?>admin/logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+                <a class="nav-link" href="<?php echo base_url().add_index()?>treasurer/logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
             </li>
         </ul>
-    </div>
-    <div class="d-flex flex-row-reverse">
-        <a class="p-2 btn btn-danger" href="<?php echo base_url().add_index();?>admin/step1">New Application</a>
     </div>
 </nav>
 <div class="container">

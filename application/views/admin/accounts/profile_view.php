@@ -5,10 +5,10 @@
             <div class="card-body">
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url();?>admin/accounts"><i class="fa fa-users"></i> Accounts</a>
+                        <a class="nav-link" href="<?php echo base_url().add_index();?>admin/accounts"><i class="fa fa-users"></i> Accounts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?php echo base_url();?>admin/profile"><i class="fa fa-user"></i> View Profile</a>
+                        <a class="nav-link active" href="<?php echo base_url().add_index();?>admin/profile"><i class="fa fa-user"></i> View Profile</a>
                     </li>
                 </ul>
             </div>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="text-right">
-                            <a href="<?php echo base_url() ?>admin/profile?<?php echo ($this->input->get('id') ? "id=".$profile->id."&" : "") ?>edit=true" class="btn btn-danger"><i class="fa fa-pencil-alt"></i> Edit</a>
+                            <a href="<?php echo base_url().add_index() ?>admin/profile?<?php echo ($this->input->get('id') ? "id=".$profile->id."&" : "") ?>edit=true" class="btn btn-danger"><i class="fa fa-pencil-alt"></i> Edit</a>
                         </div>
                     </div>
                 </div>

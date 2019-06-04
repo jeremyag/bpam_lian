@@ -1,7 +1,7 @@
 <br>
 <div class="row">
     <div class="col-md-12">
-        <a class="btn btn-danger" href="<?php echo base_url()?>admin/accounts"><i class="fa fa-chevron-left"></i> Back</a>
+        <a class="btn btn-danger" href="<?php echo base_url().add_index()?>admin/accounts"><i class="fa fa-chevron-left"></i> Back</a>
         <br><br>
 
         <?php if($this->session->flashdata('register_errors')): ?>
