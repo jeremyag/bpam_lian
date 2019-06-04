@@ -16,7 +16,7 @@
 
                 $this->session->set_flashdata($data);
 
-                redirect('admin/register');
+                redirect(add_index().'admin/register');
             }
             else{
                 $param = array(
@@ -34,7 +34,7 @@
                 $this->User_Model->register($param);
             }
            
-            redirect('admin/accounts');
+            redirect(add_index().'admin/accounts');
 
         }
 
@@ -64,7 +64,11 @@
                             'user_position'=>$user->position
                         ));
                         if($user->position == "Administrator"){
-                            redirect('admin/');
+                            redirect(add_index().'admin/');
+                        }
+
+                        if($user->position == "Treasurer"){
+                            redirect(add_index().'treasurer/');
                         }
                     }
                     else{
@@ -92,9 +96,9 @@
             }
 
             if($this->input->post('id') != $this->session->userdata('user_id')){
-                redirect('admin/profile?id='.$this->input->post('id'));
+                redirect($GLOBALS["index"].'admin/profile?id='.$this->input->post('id'));
             }
-            redirect('admin/profile');
+            redirect(add_index().'admin/profile');
         }
     }
 

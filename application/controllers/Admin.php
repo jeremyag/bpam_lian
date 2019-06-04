@@ -44,7 +44,7 @@ class Admin extends CI_Controller
             $this->load->view('admin/main_view', $data);
         }
         else{
-            redirect('admin/applications');
+            redirect(add_index().'admin/applications');
         }
     }
 
@@ -115,10 +115,10 @@ class Admin extends CI_Controller
         $data = array('view'=>'admin/application/step1_view');
 
         if($this->input->post('submit')){
-            redirect('admin/step2');
+            redirect(add_index().'admin/step2');
         }
         else if($this->input->post('cancel')){
-            redirect('admin/applications');
+            redirect(add_index().'admin/applications');
         }
 
         $this->load->view('admin/main_view', $data);
@@ -170,15 +170,15 @@ class Admin extends CI_Controller
         $data = array('view'=>'admin/application/step5_view');
 
         if($this->input->post('submit')){
-            redirect('admin/submit_application');
+            redirect(add_index().'admin/submit_application');
         }
 
         if($this->input->post('cancel')){
-            redirect('admin/applications');
+            redirect(add_index().'admin/applications');
         }
 
         if($this->input->post('back')){
-            redirect('admin/step4');
+            redirect(add_index().'admin/step4');
         }
 
         $this->load->view('admin/main_view', $data);
@@ -190,11 +190,11 @@ class Admin extends CI_Controller
         $data = array('view'=>'admin/application/submit_application_view');
 
         if($this->input->post('cancel')){
-            redirect('admin/applications');
+            redirect(add_index().'admin/applications');
         }
 
         if($this->input->post('submit')){
-            redirect('admin/verification');
+            redirect(add_index().'admin/verification');
         }
 
         $this->load->view('admin/main_view', $data);
@@ -218,11 +218,11 @@ class Admin extends CI_Controller
             }
 
             if($this->input->post('cancel')){
-                redirect('admin/applications');
+                redirect(add_index().'admin/applications');
             }
 
             if($this->input->post('submit')){
-                redirect('admin/check_verification');
+                redirect(add_index().'admin/check_verification');
             }
 
             $this->load->view('admin/main_view', $data);
@@ -242,7 +242,7 @@ class Admin extends CI_Controller
 
 
         if($this->input->post('submit')){
-            redirect('admin/applications');
+            redirect(add_index().'admin/applications');
         }
 
         $this->load->view('admin/main_view', $data);
@@ -260,7 +260,7 @@ class Admin extends CI_Controller
 
     private function checkApplicationExist(){
         if(!$this->session->userdata('application_form')){
-            redirect('admin/step1');
+            redirect(add_index().'admin/step1');
         }
     }
 

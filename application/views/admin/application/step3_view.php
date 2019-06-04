@@ -288,7 +288,7 @@
     }
 
     function open_cancel(){
-        window.location.href = '<?php echo base_url(); ?>admin/step3';
+        window.location.href = '<?php echo base_url().add_index(); ?>admin/step3';
     }
 
     open();

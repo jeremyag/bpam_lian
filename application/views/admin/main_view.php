@@ -12,34 +12,34 @@
 </head>
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index: 1; width: 100%; position: fixed;">
-    <a class="navbar-brand" href="<?php echo base_url()?>admin">BPAM - Lian Municipality</a>
+    <a class="navbar-brand" href="<?php echo base_url().add_index()?>admin">BPAM - Lian Municipality</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>admin"><i class="fa fa-home"></i> Home</a>
+                <a class="nav-link" href="<?php echo base_url().add_index(); ?>admin"><i class="fa fa-home"></i> Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>admin/applications"><i class="fa fa-file"></i> Applications</a>
+                <a class="nav-link" href="<?php echo base_url().add_index(); ?>admin/applications"><i class="fa fa-file"></i> Applications</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>admin/businesses"><i class="fa fa-building"></i> Businesses</a>
+                <a class="nav-link" href="<?php echo base_url().add_index(); ?>admin/businesses"><i class="fa fa-building"></i> Businesses</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url()?>admin/accounts"><i class="fa fa-users"></i> Accounts</a>
+                <a class="nav-link" href="<?php echo base_url().add_index()?>admin/accounts"><i class="fa fa-users"></i> Accounts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url()?>admin/settings"><i class="fa fa-cog"></i> Settings</a>
+                <a class="nav-link" href="<?php echo base_url().add_index()?>admin/settings"><i class="fa fa-cog"></i> Settings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url()?>admin/logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+                <a class="nav-link" href="<?php echo base_url().add_index()?>admin/logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
             </li>
         </ul>
     </div>
     <div class="d-flex flex-row-reverse">
-        <a class="p-2 btn btn-danger" href="<?php echo base_url();?>admin/step1">New Application</a>
+        <a class="p-2 btn btn-danger" href="<?php echo base_url().add_index();?>admin/step1">New Application</a>
     </div>
 </nav>
 <div class="container">

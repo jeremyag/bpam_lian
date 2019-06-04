@@ -12,20 +12,20 @@
 </head>
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index: 1; width: 100%; position: fixed;">
-    <a class="navbar-brand" href="<?php echo base_url()?>admin">BPAM - Lian Municipality</a>
+    <a class="navbar-brand" href="<?php echo base_url().add_index()?>admin">BPAM - Lian Municipality</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>treasurer"><i class="fa fa-home"></i> Home</a>
+                <a class="nav-link" href="<?php echo base_url().add_index(); ?>treasurer"><i class="fa fa-home"></i> Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>treasurer/assessments"><i class="fa fa-file"></i> Assessments</a>
+                <a class="nav-link" href="<?php echo base_url().add_index(); ?>treasurer/assessments"><i class="fa fa-file"></i> Assessments</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url()?>treasurer/logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+                <a class="nav-link" href="<?php echo base_url().add_index()?>treasurer/logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
             </li>
         </ul>
     </div>
