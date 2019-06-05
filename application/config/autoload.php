@@ -144,5 +144,7 @@ $autoload['model'] = array(
     'Lessor_Details_Model',
     'Business_Activity_Model',
     'Verification_Document_List_Model',
-    'Verification_Document_Details_Model'
+    'Verification_Document_Details_Model',
+    'Assessment_Fees_List_Model',
+    'Assessment_Fees_Model'
 );

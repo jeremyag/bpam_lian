@@ -52,6 +52,23 @@
 
             return $CI->Verification_Document_Details_Model->get_verifications_from_application_id($this->id);
         }
+
+        public function get_assessments(){
+            $CI =& get_instance();
+
+            return $CI->Assessment_Fees_Model->get_assessments_from_application_id($this->id);
+        }
+
+        public function is_done(){
+            $CI =& get_instance();
+
+            $status = $this->get_status();
+
+            if(($status->verifyAgain == 0) && $status->isVerified && $status->isAssessed){
+                return true;
+            }
+            return false;
+        }
     }
 
     class Application_Model extends CI_Model{

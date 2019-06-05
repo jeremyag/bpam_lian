@@ -51,6 +51,7 @@
 </div>
 </body>
 </html>
+<form id="gModal-form" method="post">
 <div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="gModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -64,8 +65,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="gModal-cancel">Cancel</button>
-                <button type="button" class="btn btn-primary" id="gModal-continue">Continue</button>
+                <button type="submit" class="btn btn-primary" id="gModal-continue">Continue</button>
             </div>
         </div>
     </div>
 </div>
+</form>
