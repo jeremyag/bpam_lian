@@ -8,7 +8,9 @@
     }
 ?>
 <div style="text-align: right">
-    <button class="btn btn-secondary">Edit</button>
+    <?php if(can_edit()):?>
+        <button class="btn btn-secondary">Edit</button>
+    <?php endif;?>
 </div>
     <h5>OTHER INFORMATION</h5>
     <table class="table table-sm table-bordered table-hover">

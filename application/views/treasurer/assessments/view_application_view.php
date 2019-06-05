@@ -44,10 +44,16 @@
                     <p><b>Status:</b> This application hasn't been assessed by the treasurer.</p>
                 </div>
                 <div class="col-md-6 text-right">
-                    <a href="#" class="btn btn-success m-action"><i class="fa fa-check-circle"></i> Assess</a>
+                    <a href="#" class="btn btn-success gModal-btn" data-application="<?=$this->input->get("id")?>" data-base_url="<?=base_url().add_index()?>" data-gaction="assess"><i class="fa fa-check-circle"></i> Assess</a>
                 </div>
             </div>
         </div>
+        <?php endif;?>
+
+        <?php if($application->is_done()):?>
+            <div class="alert alert-success">
+                <p><b>Status:</b> This application is successfully assessed.</p>
+            </div>
         <?php endif;?>
         <div class="card">
             <div class="card-header">
@@ -128,35 +134,9 @@
         </div>
     </div>
 </div>
-<div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div id="action-page">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Application</h5>
-                </div>
-                <div class="modal-body">
-                    HEllo
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     let base_url = '<?=base_url().add_index();?>Application_Controller/view_other_information';
     let business = <?=$business->id?>;
     let application = <?=$application->id?>;
 </script>
-<script src="<?php echo base_url().add_index();?>assets/js/applications/view_applications.js"></script>
-
-<script>
-    $(function(){
-        $(".m-action").on("click", function(){
-            $(".modal").modal("show");
-        });
-    });
-</script>
+<script src="<?php echo base_url();?>assets/js/applications/view_applications.js"></script>

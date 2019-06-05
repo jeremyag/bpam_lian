@@ -28,6 +28,7 @@ class Admin extends CI_Controller
     public function view_application(){
         if($this->input->get('id')){
             $view = "admin/application/view_application_view";
+            $section = "";
 
             if($this->input->get('section')){
                 if($this->input->get('section') == 2){
@@ -35,10 +36,12 @@ class Admin extends CI_Controller
                 }
                 elseif($this->input->get('section') == 3){
                     $view = "admin/application/view_city_view";
+                    $section = "view_application/city_section_form";
                 }
             }
             $data = array(
                 'view'=>$view,
+                'section'=> $section,
                 'application'=>$this->Application_Model->get_application_from_id($this->input->get('id'))
             );
             $this->load->view('admin/main_view', $data);

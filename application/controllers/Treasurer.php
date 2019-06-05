@@ -36,17 +36,19 @@
         public function view_application(){
             if($this->input->get('id')){
             $view = "treasurer/assessments/view_application_view";
-
+            $section = "";
             if($this->input->get('section')){
                 if($this->input->get('section') == 2){
                     $view = "treasurer/assessments/view_lgu_view";
                 }
                 elseif($this->input->get('section') == 3){
                     $view = "treasurer/assessments/view_city_view";
+                    $section = "view_application/city_section_form";
                 }
             }
             $data = array(
                 'view'=>$view,
+                'section'=>$section,
                 'application'=>$this->Application_Model->get_application_from_id($this->input->get('id'))
             );
             $this->load->view('treasurer/main_view', $data);
