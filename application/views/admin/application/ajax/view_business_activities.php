@@ -12,7 +12,9 @@
         <?php else:?>
         <th class="text-center" colspan="2">Gross/Sales Receipts (for Renewal)</th>
         <?php endif;?>
+        <?php if(can_edit()):?>
         <th rowspan="2"></th>
+        <?php endif;?>
     </tr>
     <tr>
         <?php if(!$application->isNew):?>
@@ -30,7 +32,9 @@
         <td class="text-center"><?=$ba->essential_receipts?></td>
         <td class="text-center"><?=$ba->non_essential_receipts?></td>
         <?php endif;?>
+        <?php if(can_edit()):?>
         <td class="text-center"><a href="#ba-<?=$ba->id?>" class="text-danger"><i class="fa fa-trash"></i></a> <a class="text-secondary" href="#ba-<?=$ba->id?>"><i class="fa fa-pen"></i></a></td>
+        <?php endif;?>
     </tr>
     <?php endforeach; ?>
     <?php else: ?>
@@ -40,5 +44,7 @@
     <?php endif;?>
 </table>
 <div class="text-right">
+    <?php if(can_add()): ?>
     <button class="btn btn-primary">Add</button>
+    <?php endif;?>
 </div>
