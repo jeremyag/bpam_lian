@@ -143,4 +143,4 @@
     let business = <?=$business->id?>;
     let application = <?=$application->id?>;
 </script>
-<script src="<?php echo base_url().add_index();?>assets/js/applications/view_applications.js"></script>
+<script src="<?php echo base_url();?>assets/js/applications/view_applications.js"></script>
