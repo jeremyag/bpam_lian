@@ -23,8 +23,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/BPAM_Lian';
-
+$base_url = "http://localhost/BPAM_Lian";
+if($_SERVER["SERVER_NAME"] == "bpamlian.000webhostapp.com"){
+    $base_url = "https://bpamlian.000webhostapp.com";
+}
+$config['base_url'] = $base_url;
 /*
 |--------------------------------------------------------------------------
 | Index File

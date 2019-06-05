@@ -71,6 +71,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 $active_group = 'default';
+if($_SERVER["SERVER_NAME"] == "bpamlian.000webhostapp.com"){
+    $active_group = "000webhost";
+}
 $query_builder = TRUE;
 
 $db['default'] = array(
@@ -79,6 +82,28 @@ $db['default'] = array(
 	'username' => 'root',
 	'password' => 'root',
 	'database' => 'bpam_db',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+
+$db['000webhost'] = array(
+	'dsn'	=> '',
+	'hostname' => 'localhost',
+	'username' => 'id9697328_admin',
+	'password' => 'bpam_lian123',
+	'database' => 'id9697328_bpam_lian',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
