@@ -74,7 +74,9 @@ class Admin extends CI_Controller
     public function settings(){
         $this->acccount_check();
 
-        $data = array('view'=>'admin/settings/settings_view');
+        $data = array(
+            'view'=>'admin/settings/settings_view'
+        );
         $this->load->view('admin/main_view', $data);
     }
 
