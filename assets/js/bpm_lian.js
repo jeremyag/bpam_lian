@@ -10,16 +10,33 @@ function isKeyPressNum(which) {
 }
 
 $(function(){
+	let setGmodalTitle = function(title){
+		$("#gModal-head").empty();
+		$("#gModal-head").html(title);
+	};
+
+	let setGmodalFormAction = function(link){
+		$("#gModal-form").attr(
+			"action", link
+		);
+	};
+
 	$(".gModal-btn").on("click", function () {
 		$("#gModal").modal("show");
 
 		let me = $(this);
 
 		let base_url = "";
-		let _data = {};
-		let type = "get";
+		let _data = {open:1};
+		let _type = "get";
+		let loading = "#loading";
 
+		let gaction = me.data("gaction");
+
+		// Assessment Button
 		if (me.data("gaction") == "assess") {
+			setGmodalTitle("Assessment");
+
 			base_url = me.data("base_url")+"Assessments_Controller/assess";
 
 			_data = {
@@ -29,17 +46,60 @@ $(function(){
 			// Set action of Gmodal-form
 			$("#gModal-form").attr(
 				"action",me.data("base_url")+"Assessments_Controller/send_assessment"
-			)
+			);
+		}
+
+		if (gaction == "settings_edit_tax"){
+			setGmodalTitle("Edit Taxes");
+
+			base_url = me.data("base_url") + "Settings_Controller/settings_assessments_form";
+
+			_data = {
+				id: me.data("id"),
+				action: "edit"
+			};
+
+			$("#gModal-form").attr(
+				"action", me.data("base_url") + "Assessments_Controller/send_assessment"
+			);
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_assessment_form");
+		}
+
+		if(gaction == "settings_delete_tax"){
+			setGmodalTitle("Are you sure you want to delete?");
+
+			base_url = me.data("base_url") + "Settings_Controller/settings_assessments_form";
+
+			_data = {
+				id: me.data("id"),
+				action: "delete"
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_assessment_form");
+		}
+
+		if(gaction == "settings_add_tax"){
+			setGmodalTitle("Add New Local Tax");
+
+			base_url = me.data("base_url")+"Settings_Controller/settings_assessments_form";
+
+			_data = {
+				id: 0,
+				action: "add"
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_assessment_form");
 		}
 
 		if(base_url !== ""){
 			$.ajax({
 				url: base_url,
 				dataType: "html",
-				type: "get",
+				type: _type,
 				data: _data,
 				success: function (html) {
-					// $(".progress").css("display", "none");
+					$(loading).css("display", "none");
 					$("#gModal-body").empty();
 					$("#gModal-body").append(html);
 				}
