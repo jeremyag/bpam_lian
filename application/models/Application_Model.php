@@ -80,7 +80,21 @@
             return $this->db->insert_id();
         }
 
-        public function get_all_application($order_by = "`id` DESC", $type="all"){
+        public function count($filter = "", $join = ""){
+            $sql = "SELECT
+                        COUNT(*) as total
+                    FROM
+                        `application` a 
+                    $join
+                    WHERE
+                        1=1 $filter";
+            
+            $result = $this->db->query($sql);
+
+            $result = $result->row(0);
+
+            return $result->total;
+        }
         public function get_all_application($filter = "", $order_by = "a.`id` DESC", $limit = "0, 1000",$join = "", $type="all"){
             if($type=="all"){
                 $sql = "SELECT
