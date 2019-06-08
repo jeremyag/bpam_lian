@@ -1,5 +1,17 @@
 <?php 
     class Application_Controller extends CI_Controller{
+        public function application_list(){
+            $this->load->view("applications/application_list");
+        }
+
+        public function application_rows(){
+            $applications = $this->Application_Model->get_all_application();
+
+            $this->load->view("applications/application_rows", array(
+                "applications" => $applications
+            ));
+        }
+
         public function step2_submit(){
 
             $this->form_validation->set_rules('form_date_application', 'Date of Application', 'required|trim');
