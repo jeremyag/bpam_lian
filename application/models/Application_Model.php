@@ -149,7 +149,7 @@
                             0
                         ) AS verifyAgain,
                         IF(
-                            (SELECT COUNT(*) FROM assessment_fees WHERE application_id = 3) > 0,
+                            (SELECT COUNT(*) FROM assessment_fees WHERE application_id = $id) > 0,
                             1,
                             0
                         ) AS isAssessed";
