@@ -2,3 +2,12 @@
     cursor: pointer;
 }
 
+.table-filter-btn:hover{
+    cursor: pointer;
+    background-color: #f3f3f3;
+}
+
+.table-card-filter{
+    cursor: pointer;
+    padding: 15px;
+}
