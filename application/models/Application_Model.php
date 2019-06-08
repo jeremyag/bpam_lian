@@ -69,6 +69,23 @@
             }
             return false;
         }
+
+        public function get_current_status(){
+            $status = $this->get_status();
+
+            if($status->isVerified == 0){
+                return "unverified";
+            }
+            elseif($status->verifyAgain == 1){
+                return "missing-docs";
+            }
+            elseif($status->isVerified == 1 && $status->verifyAgain == 0 && $status->isAssessed == 0){
+                return "on-assessment";
+            }
+            elseif($status->isAssessed == 1){
+                return "done";
+            }
+        }
     }
 
     class Application_Model extends CI_Model{
@@ -80,11 +97,34 @@
             return $this->db->insert_id();
         }
 
-        public function get_all_application($order_by = "`id` DESC", $type="all"){
+        public function count($filter = "", $join = ""){
+            $sql = "SELECT
+                        COUNT(*) as total
+                    FROM
+                        `application` a 
+                    $join
+                    WHERE
+                        1=1 $filter";
+            
+            $result = $this->db->query($sql);
+
+            $result = $result->row(0);
+
+            return $result->total;
+        }
+        public function get_all_application($filter = "", $order_by = "a.`id` DESC", $limit = "0, 1000",$join = "", $type="all"){
             if($type=="all"){
-                $sql = "SELECT *
-                        FROM `application`
-                        ORDER BY $order_by";
+                $sql = "SELECT
+                            a.*
+                        FROM
+                            `application` a 
+                        $join
+                        WHERE
+                            1=1 $filter
+                        ORDER BY
+                            $order_by
+                        LIMIT
+                            $limit";
             }
             elseif("assessment"){
                  $sql = "SELECT *
@@ -126,7 +166,7 @@
                             0
                         ) AS verifyAgain,
                         IF(
-                            (SELECT COUNT(*) FROM assessment_fees WHERE application_id = 3) > 0,
+                            (SELECT COUNT(*) FROM assessment_fees WHERE application_id = $id) > 0,
                             1,
                             0
                         ) AS isAssessed";

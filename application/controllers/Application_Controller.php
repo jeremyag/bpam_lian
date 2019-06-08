@@ -1,5 +1,95 @@
 <?php 
     class Application_Controller extends CI_Controller{
+        public function application_list(){
+            $this->load->view("applications/application_list",array(
+                "total"=>compute_pages($this->Application_Model->count(
+                    $filter="",
+                    $join = ""
+                ), 2),
+                "current_page"=>1
+            ));
+        }
+
+        public function application_rows(){
+            
+            $curr_page = 0;
+
+            $limit = 3;
+            $filter = $this->build_filter_status($this->input->get("sort_status"));
+            $order_by = $this->input->get("sort_field")." ".$this->input->get("sort_sort");
+            $limit = "$curr_page, $limit";
+            $join = "INNER JOIN
+                        `business` b
+                            ON a.business_id = b.id
+                    INNER JOIN
+                        `owner` o
+                            ON b.owner_id = o.id";
+
+            $count = $this->Application_Model->count(
+                $filter = $filter, 
+                $join = $join
+            );
+
+            $applications = $this->Application_Model->get_all_application(
+                $filter = $filter, 
+                $order_by = $order_by, 
+                $limit = $limit,
+                $join = $join, 
+                $type="all"
+            );
+
+            $this->load->view("applications/application_rows", array(
+                "applications" => $applications,
+            ));
+        }
+
+        private function build_filter_status($status){
+            if($status == "all"){
+                $filter = "";
+            }
+            elseif($status == "unverified"){
+                $filter = "AND 
+                            (SELECT IF(
+                                (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id) > 0,
+                                1,
+                                0
+                            )) = 0";
+            }
+            elseif($status == "missing_docs"){
+                $filter = "AND
+                            (SELECT IF(
+                                (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id AND remarks = 'No') > 0,
+                            1,
+                            0
+                            )) = 1";
+            }
+            elseif($status == "assessment"){
+                $filter = "AND (((SELECT IF(
+                                (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id) > 0,
+                                1,
+                                0
+                            )) = 1) AND ((SELECT IF(
+                                (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id AND remarks = 'No') > 0,
+                            1,
+                            0
+                            )) = 0)) AND
+                            (SELECT IF(
+                                (SELECT COUNT(*) FROM assessment_fees WHERE application_id = a.id) > 0,
+                            1,
+                            0
+                            )) = 0 ";
+            }
+            elseif($status == "done"){
+                $filter = "AND
+                            (SELECT IF(
+                                (SELECT COUNT(*) FROM assessment_fees WHERE application_id = a.id) > 0,
+                            1,
+                            0
+                            )) = 1";
+            }
+            return $filter;
+        }
+
         public function step2_submit(){
 
             $this->form_validation->set_rules('form_date_application', 'Date of Application', 'required|trim');

@@ -7,14 +7,15 @@ $(function(){
             business_id: business
         },
         success: function (html) {
-            $(".progress").css("display", "none");
+            $("#loading").css("display", "none");
             $("#information").empty();
             $("#information").append(html);
         }
     });
 
     $("#other-information").on("click", function(){
-        $(".progress").css("display", "block");
+        $("#loading").css("display", "block");
+        $("#information").empty();
 
         $("#other-information").addClass("active");
         $("#business-activity").removeClass("active");
@@ -27,15 +28,15 @@ $(function(){
                 business_id : business
             },
             success: function(html){
-                $(".progress").css("display", "none");
-                $("#information").empty();
+                $("#loading").css("display", "none");
                 $("#information").append(html);
             }
         });
     });
 
     $("#business-activity").on("click", function(){
-        $(".progress").css("display", "block");
+        $("#loading").css("display", "block");
+        $("#information").empty();
 
         $("#other-information").removeClass("active");
         $("#business-activity").addClass("active");
@@ -48,8 +49,7 @@ $(function(){
                 application_id: application
             },
             success: function (html) {
-                $(".progress").css("display", "none");
-                $("#information").empty();
+                $("#loading").css("display", "none");
                 $("#information").append(html);
             }
         });

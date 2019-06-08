@@ -12,8 +12,7 @@
             $this->acccount_check();
 
             $data = array(
-                'view'=>'treasurer/assessments/assessments_view',
-                'applications'=>$this->Application_Model->get_all_application("`id` DESC", "assessment")
+                'view'=>'treasurer/assessments/assessments_view'
             );
             $this->load->view('treasurer/main_view', $data);
         }
