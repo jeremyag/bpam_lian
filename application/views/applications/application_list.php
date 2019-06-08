@@ -83,39 +83,41 @@
 <table class="table table-hover table-bordered table-sm">
     <thead>
     <tr>
-        <th class="table-filter-btn"><i class="text-success fa fa-sort-amount-up fa-xs"></i><br> Application #</th>
-        <th class="table-filter-btn"><i class="text-danger fa fa-sort-amount-down fa-xs"></i><br>Type</th>
-        <th class="table-filter-btn">Business Name</th>
-        <th class="table-filter-btn">Date of Application</th>
-        <th class="table-filter-btn">DTI/SEC/CDA Registration No.:</th>
-        <th class="table-filter-btn">Owner</th>
-        <th class="table-filter-btn">Is Verified?</th>
-        <th class="table-filter-btn">Is Assessed?</th>
+        <th data-sort="a.id" class="table-sorter table-filter-btn"><span></span><br>Application #</th>
+        <th>Type</th>
+        <th data-sort="b.business_name" class="table-sorter table-filter-btn"><span></span><br>Business Name</th>
+        <th data-sort="a.date_of_application" class="table-sorter table-filter-btn"><span></span><br>Date of Application</th>
+        <th data-sort="b.dti_reg_no" class="table-sorter table-filter-btn"><span></span><br>DTI/SEC/CDA Registration No.:</th>
+        <th>Owner</th>
+        <th>Is Verified?</th>
+        <th>Is Assessed?</th>
     </tr>
     </thead>
     <tbody id="rows">
     </tbody>
-    <tfoot>
-        <tr id="loading2">
+    <tfoot id="loading2">
+        <tr>
             <td colspan="8" class="text-center"><img src="<?=base_url().add_index()?>assets/img/loading.gif"></td>
         </tr>
     </tfoot>
 </table>
 <nav aria-label="Page navigation example">
     <ul class="pagination">
+        <?php if($total>0):?>
         <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-        </a>
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <?php for($i = 1; $i <= $total; $i++):?>
+            <li class="page-item <?=($current_page == $i ? "active" : "")?>"><a class="page-link" href="#"><?=$i?></a></li>
+        <?php endfor;?>
         <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
         </li>
+        <?php endif;?>
     </ul>
 </nav>
 <script>
@@ -128,12 +130,68 @@
             dataType: "html",
             type: "get",
             data: {
-                show:1
+                    show:1,
+                    sort_field: "a.id",
+                    sort_sort: "DESC"
             },
             success: function(html){
                 $("#loading2").css("display", "none");
                 $("tbody#rows").append(html);
             }
+        });
+
+        let sort = {
+            field: "a.id",
+            sort: "DESC"
+        };
+
+        let activate_sort = function(sort, field){
+            let asc = "<i class='text-success fa fa-sort-amount-up fa-xs'></i>";
+            let desc = "<i class='text-danger fa fa-sort-amount-down fa-xs'></i>";
+            $(".table-sorter").removeClass("table-filter-active");
+            $(".table-sorter > span").empty();
+            
+            if(sort.field == field){
+                if(sort.sort == "ASC"){
+                    $("[data-sort='"+field+"']").addClass("table-filter-active");
+                    sort.sort = "DESC";
+                    $("[data-sort='"+field+"'] > span").append(desc);
+                }
+                else{
+                    sort.sort = "none"; $("[data-sort='"+field+"']").addClass("table-filter-active");
+                    sort.sort = "ASC";
+                    $("[data-sort='"+field+"'] > span").append(asc);
+                }
+            }
+            else{
+                $("[data-sort='"+field+"']").addClass("table-filter-active");
+                sort.sort = "asc";
+                sort.field = field;
+                $("[data-sort='"+field+"'] > span").append(asc);
+            }
+            return sort;
+        };
+
+        $(".table-sorter").on("click", function(){
+            activate_sort(sort, $(this).data("sort"));
+
+            $("tbody#rows").empty();
+            $("#loading2").css("display", "block");
+
+            $.ajax({
+                url: "<?=base_url().add_index()?>Application_Controller/application_rows",
+                dataType: "html",
+                type: "get",
+                data: {
+                    show:1,
+                    sort_field: sort.field,
+                    sort_sort: sort.sort
+                },
+                success: function(html){
+                    $("#loading2").css("display", "none");
+                    $("tbody#rows").append(html);
+                }
+            });
         });
     });
 </script>
