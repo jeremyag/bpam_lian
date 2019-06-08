@@ -1,14 +1,46 @@
 <?php 
     class Application_Controller extends CI_Controller{
         public function application_list(){
-            $this->load->view("applications/application_list");
+            $this->load->view("applications/application_list",array(
+                "total"=>compute_pages($this->Application_Model->count(
+                    $filter="",
+                    $join = ""
+                ), 2),
+                "current_page"=>1
+            ));
         }
 
         public function application_rows(){
-            $applications = $this->Application_Model->get_all_application();
+            
+            $curr_page = 0;
+
+            $limit = 2;
+            
+            $filter = "";
+            $order_by = $this->input->get("sort_field")." ".$this->input->get("sort_sort");
+            $limit = "$curr_page, $limit";
+            $join = "INNER JOIN
+                        `business` b
+                            ON a.business_id = b.id
+                    INNER JOIN
+                        `owner` o
+                            ON b.owner_id = o.id";
+
+            $count = $this->Application_Model->count(
+                $filter = $filter, 
+                $join = $join
+            );
+
+            $applications = $this->Application_Model->get_all_application(
+                $filter = $filter, 
+                $order_by = $order_by, 
+                $limit = $limit,
+                $join = $join, 
+                $type="all"
+            );
 
             $this->load->view("applications/application_rows", array(
-                "applications" => $applications
+                "applications" => $applications,
             ));
         }
 
