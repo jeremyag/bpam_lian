@@ -69,6 +69,23 @@
             }
             return false;
         }
+
+        public function get_current_status(){
+            $status = $this->get_status();
+
+            if($status->isVerified == 0){
+                return "unverified";
+            }
+            elseif($status->verifyAgain == 1){
+                return "missing-docs";
+            }
+            elseif($status->isVerified == 1 && $status->verifyAgain == 0 && $status->isAssessed == 0){
+                return "on-assessment";
+            }
+            elseif($status->isAssessed == 1){
+                return "done";
+            }
+        }
     }
 
     class Application_Model extends CI_Model{

@@ -2,10 +2,13 @@
     <div class="col-md-6">
         <table class="table-bordered">
             <tr>
-                <th class="table-info table-card-filter table-filter-btn">All</th>
-                <th class="table-danger table-card-filter table-filter-btn">Unverified</th>
-                <th class="table-warning table-card-filter table-filter-btn">On Assessment</th>
-                <th class="table-success table-card-filter table-filter-btn">Done</th>
+                <?php if(!is_treasurer()):?>
+                <th data-status="all" class="table-status-filter table-info table-card-filter table-filter-btn">All</th>
+                <th data-status="unverified" class="table-status-filter table-danger table-card-filter table-filter-btn">Unverified</th>
+                <th data-status="missing_docs" class="table-status-filter table-warning table-card-filter table-filter-btn">Missing Docs</th>
+                <?php endif;?>
+                <th data-status="assessment" class="table-status-filter table-success table-card-filter table-filter-btn">On Assessment</th>
+                <th data-status="done" class="table-status-filter table-primary table-card-filter table-filter-btn">Done</th>
             </tr>
         </table>
     </div>
@@ -122,6 +125,7 @@
 </nav>
 <script>
     $(function(){
+        let _status = '<?=is_treasurer() ? "assessment" : "all"?>';
         $("tbody#rows").empty();
         $("#loading2").css("display", "block");
         
@@ -132,7 +136,8 @@
             data: {
                     show:1,
                     sort_field: "a.id",
-                    sort_sort: "DESC"
+                    sort_sort: "DESC",
+                    sort_status: _status
             },
             success: function(html){
                 $("#loading2").css("display", "none");
@@ -142,7 +147,8 @@
 
         let sort = {
             field: "a.id",
-            sort: "DESC"
+            sort: "DESC",
+            status: "all"
         };
 
         let activate_sort = function(sort, field){
@@ -185,7 +191,35 @@
                 data: {
                     show:1,
                     sort_field: sort.field,
-                    sort_sort: sort.sort
+                    sort_sort: sort.sort,
+                    sort_status: sort.status
+                },
+                success: function(html){
+                    $("#loading2").css("display", "none");
+                    $("tbody#rows").append(html);
+                }
+            });
+        });
+
+        $(".table-status-filter").on("click", function(){
+            $(".table-status-filter").removeClass("table-filter-active");
+            $(this).addClass("table-filter-active");
+
+            let filter = $(this).data("status");
+            sort.status = filter;
+
+            $("tbody#rows").empty();
+            $("#loading2").css("display", "block");
+
+            $.ajax({
+                url: "<?=base_url().add_index()?>Application_Controller/application_rows",
+                dataType: "html",
+                type: "get",
+                data: {
+                    show:1,
+                    sort_field: sort.field,
+                    sort_sort: sort.sort,
+                    sort_status: sort.status
                 },
                 success: function(html){
                     $("#loading2").css("display", "none");

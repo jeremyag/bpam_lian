@@ -14,9 +14,8 @@
             
             $curr_page = 0;
 
-            $limit = 2;
-            
-            $filter = "";
+            $limit = 3;
+            $filter = $this->build_filter_status($this->input->get("sort_status"));
             $order_by = $this->input->get("sort_field")." ".$this->input->get("sort_sort");
             $limit = "$curr_page, $limit";
             $join = "INNER JOIN
@@ -42,6 +41,53 @@
             $this->load->view("applications/application_rows", array(
                 "applications" => $applications,
             ));
+        }
+
+        private function build_filter_status($status){
+            if($status == "all"){
+                $filter = "";
+            }
+            elseif($status == "unverified"){
+                $filter = "AND 
+                            (SELECT IF(
+                                (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id) > 0,
+                                1,
+                                0
+                            )) = 0";
+            }
+            elseif($status == "missing_docs"){
+                $filter = "AND
+                            (SELECT IF(
+                                (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id AND remarks = 'No') > 0,
+                            1,
+                            0
+                            )) = 1";
+            }
+            elseif($status == "assessment"){
+                $filter = "AND (((SELECT IF(
+                                (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id) > 0,
+                                1,
+                                0
+                            )) = 1) AND ((SELECT IF(
+                                (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id AND remarks = 'No') > 0,
+                            1,
+                            0
+                            )) = 0)) AND
+                            (SELECT IF(
+                                (SELECT COUNT(*) FROM assessment_fees WHERE application_id = a.id) > 0,
+                            1,
+                            0
+                            )) = 0 ";
+            }
+            elseif($status == "done"){
+                $filter = "AND
+                            (SELECT IF(
+                                (SELECT COUNT(*) FROM assessment_fees WHERE application_id = a.id) > 0,
+                            1,
+                            0
+                            )) = 1";
+            }
+            return $filter;
         }
 
         public function step2_submit(){

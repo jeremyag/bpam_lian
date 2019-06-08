@@ -19,8 +19,7 @@ class Admin extends CI_Controller
         $this->acccount_check();
 
         $data = array(
-            'view'=>'admin/application/application_view',
-            'applications'=>$this->Application_Model->get_all_application()
+            'view'=>'admin/application/application_view'
         );
         $this->load->view('admin/main_view',$data);
     }
