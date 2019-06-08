@@ -33,7 +33,8 @@
 
         $("#assessment-fees").on("click", function(){
             $("#loading").css("display", "block");
-
+            $("#setting-body").empty();
+            
             $("#assessment-fees").addClass("bg-light");
 
             $.ajax({
@@ -41,7 +42,6 @@
                 dataType: "html",
                 success: function(html){
                     $("#loading").css("display", "none");
-                    $("#setting-body").empty();
                     $("#setting-body").append(html);
                 }
             });
