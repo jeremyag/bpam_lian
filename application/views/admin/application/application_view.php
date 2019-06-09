@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 <div id="loading" class="text-center">
-                    <img src="<?=base_url().add_index()?>assets/img/loading.gif">
+                    <img src="<?=base_url()?>assets/img/loading.gif">
                 </div>
                 <div id="content"></div>
             </div>

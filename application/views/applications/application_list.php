@@ -100,7 +100,7 @@
     </tbody>
     <tfoot id="loading2">
         <tr>
-            <td colspan="8" class="text-center"><img src="<?=base_url().add_index()?>assets/img/loading.gif"></td>
+            <td colspan="8" class="text-center"><img src="<?=base_url()?>assets/img/loading.gif"></td>
         </tr>
     </tfoot>
 </table>
