@@ -123,8 +123,8 @@
                             1=1 $filter
                         ORDER BY
                             $order_by
-                        LIMIT
-                            $limit";
+                        -- LIMIT
+                            -- $limit";
             }
             elseif("assessment"){
                  $sql = "SELECT *

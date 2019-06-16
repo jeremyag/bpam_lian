@@ -86,7 +86,35 @@
                             1,
                             0
                             )) = 1";
+        private function filter($filter = "", $application_no = "", $type = "", $business_name = "", $start_date_of_application = "", $end_date_of_application = "", $dti_reg_no = "", $first_name = "", $last_name=""){
+            if($application_no != ""){
+                $filter .= " AND a.id = $application_no ";
             }
+
+            if($type != ""){
+                $filter .= " AND a.isNew = $type ";
+            }
+
+            if($business_name != ""){
+                $filter .= " AND b.business_name = '$business_name' ";
+            }
+
+            if($dti_reg_no != ""){
+                $filter .= " AND b.dti_reg_no = '$dti_reg_no' ";
+            }
+
+            if($first_name != ""){
+                $filter .= " AND o.first_name = '$first_name' ";
+            }
+
+            if($last_name != ""){
+                $filter .= " AND o.last_name = '$last_name' ";
+            }
+
+            if($start_date_of_application != "" && $end_date_of_application != ""){
+                $filter .= " AND (a.date_of_application BETWEEN '$start_date_of_application' AND '$end_date_of_application')";
+            }
+
             return $filter;
         }
 
