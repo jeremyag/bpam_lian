@@ -9,6 +9,16 @@ function isKeyPressNum(which) {
 	return false;
 }
 
+function compute_pagination(total_results, per_page){
+	pages = total_results / per_page;
+
+	if(total_results % per_page){
+		pages++;
+	}
+
+	return pages;
+}
+
 $(function(){
 	let setGmodalTitle = function(title){
 		$("#gModal-head").empty();
