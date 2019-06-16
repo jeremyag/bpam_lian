@@ -118,6 +118,28 @@
             return $filter;
         }
 
+        private function search($keyword){
+            $search_filter = "";
+            if($keyword != ""){
+                $search_filter = " AND ( ";
+                $application_columns = $this->Table_Model->get_columns("application");
+
+                $a_search_filter = build_search_filter($application_columns, $keyword, "a", true);
+
+                $search_filter .= $a_search_filter;
+
+                $search_filter .= " OR " . build_search_filter($this->Table_Model->get_columns("owner"), $keyword, "o");
+
+                $search_filter .= " OR " . build_search_filter($this->Table_Model->get_columns("business"), $keyword, "b");
+
+                $search_filter .= " OR " . build_search_filter($this->Table_Model->get_columns("business_address"), $keyword, "ba");
+
+                $search_filter .= " ) ";
+            }
+
+            return $search_filter;
+        }
+
         public function step2_submit(){
 
             $this->form_validation->set_rules('form_date_application', 'Date of Application', 'required|trim');
@@ -345,7 +367,6 @@
         public function step5_submit(){
             if($this->input->post('add')){
                 $application_form = $this->session->userdata('application_form');
-                print_r($this->input->post());
                 echo '<br>';
 
                 $business_activity = array(
@@ -474,7 +495,6 @@
                 $verifications = $this->input->post('verification');
                 $inserts = array();
                 $not_accomplished = array();
-                print_r($verifications);
                 foreach($verifications as $v){
                     $v['application'] = intval($v['application']);
                     if($v['id'] != ""){
