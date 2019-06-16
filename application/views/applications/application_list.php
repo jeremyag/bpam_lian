@@ -137,18 +137,35 @@
                     show:1,
                     sort_field: "a.id",
                     sort_sort: "DESC",
-                    sort_status: _status
+                    sort_status: _status,
+                    sort_per_page: 20,
+                    sort_start_page: 0,
+                    sort_keyword: ""
             },
             success: function(html){
                 $("#loading2").css("display", "none");
                 $("tbody#rows").append(html);
             }
         });
-
+        
         let sort = {
             field: "a.id",
             sort: "DESC",
-            status: "all"
+            status: "all",
+            filter: {
+                activated: false,
+                application_no: "",
+                type: "",
+                business_name: "",
+                start_date_of_application: "",
+                end_date_of_application: "",
+                dti_reg_no: "",
+                first_name: "",
+                last_name: ""
+            },
+            per_page: 20,
+            start_page: 0,
+            keyword: ""
         };
 
         let activate_sort = function(sort, field){
@@ -192,7 +209,11 @@
                     show:1,
                     sort_field: sort.field,
                     sort_sort: sort.sort,
-                    sort_status: sort.status
+                    sort_status: sort.status,
+                    sort_filter: sort.filter,
+                    sort_per_page: sort.per_page,
+                    sort_start_page: sort.start_page,
+                    sort_keyword: sort.keyword
                 },
                 success: function(html){
                     $("#loading2").css("display", "none");
@@ -205,9 +226,14 @@
             $(".table-status-filter").removeClass("table-filter-active");
             $(this).addClass("table-filter-active");
 
+            $("#more-filters").collapse("hide");
             let filter = $(this).data("status");
             sort.status = filter;
 
+            if(filter === "all"){
+                sort.filter.activated = false;
+                sort.keyword = "";
+            }
             $("tbody#rows").empty();
             $("#loading2").css("display", "block");
 
@@ -219,7 +245,119 @@
                     show:1,
                     sort_field: sort.field,
                     sort_sort: sort.sort,
-                    sort_status: sort.status
+                    sort_status: sort.status,
+                    sort_filter: sort.filter,
+                    sort_per_page: sort.per_page,
+                    sort_start_page: sort.start_page,
+                    sort_keyword: sort.keyword
+                },
+                success: function(html){
+                    $("#loading2").css("display", "none");
+                    $("tbody#rows").append(html);
+                }
+            });
+        });
+
+        $("#filter-submit").on("click", function(){
+            $("#more-filters").collapse("hide");
+
+            $("tbody#rows").empty();
+            $("#loading2").css("display", "block");
+
+            sort.filter = {
+                activated: true,
+                application_no: $("input[name='filter_application_no']").val(),
+                type: $("select[name='filter_type']").val(),
+                business_name: $("input[name='filter_business_name']").val(),
+                start_date_of_application: $("input[name='filter_start_date_of_application']").val(),
+                end_date_of_application: $("input[name='filter_end_date_of_application']").val(),
+                dti_reg_no: $("input[name='filter_dti_reg_no']").val(),
+                first_name: $("input[name='filter_first_name']").val(),
+                last_name: $("input[name='filter_last_name']").val()
+            }
+
+            $.ajax({
+                url: "<?=base_url().add_index()?>Application_Controller/application_rows",
+                dataType: "html",
+                type: "get",
+                data: {
+                    show:1,
+                    sort_field: sort.field,
+                    sort_sort: sort.sort,
+                    sort_status: sort.status,
+                    sort_filter: sort.filter,
+                    sort_per_page: sort.per_page,
+                    sort_start_page: sort.start_page,
+                    sort_keyword: sort.keyword
+                },
+                success: function(html){
+                    $("#loading2").css("display", "none");
+                    $("tbody#rows").append(html);
+                }
+            });
+        });
+
+        $("select[name='show_per_page']").on("change", function(){
+
+            $("#more-filters").collapse("hide");
+
+            $("tbody#rows").empty();
+            $("#loading2").css("display", "block");
+
+            let per_page = $("select[name='show_per_page']").val();
+
+            sort.per_page = per_page;
+
+            $.ajax({
+                url: "<?=base_url().add_index()?>Application_Controller/application_rows",
+                dataType: "html",
+                type: "get",
+                data: {
+                    show:1,
+                    sort_field: sort.field,
+                    sort_sort: sort.sort,
+                    sort_status: sort.status,
+                    sort_filter: sort.filter,
+                    sort_per_page: sort.per_page,
+                    sort_start_page: sort.start_page,
+                    sort_keyword: sort.keyword
+                },
+                success: function(html){
+                    $("#loading2").css("display", "none");
+                    $("tbody#rows").append(html);
+                }
+            });
+        });
+
+        $("#search").on("click", function(){
+            let keyword = $("input[name='quick-search']").val();
+
+            if(keyword !== ""){
+                sort.keyword = keyword;
+            }
+
+            $("#more-filters").collapse("hide");
+
+            $("tbody#rows").empty();
+            $("#loading2").css("display", "block");
+
+            let per_page = $("select[name='show_per_page']").val();
+
+            sort.per_page = per_page;
+
+            $.ajax({
+                url: "<?=base_url().add_index()?>Application_Controller/application_rows",
+                dataType: "html",
+                type: "get",
+                data: {
+                    show:1,
+                    sort_field: sort.field,
+                    sort_sort: sort.sort,
+                    sort_status: sort.status,
+                    sort_filter: sort.filter,
+                    sort_per_page: sort.per_page,
+                    sort_start_page: sort.start_page,
+                    sort_keyword: sort.keyword
                 },
                 success: function(html){
                     $("#loading2").css("display", "none");
