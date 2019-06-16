@@ -14,9 +14,9 @@
     </div>
     <div class="col-md-6">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Quick search" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+            <input type="text" name="quick-search" class="form-control" placeholder="Quick search" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
             <div class="input-group-append" id="button-addon4">
-                <button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
+                <button id="search" class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
             </div>
         </div>
         <div class="text-right">
@@ -32,47 +32,47 @@
         <table>
             <tr>
                 <th>Application #:</th>
-                <td colspan="2"><input type="text" class="form-control"></td>
+                <td colspan="2"><input name="filter_application_no" type="text" class="form-control"></td>
             </tr>
             <tr>
                 <th>Type:</th>
                 <td colspan="2">
-                    <select class="form-control">
-                        <option>New</option>
-                        <option>Renewal</option>
+                    <select name="filter_type" class="form-control">
+                        <option value="1">New</option>
+                        <option value="2">Renewal</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <th>Business Name:</th>
-                <td colspan="2"><input type="text" class="form-control"></td>
+                <td colspan="2"><input name="filter_business_name" type="text" class="form-control"></td>
             </tr>
             <tr>
                 <th>Date of Application:</th>
-                <td>From: <br><input type="date" class="form-control"></td>
-                <td>To: <br><input type="date" class="form-control"></td>
+                <td>From: <br><input name="filter_start_date_of_application" type="date" class="form-control"></td>
+                <td>To: <br><input name="filter_end_date_of_application" type="date" class="form-control"></td>
             </tr>
             <tr>
                 <th>DTI/SEC/CDA Registration No.:</th>
-                <td colspan="2"><input type="text" class="form-control"></td>
+                <td colspan="2"><input name="filter_dti_reg_no" type="text" class="form-control"></td>
             </tr>
             <tr>
                 <th>Owner:</th>
-                <td><input type="text" class="form-control" placeholder="First name"></td>
-                <td><input type="text" class="form-control" placeholder="Last name"></td>
+                <td><input name="filter_first_name" type="text" class="form-control" placeholder="First name"></td>
+                <td><input name="filter_last_name" type="text" class="form-control" placeholder="Last name"></td>
             </tr>
         </table>
         <br>
         <div class="text-right">
-            <button class="btn btn-secondary">Filter</button><br>
+            <button class="btn btn-secondary" id="filter-submit">Filter</button><br>
         </div>
     </div>
 </div>
 <br>
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-10 text-right">Show per page: </div>
     <div class="col-md-2">
-        <select class="form-control">
+        <select name="show_per_page" class="form-control">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="20">20</option>
@@ -81,7 +81,7 @@
             <option value="1000">1000</option>
         </select>
     </div>
-</div>
+</div> -->
 <br>
 <table class="table table-hover table-bordered table-sm">
     <thead>
@@ -104,7 +104,7 @@
         </tr>
     </tfoot>
 </table>
-<nav aria-label="Page navigation example">
+<!-- <nav aria-label="Page navigation example">
     <ul class="pagination">
         <?php if($total>0):?>
         <li class="page-item">
@@ -122,7 +122,7 @@
         </li>
         <?php endif;?>
     </ul>
-</nav>
+</nav> -->
 <script>
     $(function(){
         let _status = '<?=is_treasurer() ? "assessment" : "all"?>';
