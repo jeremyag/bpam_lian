@@ -5,25 +5,52 @@
                 "total"=>compute_pages($this->Application_Model->count(
                     $filter="",
                     $join = ""
-                ), 2),
+                ), 20),
                 "current_page"=>1
             ));
         }
 
         public function application_rows(){
-            
-            $curr_page = 0;
-
-            $limit = 3;
             $filter = $this->build_filter_status($this->input->get("sort_status"));
+            
+            $sort_filter = $this->input->get("sort_filter");
+            if($sort_filter["activated"] == "true"){
+                $filter .= $this->filter(
+                    $filter = $filter,
+                    $application_no = $sort_filter["application_no"],
+                    $type = $sort_filter["type"],
+                    $business_name = $sort_filter["business_name"],
+                    $start_date_of_application = $sort_filter["start_date_of_application"],
+                    $end_date_of_application = $sort_filter["end_date_of_application"],
+                    $dti_reg_no = $sort_filter["dti_reg_no"],
+                    $first_name = $sort_filter["first_name"],
+                    $last_name = $sort_filter["last_name"]
+                );
+            };
+
+            if($this->input->get("sort_keyword") != ""){
+                $filter .= $this->search($this->input->get("sort_keyword"));
+            }
+
             $order_by = $this->input->get("sort_field")." ".$this->input->get("sort_sort");
-            $limit = "$curr_page, $limit";
+
+            $start_page = $this->input->get("sort_start_page");
+
+            $per_page = $this->input->get("sort_per_page");
+
+            $limit = "$start_page, $per_page";
+
+            $limit = "";
+
             $join = "INNER JOIN
                         `business` b
                             ON a.business_id = b.id
                     INNER JOIN
                         `owner` o
-                            ON b.owner_id = o.id";
+                            ON b.owner_id = o.id
+                    INNER JOIN
+                        `business_address` ba
+                            ON ba.id = b.business_address_id";
 
             $count = $this->Application_Model->count(
                 $filter = $filter, 
@@ -40,6 +67,13 @@
 
             $this->load->view("applications/application_rows", array(
                 "applications" => $applications,
+                "per_page" => $per_page,
+                "curr_page" => 1,
+                "start_page" => $start_page,
+                "total" => $this->Application_Model->count(
+                    $filter,
+                    $join
+                )
             ));
         }
 
@@ -53,7 +87,7 @@
                                 (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id) > 0,
                                 1,
                                 0
-                            )) = 0";
+                            )) = 0 ";
             }
             elseif($status == "missing_docs"){
                 $filter = "AND
@@ -61,7 +95,7 @@
                                 (SELECT COUNT(*) FROM verification_document_details WHERE application_id = a.id AND remarks = 'No') > 0,
                             1,
                             0
-                            )) = 1";
+                            )) = 1 ";
             }
             elseif($status == "assessment"){
                 $filter = "AND (((SELECT IF(
@@ -85,7 +119,11 @@
                                 (SELECT COUNT(*) FROM assessment_fees WHERE application_id = a.id) > 0,
                             1,
                             0
-                            )) = 1";
+                            )) = 1 ";
+            }
+            return $filter;
+        }
+
         private function filter($filter = "", $application_no = "", $type = "", $business_name = "", $start_date_of_application = "", $end_date_of_application = "", $dti_reg_no = "", $first_name = "", $last_name=""){
             if($application_no != ""){
                 $filter .= " AND a.id = $application_no ";
