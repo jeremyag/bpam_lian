@@ -15,8 +15,8 @@
                 <a href="<?=base_url().add_index()?>admin/applications" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
             </div>
             <div class="col-md-6 text-right">
-                <a href="#" class="btn btn-secondary"><i class="fa fa-download"></i> CSV</a>
-                <a href="#" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
+                <!-- <a href="#" class="btn btn-secondary"><i class="fa fa-download"></i> CSV</a> -->
+                <a href="<?=base_url().add_index()?>Application_Controller/print?id=<?=$application->id?>" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
             </div>
         </div>
         <br>

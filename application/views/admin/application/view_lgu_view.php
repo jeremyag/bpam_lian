@@ -15,8 +15,8 @@
                 <a href="<?=base_url().add_index()?>admin/applications" class="btn"><i class="fa fa-chevron-left"></i> Back</a>
             </div>
             <div class="col-md-6 text-right">
-                <a href="#" class="btn btn-secondary"><i class="fa fa-download"></i> CSV</a>
-                <a href="#" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
+                <!-- <a href="#" class="btn btn-secondary"><i class="fa fa-download"></i> CSV</a> -->
+                <a href="<?=base_url().add_index()?>Application_Controller/print?id=<?=$application->id?>" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
             </div>
         </div>
         <br>
@@ -99,9 +99,51 @@
                         <?php endif;?>
                     </tbody>
                 </table>
+                <br><br><br>
+                <h5>ASSESSMENT OF APPLICABLE FEES</h5>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Local Taxes</th>
+                            <th class="text-center">Amount Due</th>
+                            <th class="text-center">Penalty/Subcharge</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php $total = 0;?>
+                        <?php if($status->isAssessed):?>
+                        <?php $assessments = $application->get_assessments(); ?>
+                        <?php if(count($assessments)):?>
+                        <?php foreach($assessments as $a):?>
+                        <tr>
+                            <td class="text-center"><?=$a->local_taxes?></td>
+                            <td class="text-center"><?=number_format($a->amount_due, 2)?></td>
+                            <td class="text-center"><?=number_format($a->penalty_subcharge, 2)?></td>
+                            <td class="text-center"><?=number_format($a->get_total(), 2)?></td>
+                            <?php $total += $a->get_total() ?>
+                        </tr>
+                        <?php endforeach;?>
+                        <?php endif;?>
+                        <?php else:?>
+                            <td colspan="4" class="text-center"><b>Not Assessed yet by Treasurer</b></td>
+                        <?php endif;?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="text-right" colspan="3">TOTAL FEES for LGU: </th>
+                            <th class="text-center"><?= $total ?></th>
+                        </tr>
+                        <tr>
+                            <th class="text-right" colspan="3">FIRE SAFETY INSPECTION FEE (10%): </th>
+                            <th class="text-center"><?= number_format($total * .10, 2) ?></th>
+                        </tr>
+                    </tfoot>
+                </table>
                 <?php else:?>
                     <div class="alert alert-danger"><b>Alert:</b> This application hasn't been verified!</div>
                 <?php endif;?>
+                
             </div>
         </div>
     </div>
