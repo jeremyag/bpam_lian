@@ -553,6 +553,19 @@
                 redirect(add_index().'admin/check_verification');
             }
         }
+
+        public function print(){
+            if($this->input->get("id")){
+                $id = $this->input->get("id");
+                $application = $this->Application_Model->get_application_from_id($id);
+                $this->load->view("applications/print_view", array(
+                    "application" => $application
+                ));
+            }
+            else{
+                $this->load->view("applications/print_view");
+            }
+        }
     }
 
 ?>
