@@ -71,8 +71,11 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="gModal-head">General Action Modal</h5>
                 </div>
-                <div id="gModal-body" class="modal-body">
-                    
+                <div class="modal-body">
+                <div id="g-loading" class="text-center">
+                    <img src="<?=base_url()?>/assets/img/loading.gif"/>
+                </div>
+                <div id="gModal-body"></div>
                 </div>
             </div>
             <div class="modal-footer">
