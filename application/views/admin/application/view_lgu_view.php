@@ -71,10 +71,6 @@
             </div>
             <div class="card-body">
                 <?php if($status->isVerified):?>
-                <div style="text-align: right">
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-secondary">Edit</button>
-                </div>
                 <h2 style="text-align: center">Application #<?=$application->id?></h2>
                 <br>
                 <h5>VERIFICATION OF DOCUMENTS</h5>

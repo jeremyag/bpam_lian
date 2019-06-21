@@ -452,7 +452,7 @@
             </table>
         </div>
         <!-- Page 2 of 2 -->
-        <div style="margin-top: 25px">
+        <div style="margin-top: 40px">
             <table style="width: 100%;">
                 <tbody style="font-size: 12px; font-weight: bold">
                     <tr>
@@ -563,7 +563,7 @@
                                 <b>DATE:</b> <span style="border-bottom: 1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             </div>
                             <div class="text-left">
-                                <b>APPLICATION NO.: </b> <span style="border-bottom: 1px solid black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><?=$application->id?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <b>APPLICATION NO.: </b> <span style="border-bottom: 1px solid black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><?=($isset ? $application->id : "")?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             </div>
                             <div>
                                 <table style="width: 100%" class="not">
@@ -614,7 +614,7 @@
                 </tbody>
             </table>
             <br/>
-            <b>Important Notice: As per Section 12 of the implementing Rules and Regulations of the Fire Code of 2008,
+            <b style="font-size: 11px;">Important Notice: As per Section 12 of the implementing Rules and Regulations of the Fire Code of 2008,
             certain establishments (e.g. building, lessor, fire, earthquake, and explosion hazard insurance companies,
             and vendors of the fire fighting equipment, appliances and devices) may be required to pay additional charges
             and fees other than the Fire Safety Inspection Fees. These shall be collected during inspection or in another
@@ -625,6 +625,7 @@
 <script>
     $(function(){
         $(window).on("load", function(){
+            alert("Don't forget to set the size to A4.");
             window.print();
         })
     });

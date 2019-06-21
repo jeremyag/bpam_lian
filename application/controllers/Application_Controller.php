@@ -566,6 +566,37 @@
                 $this->load->view("applications/print_view");
             }
         }
+
+        public function basic_information_form(){
+            if($this->input->get("action") == "edit"){
+                if($this->input->get("id")){
+                    $this->load->view("applications/basic_information_form", array(
+                        "application"=>$this->Application_Model->get_application_from_id($this->input->get("id"))
+                    ));
+                }
+            }
+        }
+
+        public function other_information_form(){
+            if($this->input->get("action") == "edit"){
+                if($this->input->get("id")){
+                    $this->load->view("applications/other_information_form", array(
+                        "business"=>$this->Business_Model->get_business_from_id($this->input->get("id"))
+                    ));
+                }
+            }
+        }
+
+        public function business_activity_form(){
+            if($this->input->get("action") == "edit"){
+                if($this->input->get("id")){
+                    $this->load->view("applications/business_activity_form", array(
+                        "isNew"=>$this->input->get("isNew"),
+                        "business_activity"=>$this->Business_Activity_Model->get_business_activity_from_id($this->input->get("id"))
+                    ));
+                }
+            }
+        }
     }
 
 ?>

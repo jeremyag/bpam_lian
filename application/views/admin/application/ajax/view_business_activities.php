@@ -33,7 +33,9 @@
         <td class="text-center"><?=$ba->non_essential_receipts?></td>
         <?php endif;?>
         <?php if(can_edit()):?>
-        <td class="text-center"><a href="#ba-<?=$ba->id?>" class="text-danger"><i class="fa fa-trash"></i></a> <a class="text-secondary" href="#ba-<?=$ba->id?>"><i class="fa fa-pen"></i></a></td>
+        <td class="text-center">
+            <a href="#ba-<?=$ba->id?>" data-gaction="delete_business_activity" data-id="<?=$ba->id?>" data-base_url="<?=base_url().add_index()?>" class="text-danger gModal-btn"><i class="fa fa-trash"></i></a> 
+            <a class="text-secondary gModal-btn" data-isnew="<?=$application->isNew?>" data-gaction="edit_business_activity" data-id="<?=$ba->id?>" data-base_url="<?=base_url().add_index()?>" href="#ba-<?=$ba->id?>"><i class="fa fa-pen"></i></a></td>
         <?php endif;?>
     </tr>
     <?php endforeach; ?>
@@ -48,3 +50,4 @@
     <button class="btn btn-primary">Add</button>
     <?php endif;?>
 </div>
+<script src="<?php echo base_url();?>assets/js/bpm_lian.js"></script>

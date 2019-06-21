@@ -71,15 +71,15 @@
             </div>
             <div class="card-body">
                 <div style="text-align: right">
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-secondary">Edit</button>
+                    <button class="btn btn-danger gModal-btn" data-gaction="delete_application_main" data-id="<?=$application->id?>" data-base_url="<?=base_url().add_index()?>">Delete</button>
+                    <button class="btn btn-secondary gModal-btn" data-gaction="edit_application_main" data-id="<?=$application->id?>" data-base_url="<?=base_url().add_index()?>">Edit</button>
                 </div>
                 <h2 style="text-align: center">Application #<?=$application->id?></h2>
                 <br>
                 <h5>BASIC INFORMATION</h5>
                 <table class="table table-sm table-bordered table-hover">
                     <tr>
-                        <td colspan="6" style="width: 50%">Type: <span class="value"><?=$application->get_date_of_application('Y-m-d')?></span></td>
+                        <td colspan="6" style="width: 50%">Type: <span class="value"><?=$business->type?></span></td>
                         <td colspan="6" style="width: 50%">Mode of Payment: <span class="value"><?=$business->mode_of_payment?></span></td>
                     </tr>
                     <tr>

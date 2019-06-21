@@ -31,6 +31,11 @@ $(function(){
 		);
 	};
 
+	let setGmodalMessage = function(message){
+		$("#gModal-body").empty();
+		$("#gModal-body").html(message);
+	}
+
 	$(".gModal-btn").on("click", function () {
 		$("#gModal").modal("show");
 
@@ -39,7 +44,7 @@ $(function(){
 		let base_url = "";
 		let _data = {open:1};
 		let _type = "get";
-		let loading = "#loading";
+		let loading = "#g-loading";
 
 		let gaction = me.data("gaction");
 
@@ -100,6 +105,54 @@ $(function(){
 			};
 
 			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_assessment_form");
+		}
+
+		if (gaction == "edit_application_main") {
+			setGmodalTitle("Edit Application");
+
+			base_url = me.data("base_url")+"Application_Controller/basic_information_form";
+
+			_data = {
+				id: me.data("id"),
+				action: "edit"
+			}
+		}
+
+		if(gaction == "delete_application_main"){
+			setGmodalTitle("Delete Application");
+			$(loading).css("display", "none");
+			setGmodalMessage("Are you sure you want to delete this application? (This cannot be undone once deleted.)");
+		}
+
+		if(gaction == "edit_other_information"){
+			setGmodalTitle("Edit Other Information");
+
+			base_url = me.data("base_url")+"Application_Controller/other_information_form";
+
+			_data = {
+				id: me.data("id"),
+				action: "edit"
+			}
+		}
+
+		if(gaction == "delete_business_activity"){
+			setGmodalTitle("Delete Business Activity");
+			$(loading).css("display", "none");
+			setGmodalMessage("Are you sure you want to delete this Business Activity? (This cannot be undone once deleted.)");
+		}
+
+		if(gaction == "edit_business_activity"){
+			setGmodalTitle("Edit Business Activity");
+			
+			base_url = me.data("base_url") + "Application_Controller/business_activity_form";
+
+			_data = {
+				id: me.data("id"),
+				isNew: me.data("isnew"),
+				action: "edit"
+			}
+
+			console.table(_data);
 		}
 
 		if(base_url !== ""){

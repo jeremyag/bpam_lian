@@ -131,7 +131,9 @@ class Admin extends CI_Controller
     public function step2(){
         $this->acccount_check();
 
-        $data = array('view'=>'admin/application/step2_view');
+        $data = array(
+            'view'=>'admin/application/step2_view'
+        );
 
         if($this->session->userdata('application_form')){
             $data = array_merge($data, $this->setApplicationInstanceArray());
