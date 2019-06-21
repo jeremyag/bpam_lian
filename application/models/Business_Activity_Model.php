@@ -25,5 +25,13 @@
 
             return $query->result("Business_Activity");
         }
+
+        public function get_business_activity_from_id($id){
+            $sql = "SELECT * FROM business_activity WHERE id = ?";
+
+            $query = $this->db->query($sql, $id);
+
+            return $query->result("Business_Activity")[0];
+        }
     }
 ?>
