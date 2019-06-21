@@ -1,8 +1,9 @@
 <br>
 <div class="row">
     <div class="col-md-12">
-        <div class="alert alert-danger">
+        <div class="alert alert-danger text-right">
             <a href="<?php echo base_url().add_index();?>admin/step1" class="btn btn-danger btn-lg"><i class="fa fa-folder-plus"></i> New Application</a>
+            <a href="<?php echo base_url().add_index();?>Application_Controller/print" target="_blank" class="btn btn-primary btn-lg"><i class="fa fa-print"></i> Print Form</a>
         </div>
     </div>
 </div>
