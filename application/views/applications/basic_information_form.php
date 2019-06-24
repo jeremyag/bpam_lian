@@ -6,6 +6,7 @@
     }
 ?>
 <h4>1. BASIC INFORMATION</h4>
+<input type="hidden" name="application_id" value="<?=$application->id?>"/>
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">

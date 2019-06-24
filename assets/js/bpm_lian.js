@@ -153,8 +153,6 @@ $(function(){
 				isNew: me.data("isnew"),
 				action: "edit"
 			}
-
-			console.table(_data);
 		}
 
 		if(base_url !== ""){

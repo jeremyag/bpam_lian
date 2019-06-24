@@ -627,6 +627,10 @@
         $(window).on("load", function(){
             alert("Don't forget to set the size to A4.");
             window.print();
-        })
+        });
+
+        $(window).on("afterprint", function(){
+            window.close();
+        });
     });
 </script>
