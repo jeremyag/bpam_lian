@@ -33,5 +33,11 @@
 
             return $query->result("Business_Activity")[0];
         }
+
+        public function delete($id){
+            $sql = "DELETE FROM business_activity WHERE id = $id";
+
+            $this->db->query($sql);
+        }
     }
 ?>

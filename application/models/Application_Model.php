@@ -303,5 +303,22 @@
 
             $this->db->query($sql);
         }
+
+        public function delete($id){
+            $application = $this->Application_Model->get_application_from_id($id);
+
+            $ba = $application->get_business_activities();
+
+            if(count($ba)){
+                foreach($ba as $a){
+                    $sql = "DELETE FROM `business_activity` WHERE id = ".$a->id;
+
+                    $this->db->query($sql);
+                }
+            }
+            $sql = "DELETE FROM `application` WHERE id = $id";
+
+            $this->db->query($sql);
+        }
     }
 ?>

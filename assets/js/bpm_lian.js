@@ -123,7 +123,10 @@ $(function(){
 		if(gaction == "delete_application_main"){
 			setGmodalTitle("Delete Application");
 			$(loading).css("display", "none");
-			setGmodalMessage("Are you sure you want to delete this application? (This cannot be undone once deleted.)");
+			let app_id = me.data("id");
+			setGmodalMessage("Are you sure you want to delete this application? (This cannot be undone once deleted.) <input type='hidden' value='" + app_id + "' name='application_id'>");
+
+			setGmodalFormAction(me.data("base_url") + "Application_Controller/delete_application");
 		}
 
 		if(gaction == "edit_other_information"){
@@ -143,7 +146,11 @@ $(function(){
 		if(gaction == "delete_business_activity"){
 			setGmodalTitle("Delete Business Activity");
 			$(loading).css("display", "none");
-			setGmodalMessage("Are you sure you want to delete this Business Activity? (This cannot be undone once deleted.)");
+			let id = me.data("id");
+			let app_id = me.data("app_id");
+			setGmodalMessage("Are you sure you want to delete this Business Activity? (This cannot be undone once deleted.)  <input type='hidden' value='" + app_id + "' name='application_id'> <input type='hidden' value='" + id + "' name='id'>");
+
+			setGmodalFormAction(me.data("base_url") + "Application_Controller/delete_business_activity");
 		}
 
 		if(gaction == "edit_business_activity"){
@@ -159,6 +166,20 @@ $(function(){
 			}
 
 			setGmodalFormAction(me.data("base_url") + "Application_Controller/submit_business_activity_form");
+		}
+
+		if(gaction == "add_business_activity"){
+			setGmodalTitle("Add Business Activity");
+
+			base_url = me.data("base_url")+ "Application_Controller/business_activity_form";
+
+			_data = {
+				app_id: me.data("app_id"),
+				isNew: me.data("isnew"),
+				action: "add"
+			}
+
+			setGmodalFormAction(me.data("base_url") + "Application_Controller/add_business_activity");
 		}
 
 		if(base_url !== ""){

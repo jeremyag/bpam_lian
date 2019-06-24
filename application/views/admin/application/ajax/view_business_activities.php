@@ -34,8 +34,20 @@
         <?php endif;?>
         <?php if(can_edit()):?>
         <td class="text-center">
+            <?php if(can_delete(array(
+                "application"=>array(
+                    "status"=>$application->get_current_status()
+                )
+            ))): ?>
             <a href="#ba-<?=$ba->id?>" data-gaction="delete_business_activity" data-app_id="<?=$application->id?>" data-id="<?=$ba->id?>" data-base_url="<?=base_url().add_index()?>" class="text-danger gModal-btn"><i class="fa fa-trash"></i></a> 
-            <a class="text-secondary gModal-btn" data-isnew="<?=$application->isNew?>" data-app_id="<?=$application->id?>" data-gaction="edit_business_activity" data-id="<?=$ba->id?>" data-base_url="<?=base_url().add_index()?>" href="#ba-<?=$ba->id?>"><i class="fa fa-pen"></i></a></td>
+            <?php endif;?>
+            <?php if(can_edit(array(
+                "application"=>array(
+                    "status"=>$application->get_current_status()
+                )
+            ))): ?>
+            <a href="#ba-<?=$ba->id?>" class="text-secondary gModal-btn" data-isnew="<?=$application->isNew?>" data-app_id="<?=$application->id?>" data-gaction="edit_business_activity" data-id="<?=$ba->id?>" data-base_url="<?=base_url().add_index()?>" href="#ba-<?=$ba->id?>"><i class="fa fa-pen"></i></a></td>
+            <?php endif;?>
         <?php endif;?>
     </tr>
     <?php endforeach; ?>
@@ -46,8 +58,12 @@
     <?php endif;?>
 </table>
 <div class="text-right">
-    <?php if(can_add()): ?>
-    <button class="btn btn-primary">Add</button>
+    <?php if(can_add(array(
+        "application"=>array(
+            "status"=>$application->get_current_status()
+        )
+    ))): ?>
+    <button class="btn btn-primary gModal-btn" data-isnew="<?=$application->isNew?>" data-gaction="add_business_activity" data-app_id="<?=$application->id?>" data-base_url="<?=base_url().add_index()?>">Add</button>
     <?php endif;?>
 </div>
 <script src="<?php echo base_url();?>assets/js/bpm_lian.js"></script>

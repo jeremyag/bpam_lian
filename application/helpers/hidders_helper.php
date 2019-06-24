@@ -12,6 +12,12 @@
             return false;
         }
     }
+    
+    /*
+            APPLICATION
+        ["application"] =>
+            ["status"] = {Unverified, Missing Docs, On Assessment, Done}
+    */
 
     if ( ! function_exists('can_edit'))
     {
@@ -19,6 +25,20 @@
             if(is_treasurer()){
                 return false;
             }
+
+            /*
+                APPLICATION CHECKING
+            */
+            if(isset($array["application"])){
+                $application = $array["application"];
+                if(isset($application["status"])){
+                    $s = $application["status"];
+                    if($s != "unverified"){
+                        return false;
+                    }
+                }
+            }
+
             return true;
         }
     }    
@@ -29,6 +49,44 @@
             if(is_treasurer()){
                 return false;
             }
+
+            /*
+                APPLICATION CHECKING
+            */
+            if(isset($array["application"])){
+                $application = $array["application"];
+                if(isset($application["status"])){
+                    $s = $application["status"];
+                    if($s != "unverified"){
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+    }   
+
+    if ( ! function_exists('can_delete'))
+    {
+        function can_delete($array = array()){
+            if(is_treasurer()){
+                return false;
+            }
+
+            /*
+                APPLICATION CHECKING
+            */
+            if(isset($array["application"])){
+                $application = $array["application"];
+                if(isset($application["status"])){
+                    $s = $application["status"];
+                    if($s != "unverified"){
+                        return false;
+                    }
+                }
+            }
+            
             return true;
         }
     }   

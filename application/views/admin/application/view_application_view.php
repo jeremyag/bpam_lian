@@ -71,8 +71,20 @@
             </div>
             <div class="card-body">
                 <div style="text-align: right">
+                    <?php if(can_delete(array(
+                        "application"=>array(
+                            "status"=>$application->get_current_status()
+                        )
+                    ))): ?>
                     <button class="btn btn-danger gModal-btn" data-gaction="delete_application_main" data-id="<?=$application->id?>" data-base_url="<?=base_url().add_index()?>">Delete</button>
+                    <?php endif;?>
+                    <?php if(can_edit(array(
+                        "application"=>array(
+                            "status"=>$application->get_current_status()
+                        )
+                    ))): ?>
                     <button class="btn btn-secondary gModal-btn" data-gaction="edit_application_main" data-id="<?=$application->id?>" data-base_url="<?=base_url().add_index()?>">Edit</button>
+                    <?php endif;?>
                 </div>
                 <h2 style="text-align: center">Application #<?=$application->id?></h2>
                 <br>

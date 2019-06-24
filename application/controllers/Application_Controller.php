@@ -652,6 +652,13 @@
                     ));
                 }
             }
+
+            if($this->input->get("action") == "add"){
+                $this->load->view("applications/business_activity_form", array(
+                    "isNew"=>$this->input->get("isNew"),
+                    "application"=>$this->Application_Model->get_application_from_id($this->input->get("app_id"))
+                ));
+            }
         }
 
         public function submit_business_activity_form(){
@@ -667,6 +674,26 @@
 
                 redirect(base_url().add_index()."admin/view_application?id=".$this->input->post("application_id"));
             }
+        }
+
+        public function add_business_activity(){
+            if($this->input->post("application_id")){
+                $this->Business_Activity_Model->insert($_POST);
+            }
+
+            redirect(base_url().add_index()."admin/view_application?id=".$this->input->post("application_id"));
+        }
+
+        public function delete_business_activity(){
+            $this->Business_Activity_Model->delete($this->input->post("id"));
+
+            redirect(base_url().add_index()."admin/view_application?id=".$this->input->post("application_id"));
+        }
+
+        public function delete_application(){
+            $this->Application_Model->delete($this->input->post("application_id"));
+
+            redirect(base_url().add_index()."admin/applications");
         }
     }
 
