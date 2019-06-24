@@ -577,6 +577,29 @@
             }
         }
 
+        public function submit_basic_information_form(){
+            if($this->input->post("application_id")){
+                $this->Application_Model->update_basic_information(
+                    $application_id = $this->input->post("application_id"), 
+                    $mode_of_payment = $this->input->post("form_mode_of_payment"), 
+                    $date_application = $this->input->post("form_date_application"), 
+                    $dti_reg_no = $this->input->post("form_dti_registration_no"), 
+                    $tin = $this->input->post("form_tin"), 
+                    $dti_reg_date = $this->input->post("form_dti_registration_date"), 
+                    $type = $this->input->post("form_type_of_business"), 
+                    $amendment_from = $this->input->post("form_amendment_from"), 
+                    $amendment_to = $this->input->post("amendment_to"), 
+                    $tax_incentives = $this->input->post("form_tax_incentives"), 
+                    $last_name = $this->input->post("form_taxpayer_last_name"), 
+                    $first_name = $this->input->post("form_taxpayer_first_name"), 
+                    $middle_name = $this->input->post("form_taxpayer_middle_name"), 
+                    $business_name = $this->input->post("form_business_name"), 
+                    $trade_name = $this->input->post("form_trade_name"));
+
+                redirect(base_url().add_index()."admin/view_application?id=".$this->input->post("application_id"));
+            }
+        }
+
         public function other_information_form(){
             if($this->input->get("action") == "edit"){
                 if($this->input->get("id")){
