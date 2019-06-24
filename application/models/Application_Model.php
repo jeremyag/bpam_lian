@@ -225,5 +225,68 @@
 
             $this->db->query($sql);
         }
+
+        public function update_other_information($business_id, $street, $brgy, $postal_code, $email, $mobile, $telephone, $owner_street, $owner_brgy, $owner_city, $owner_province, $owner_postal_code, $owner_email, $owner_mobile, $owner_telephone, $ecd_full_name, $ecd_telephone, $ecd_email, $business_area, $total_no_employees, $no_lgu_residing){
+            $business = $this->Business_Model->get_business_from_id($business_id);
+
+            $business_address = $business->get_business_address();
+
+            $sql = "UPDATE
+                        `business_address`
+                    SET
+                        `street` = '$street',
+                        `brgy` = '$brgy',
+                        `postal_code` = '$postal_code',
+                        `email` = '$email',
+                        `mobile` = '$mobile',
+                        `telephone` = '$telephone'
+                    WHERE id = ".$business_address->id;
+
+            $this->db->query($sql);
+
+            $owner = $business->get_owner();
+
+            $sql = "UPDATE
+                        `owner`
+                    SET
+                        `street` = '$owner_street',
+                        `brgy` = '$owner_brgy',
+                        `city` = '$owner_city',
+                        `province` = '$owner_province',
+                        `postal_code` = '$owner_postal_code',
+                        `email` = '$owner_email',
+                        `mobile` = '$owner_mobile',
+                        `telephone` = '$owner_telephone'
+                    WHERE 
+                        `id` = ".$owner->id;
+            
+            $this->db->query($sql);
+
+            $ecd = $business->get_emergency_contact_details();
+
+            $sql = "UPDATE
+                        `emergency_contact_details`
+                    SET
+                        `full_name` = '$ecd_full_name',
+                        `telephone` = '$ecd_telephone',
+                        `email` = '$ecd_email'
+                    WHERE 
+                        `id` = ".$ecd->id;
+
+            $this->db->query($sql);
+            
+            $bd = $business->get_business_details();
+
+            $sql = "UPDATE
+                        `business_details`
+                    SET
+                        `business_area` = $business_area,
+                        `total_no_employees` = $total_no_employees,
+                        `no_lgu_residing` = $no_lgu_residing
+                    WHERE
+                        `id` = ".$bd->id;
+
+            $this->db->query($sql);
+        }
     }
 ?>
