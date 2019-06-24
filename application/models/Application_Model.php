@@ -175,5 +175,55 @@
 
             return $result->row(0);
         }
+
+        public function update_basic_information($application_id, $mode_of_payment, $date_application, $dti_reg_no, $tin, $dti_reg_date, $type, $amendment_from, $amendment_to, $tax_incentives, $last_name, $first_name, $middle_name, $business_name, $trade_name){
+            $application = $this->Application_Model->get_application_from_id($application_id);
+
+            $business = $application->get_business();
+
+            $business_id = $business->id;
+
+            $sql = "UPDATE 
+                        `business` 
+                    SET 
+                        `mode_of_payment` = '$mode_of_payment',
+                        `dti_reg_no` = '$dti_reg_no',
+                        `dti_reg_date` = '$dti_reg_date',
+                        `type` = '$type',
+                        `tax_incentives` = '$tax_incentives',
+                        `business_name` = '$business_name',
+                        `trade_name` = '$trade_name'
+                    WHERE 
+                        `id` = $business_id";
+
+            $this->db->query($sql);
+
+            $sql = "UPDATE 
+                        `application`
+                    SET
+                        `date_of_application` = '$date_application',
+                        `amendment_from` = '$amendment_from',
+                        `amendment_to` = '$amendment_to'
+                    WHERE
+                        `id` = $application_id";
+            
+            $this->db->query($sql);
+
+            $owner = $business->get_owner();
+
+            $owner_id = $owner->id;
+
+            $sql = "UPDATE 
+                        `owner`
+                    SET 
+                        `tin` = '$tin',
+                        `last_name` = '$last_name',
+                        `first_name` = '$first_name',
+                        `middle_name` = '$middle_name'
+                    WHERE
+                        `id` = $owner_id";
+
+            $this->db->query($sql);
+        }
     }
 ?>
