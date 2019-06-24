@@ -147,5 +147,6 @@ $autoload['model'] = array(
     'Verification_Document_Details_Model',
     'Assessment_Fees_List_Model',
     'Assessment_Fees_Model',
-    'Table_Model'
+    'Table_Model',
+    'License_Model'
 );
