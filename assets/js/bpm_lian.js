@@ -182,6 +182,20 @@ $(function(){
 			setGmodalFormAction(me.data("base_url") + "Application_Controller/add_business_activity");
 		}
 
+		if(gaction == "add_license"){
+			setGmodalTitle("Add License");
+
+			base_url = me.data("base_url") + "Application_Controller/license_form";
+
+			_data = {
+				b_id: me.data("business_id"),
+				a_id: me.data("application_id"),
+				action: "add"
+			}
+
+			setGmodalFormAction(me.data("base_url") + "Application_Controller/add_license_form");
+		}
+
 		if(base_url !== ""){
 			$.ajax({
 				url: base_url,

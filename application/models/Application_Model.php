@@ -105,6 +105,12 @@
 
             return $color;
         }
+
+        public function get_license(){
+            $CI =& get_instance();
+
+            return $CI->License_Model->get_licenses_from_application_id($this->id);
+        }
     }
 
     class Application_Model extends CI_Model{

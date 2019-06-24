@@ -72,6 +72,12 @@
                 return false;
             }
         }
+
+        public function get_current_license(){
+            $CI =& get_instance();
+
+            return $CI->get_licenses_from_business_id($this->id, "current");
+        }
     }
 
     class Business_Model extends CI_Model{

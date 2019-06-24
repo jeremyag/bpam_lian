@@ -22,7 +22,7 @@
         <br>
         <?php $status = $application->get_status(); ?>
         <?php if($status->isVerified == 0):?>
-        <div class="alert alert-danger">
+        <div class="alert alert-<?=$application->get_bootstrap_color()?>">
             <div class="row">
                 <div class="col-md-6">
                     <p><b>Status:</b> This application hasn't been verified.</p>
@@ -33,7 +33,7 @@
             </div>
         </div>
         <?php elseif($status->verifyAgain == 1):?>
-        <div class="alert alert-danger">
+        <div class="alert alert-<?=$application->get_bootstrap_color()?>">
             <div class="row">
                 <div class="col-md-6">
                     <p><b>Status:</b> This application has been marked as <b>Unverified</b>. It's still missing some documents.</p>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <?php elseif($status->isAssessed == 0):?>
-        <div class="alert alert-warning">
+        <div class="alert alert-<?=$application->get_bootstrap_color()?>">
             <div class="row">
                 <div class="col-md-6">
                     <p><b>Status:</b> This application hasn't been assessed by the treasurer.</p>
@@ -54,6 +54,19 @@
                 </div> -->
             </div>
         </div>
+        <?php else:?>
+        <?php if(!$application->get_license()):?>
+        <div class="alert alert-<?=$application->get_bootstrap_color()?>">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><b>Status:</b> This application is marked as Done. You may now add the license.</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="#" class="btn btn-primary gModal-btn" data-application_id="<?=$application->id?>" data-gaction="add_license" data-base_url="<?=base_url().add_index()?>" data-business_id="<?=$business->id?>">Add License</a>
+                </div>
+            </div>
+        </div>
+        <?php endif;?>
         <?php endif;?>
         <div class="card">
             <div class="card-header">

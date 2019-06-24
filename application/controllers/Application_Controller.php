@@ -695,6 +695,19 @@
 
             redirect(base_url().add_index()."admin/applications");
         }
+
+        public function license_form(){
+            $this->load->view("applications/license_form", array(
+                "business_id" => $this->input->get("b_id"),
+                "applicaiton_id"=>$this->input->get("a_id")
+            ));
+        }
+
+        public function add_license_form(){
+            $this->License_Model->insert($this->input->post());
+
+            redirect(base_url().add_index()."_business?id=".$this->input->post("business_id"));
+        }
     }
 
 ?>

@@ -153,6 +153,10 @@
                 _data = {ld_id: <?=$business->get_lessor_details() ? $business->get_lessor_details()->id : "'NULL'"?>};
             }
 
+            if(id === "licenses"){
+                _base_url = "<?=base_url().add_index()?>_business/licenses";
+                _data = {b_id: <?=$business->id?>};
+            }
             ajaxSend(_base_url, _data);
         });     
 
