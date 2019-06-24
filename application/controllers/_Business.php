@@ -59,5 +59,13 @@
                 ));
             }
         }
+
+        public function licenses(){
+            if($this->input->get("b_id")){
+                $this->load->view("business/licenses_view", array(
+                    "l"=>$this->License_Model->get_licenses_from_business_id($this->input->get("b_id"))
+                ));
+            }
+        }
     }
 ?>
