@@ -83,6 +83,22 @@
             return $this->db->insert_id();
         }
 
+        public function get_all_businesses(){
+            $sql = "SELECT
+                        *
+                    FROM
+                        `business` b
+                    WHERE 
+                        1=1
+                    ORDER BY
+                        b.id
+                    DESC";
+            
+            $query = $this->db->query($sql);
+
+            return $query->result("Business");
+        }
+
         public function get_business_from_id($id){
             $sql = "SELECT * FROM `business` WHERE id = ?";
 
