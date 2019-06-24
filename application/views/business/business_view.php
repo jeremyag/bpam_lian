@@ -138,6 +138,11 @@
                 _data = {o_id: <?=$business->get_owner()->id?>};
             }
 
+            if(id === "emergency_contact"){
+                _base_url = "<?=base_url().add_index()?>_business/emergency_contact_details";
+                _data = {ecd_id: <?=$business->get_emergency_contact_details()->id?>};
+            }
+
             ajaxSend(_base_url, _data);
         });     
 

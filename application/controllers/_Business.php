@@ -32,5 +32,13 @@
                 ));
             }
         }
+
+        public function emergency_contact_details(){
+            if($this->input->get("ecd_id")){
+                $this->load->view("business/emergency_contact_details_view", array(
+                    "ecd"=>$this->Emergency_Contact_Details_Model->get_emergency_contact_details_from_id($this->input->get("ecd_id"))
+                ));
+            }
+        }
     }
 ?>
