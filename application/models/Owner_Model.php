@@ -41,7 +41,7 @@
 
     class Owner_Model extends CI_Model{
         public function insert($owner){
-            $sql = "INSERT INTO `owner` VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO `owner` (`id`, `tin`, `last_name`, `first_name`, `middle_name`, `street`, `brgy`, `city`, `province`, `postal_code`, `email`, `mobile`, `telephone`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $this->db->query($sql, $owner);
 

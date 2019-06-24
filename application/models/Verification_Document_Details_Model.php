@@ -9,7 +9,7 @@
 
     class Verification_Document_Details_Model extends CI_Model{
         public function insert($verification){
-            $sql = "INSERT INTO verification_document_details VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO verification_document_details (`id`, `application_id`, `description`, `office_agency`, `remarks`) VALUES (?, ?, ?, ?, ?)";
 
             $this->db->query($sql, $verification);
 

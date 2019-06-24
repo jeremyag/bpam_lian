@@ -26,7 +26,7 @@
     class User_Model extends CI_Model{
         public function register($param){
             //Set an SQL Insert Query.
-            $sql = "INSERT INTO user VALUES ('', ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+            $sql = "INSERT INTO user (`id`, `first_name`, `middle_name`, `last_name`, `username`, `password`, `email`, `contact_no`, `gender`, `position`, `isActive`) VALUES ('', ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
             //Query the SQL to the database.
             $this->db->query($sql, $param);

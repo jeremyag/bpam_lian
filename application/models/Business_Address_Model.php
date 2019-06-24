@@ -26,7 +26,7 @@
 
     class Business_Address_Model extends CI_Model{
         public function insert($business_address){
-            $sql = "INSERT INTO `business_address` VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO `business_address` (`id`, `street`, `brgy`, `postal_code`, `email`, `mobile`, `telephone`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             $this->db->query($sql, $business_address);
 

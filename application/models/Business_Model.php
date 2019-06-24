@@ -76,7 +76,7 @@
 
     class Business_Model extends CI_Model{
         public function insert($business){
-            $sql = "INSERT INTO business VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO business (`id`, `bp_no`, `mode_of_payment`, `dti_reg_no`, `dti_reg_date`, `type`, `category`, `tax_incentives`, `trade_name`, `business_name`, `emergency_contact_details_id`, `owner_id`, `business_details_id`, `business_address_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $this->db->query($sql, $business);
 

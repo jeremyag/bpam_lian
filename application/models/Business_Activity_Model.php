@@ -11,7 +11,7 @@
 
     class Business_Activity_Model extends CI_Model{
         public function insert($business_activity){
-            $sql = "INSERT INTO `business_activity` VALUES (?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO `business_activity` (`id`, `application_id`, `line_of_business`, `no_of_units`, `capitalization`, `essential_receipts`, `non_essential_receipts`) VALUES (?,?,?,?,?,?,?)";
 
             $this->db->query($sql, $business_activity);
 

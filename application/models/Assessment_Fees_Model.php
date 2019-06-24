@@ -13,7 +13,7 @@
 
     class Assessment_Fees_Model extends CI_Model{
         public function insert($assessment){
-            $sql = "INSERT INTO assessment_fees VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO assessment_fees (`id`, `application_id`, `local_taxes`, `amount_due`, `penalty_subcharge`) VALUES (?, ?, ?, ?, ?)";
 
             $this->db->query($sql, $assessment);
 

@@ -21,7 +21,7 @@
         }
 
         public function insert($local_taxes){
-            $sql = "INSERT INTO assessment_fees_list VALUES (0,'$local_taxes')";
+            $sql = "INSERT INTO assessment_fees_list (`id`, `local_taxes`) VALUES (0,'$local_taxes')";
 
             $this->db->query($sql);
 

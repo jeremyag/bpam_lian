@@ -90,7 +90,7 @@
 
     class Application_Model extends CI_Model{
         public function insert($application){
-            $sql = "INSERT INTO `application` VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO `application` (`id`, `code`, `isNew`, `date_of_application`, `amendment_from`, `amendment_to`, `municipality`, `business_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             $this->db->query($sql, $application);
 
