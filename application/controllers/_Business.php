@@ -16,5 +16,13 @@
                 ));
             }
         }
+
+        public function business_address(){
+            if($this->input->get("ba_id")){
+                $this->load->view("business/business_address_view", array(
+                    "ba"=>$this->Business_Address_Model->get_business_address_from_id($this->input->get("ba_id"))
+                ));
+            }
+        }
     }
 ?>

@@ -109,9 +109,8 @@
         let _data = {
             bd_id: <?=$business->get_business_details()->id?>
         };
+
         let _base_url = "<?=base_url().add_index()?>_business/business_details";
-        
-        ajaxSend(_base_url, _data);
         
         $(".nav-link").on("click", function(){
             $("#sub-info").empty();
@@ -124,14 +123,19 @@
 
             $("#loading").css("display", "block");
 
-            if(id === "business_detail"){
+            if(id === "business_details"){
                 _base_url = "<?=base_url().add_index()?>_business/business_details";
                 _data = {bd_id: <?=$business->get_business_details()->id?>};
             }
-            else if(id === "business_address"){
+            
+            if(id === "business_address"){
                 _base_url = "<?=base_url().add_index()?>_business/business_address";
+                _data = {ba_id: <?=$business->get_business_address()->id?>};
             }
+
             ajaxSend(_base_url, _data);
         });     
+
+        ajaxSend(_base_url, _data);
     });
 </script>
