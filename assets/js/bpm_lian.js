@@ -116,6 +116,8 @@ $(function(){
 				id: me.data("id"),
 				action: "edit"
 			}
+
+			setGmodalFormAction(me.data("base_url") + "Application_Controller/submit_basic_information_form");
 		}
 
 		if(gaction == "delete_application_main"){
