@@ -133,6 +133,11 @@
                 _data = {ba_id: <?=$business->get_business_address()->id?>};
             }
 
+            if(id === "owner_details"){
+                _base_url = "<?=base_url().add_index()?>_business/owner_details";
+                _data = {o_id: <?=$business->get_owner()->id?>};
+            }
+
             ajaxSend(_base_url, _data);
         });     
 

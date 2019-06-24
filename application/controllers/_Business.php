@@ -24,5 +24,13 @@
                 ));
             }
         }
+
+        public function owner_details(){
+            if($this->input->get("o_id")){
+                $this->load->view("business/owner_details_view", array(
+                    "o"=>$this->Owner_Model->get_owner_from_id($this->input->get("o_id"))
+                ));
+            }
+        }
     }
 ?>
