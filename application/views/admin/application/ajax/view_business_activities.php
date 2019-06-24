@@ -34,8 +34,8 @@
         <?php endif;?>
         <?php if(can_edit()):?>
         <td class="text-center">
-            <a href="#ba-<?=$ba->id?>" data-gaction="delete_business_activity" data-id="<?=$ba->id?>" data-base_url="<?=base_url().add_index()?>" class="text-danger gModal-btn"><i class="fa fa-trash"></i></a> 
-            <a class="text-secondary gModal-btn" data-isnew="<?=$application->isNew?>" data-gaction="edit_business_activity" data-id="<?=$ba->id?>" data-base_url="<?=base_url().add_index()?>" href="#ba-<?=$ba->id?>"><i class="fa fa-pen"></i></a></td>
+            <a href="#ba-<?=$ba->id?>" data-gaction="delete_business_activity" data-app_id="<?=$application->id?>" data-id="<?=$ba->id?>" data-base_url="<?=base_url().add_index()?>" class="text-danger gModal-btn"><i class="fa fa-trash"></i></a> 
+            <a class="text-secondary gModal-btn" data-isnew="<?=$application->isNew?>" data-app_id="<?=$application->id?>" data-gaction="edit_business_activity" data-id="<?=$ba->id?>" data-base_url="<?=base_url().add_index()?>" href="#ba-<?=$ba->id?>"><i class="fa fa-pen"></i></a></td>
         <?php endif;?>
     </tr>
     <?php endforeach; ?>

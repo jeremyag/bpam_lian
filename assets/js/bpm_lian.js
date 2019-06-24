@@ -133,8 +133,11 @@ $(function(){
 
 			_data = {
 				id: me.data("id"),
+				app_id: me.data("app_id"),
 				action: "edit"
 			}
+
+			setGmodalFormAction(me.data("base_url") + "Application_Controller/submit_other_information_form");
 		}
 
 		if(gaction == "delete_business_activity"){
@@ -150,9 +153,12 @@ $(function(){
 
 			_data = {
 				id: me.data("id"),
+				app_id: me.data("app_id"),
 				isNew: me.data("isnew"),
 				action: "edit"
 			}
+
+			setGmodalFormAction(me.data("base_url") + "Application_Controller/submit_business_activity_form");
 		}
 
 		if(base_url !== ""){

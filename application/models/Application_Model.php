@@ -288,5 +288,20 @@
 
             $this->db->query($sql);
         }
+
+        public function submit_business_activity($business_activity_id, $line_of_business, $no_of_units, $capitalization, $essential_receipts, $non_essential_receipts){
+            $sql = "UPDATE 
+                        `business_activity`
+                    SET
+                        `line_of_business` = '$line_of_business',
+                        `no_of_units` = $no_of_units,
+                        `capitalization` = $capitalization,
+                        `essential_receipts` = $essential_receipts,
+                        `non_essential_receipts` = $non_essential_receipts
+                    WHERE
+                        `id` = $business_activity_id";
+
+            $this->db->query($sql);
+        }
     }
 ?>

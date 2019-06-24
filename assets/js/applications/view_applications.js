@@ -4,7 +4,8 @@ $(function(){
         dataType: "html",
         type: "get",
         data: {
-            business_id: business
+            business_id: business,
+            app_id: application
         },
         success: function (html) {
             $("#loading").css("display", "none");
@@ -25,7 +26,8 @@ $(function(){
             dataType: "html",
             type: "get",
             data: {
-                business_id : business
+                business_id : business,
+                app_id: application
             },
             success: function(html){
                 $("#loading").css("display", "none");

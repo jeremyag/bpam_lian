@@ -511,7 +511,8 @@
         public function view_other_information(){
             if($this->input->get('business_id')){
                 $data = array(
-                    'business'=>$this->Business_Model->get_business_from_id($this->input->get('business_id'))
+                    'business'=>$this->Business_Model->get_business_from_id($this->input->get('business_id')),
+                    'application'=>$this->Application_Model->get_application_from_id($this->input->get('app_id'))
                 );
 
                 $this->load->view("admin/application/ajax/view_other_information", $data);
@@ -604,9 +605,40 @@
             if($this->input->get("action") == "edit"){
                 if($this->input->get("id")){
                     $this->load->view("applications/other_information_form", array(
-                        "business"=>$this->Business_Model->get_business_from_id($this->input->get("id"))
+                        "business"=>$this->Business_Model->get_business_from_id($this->input->get("id")),
+                        "application"=>$this->Application_Model->get_application_from_id($this->input->get("app_id"))
                     ));
                 }
+            }
+        }
+
+        public function submit_other_information_form(){
+            if($this->input->post("business_id")){
+                    $this->Application_Model->update_other_information(
+                        $business_id = $this->input->post("business_id"), 
+                        $street = $this->input->post("form_business_sitio"), 
+                        $brgy = $this->input->post("form_business_brgy"), 
+                        $postal_code = $this->input->post("form_business_postal"), 
+                        $email = $this->input->post("form_business_email"), 
+                        $mobile = $this->input->post("form_business_tel_no"), 
+                        $telephone = $this->input->post("form_business_mobile_no"),
+                        $owner_street = $this->input->post("form_owner_sitio"),
+                        $owner_brgy = $this->input->post("form_owner_brgy"), 
+                        $owner_city = $this->input->post("form_owner_municipality"), 
+                        $owner_province = $this->input->post("form_owner_province"), 
+                        $owner_postal_code = $this->input->post("form_owner_postal"), 
+                        $owner_email = $this->input->post("form_owner_email"), 
+                        $owner_mobile = $this->input->post("form_owner_mobile_no"), 
+                        $owner_telephone = $this->input->post("form_owner_tel_no"), 
+                        $ecd_full_name = $this->input->post("form_emergency_person"), 
+                        $ecd_telephone = $this->input->post("form_emergency_contact"), 
+                        $ecd_email = $this->input->post("form_emergency_email"), 
+                        $business_area = $this->input->post("form_business_area"), 
+                        $total_no_employees = $this->input->post("form_employee_no"), 
+                        $no_lgu_residing = $this->input->post("form_employee_lgu")
+                    );
+                
+                    redirect(base_url().add_index()."admin/view_application?id=".$this->input->post("application_id"));
             }
         }
 
@@ -615,9 +647,25 @@
                 if($this->input->get("id")){
                     $this->load->view("applications/business_activity_form", array(
                         "isNew"=>$this->input->get("isNew"),
-                        "business_activity"=>$this->Business_Activity_Model->get_business_activity_from_id($this->input->get("id"))
+                        "business_activity"=>$this->Business_Activity_Model->get_business_activity_from_id($this->input->get("id")),
+                        "application"=> $this->Application_Model->get_application_from_id($this->input->get("app_id"))
                     ));
                 }
+            }
+        }
+
+        public function submit_business_activity_form(){
+            if($this->input->post("id")){
+                $this->Application_Model->submit_business_activity(
+                    $business_activity_id = $this->input->post("id"), 
+                    $line_of_business = $this->input->post("line_of_business"), 
+                    $no_of_units = $this->input->post("no_of_units"), 
+                    $capitalization = $this->input->post("capitalization"), 
+                    $essential_receipts = $this->input->post("gross_sales_essential"), 
+                    $non_essential_receipts = $this->input->post("gross_sales_non_essentials")
+                );
+
+                redirect(base_url().add_index()."admin/view_application?id=".$this->input->post("application_id"));
             }
         }
     }

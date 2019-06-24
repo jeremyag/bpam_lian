@@ -9,7 +9,7 @@
 ?>
 <div style="text-align: right">
     <?php if(can_edit()):?>
-        <button class="btn btn-secondary gModal-btn" data-gaction="edit_other_information" data-id="<?=$business->id?>" data-base_url="<?=base_url().add_index()?>">Edit</button>
+        <button class="btn btn-secondary gModal-btn" data-app_id="<?=$application->id?>" data-gaction="edit_other_information"  data-id="<?=$business->id?>" data-base_url="<?=base_url().add_index()?>">Edit</button>
     <?php endif;?>
 </div>
     <h5>OTHER INFORMATION</h5>

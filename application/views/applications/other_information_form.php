@@ -1,6 +1,7 @@
 <?php 
     $isset = isset($business);
     if($isset){
+
         $owner = $business->get_owner();
         $business_address = $business->get_business_address();
         $business_details = $business->get_business_details();
@@ -12,6 +13,8 @@
     }
 ?>
 <h4>2. OTHER INFORMATION</h4>
+<input type="hidden" name="business_id" value="<?=($isset ? $business->id : "")?>"/>
+<input type="hidden" name="application_id" value="<?=($isset ? $application->id : "")?>"/>
 <div class="card card-body">
     <h5>Business Address:</h5>
     <div class="row">
