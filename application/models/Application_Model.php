@@ -86,6 +86,25 @@
                 return "done";
             }
         }
+
+        public function get_bootstrap_color(){
+            $status = $this->get_current_status();
+            $color = "";
+            if($status == "unverified"){
+                $color = "danger";
+            }
+            elseif($status == "missing-docs"){
+                $color = "warning";
+            }
+            elseif($status == "on-assessment"){
+                $color = "success";
+            }
+            elseif($status == "done"){
+                $color = "primary";
+            }
+
+            return $color;
+        }
     }
 
     class Application_Model extends CI_Model{
