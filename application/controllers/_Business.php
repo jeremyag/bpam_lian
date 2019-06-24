@@ -48,5 +48,16 @@
                 ));
             }
         }
+
+        public function lessor(){
+            if($this->input->get("ld_id")){
+                $ld = $this->Lessor_Details_Model->get_lessor_details_from_id($this->input->get("ld_id"));
+                
+                $this->load->view("business/lessor_view", array(
+                    "ld"=>$ld,
+                    "l"=>$ld->get_lessor()
+                ));
+            }
+        }
     }
 ?>

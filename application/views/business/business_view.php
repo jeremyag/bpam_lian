@@ -68,7 +68,7 @@
                         <a class="nav-link" id="emergency_contact" href="#business-activity">Emergency Contact Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="lessor" href="#business-activity">Lessor</a>
+                        <a class="nav-link <?=$business->get_lessor_details() ? "" : "disabled"?>"  id="lessor" href="#business-activity">Lessor</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="applications" href="#business-activity">Applications</a>
@@ -146,6 +146,11 @@
             if(id === "applications"){
                 _base_url = "<?=base_url().add_index()?>_business/applications";
                 _data = {b_id: <?=$business->id?>};
+            }
+
+            if(id === "lessor"){
+                _base_url = "<?=base_url().add_index()?>_business/lessor";
+                _data = {ld_id: <?=$business->get_lessor_details() ? $business->get_lessor_details()->id : "'NULL'"?>};
             }
 
             ajaxSend(_base_url, _data);

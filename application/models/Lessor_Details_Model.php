@@ -35,5 +35,13 @@
 
             return $query->row(0, 'Lessor_Details');
         }
+
+        public function get_lessor_details_from_id($id){
+            $sql = "SELECT * FROM lessor_details WHERE id = ?";
+
+            $query = $this->db->query($sql, $id);
+
+            return $query->row(0, 'Lessor_Details');
+        }
     }
 ?>
