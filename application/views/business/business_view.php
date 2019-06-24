@@ -80,11 +80,11 @@
             </div>
             <div class="card-body">
                 <br>
-                <div id="loading" style="display: none" class="text-center">
+                <div id="loading" class="text-center">
                     <img src="<?=base_url()?>assets/img/loading.gif">
                 </div>
                 <div id="sub-info">
-                
+
                 </div>
             </div>
         </div>
@@ -92,7 +92,30 @@
 </div>
 <script>
     $(function(){
+        let ajaxSend = function(_base_url, _data){
+            $.ajax({
+                url: _base_url,
+                dataType: "html",
+                type: "get",
+                data: _data,
+                success: function (html) {
+                    $("#loading").css("display", "none");
+                    $("#sub-info").empty();
+                    $("#sub-info").append(html);
+                }
+            });
+        }
+
+        let _data = {
+            bd_id: <?=$business->get_business_details()->id?>
+        };
+        let _base_url = "<?=base_url().add_index()?>_business/business_details";
+        
+        ajaxSend(_base_url, _data);
+        
         $(".nav-link").on("click", function(){
+            $("#sub-info").empty();
+            
             let id = this.id;
 
             $(".nav-link").removeClass("active");
@@ -100,6 +123,15 @@
             $("#"+id).addClass("active");
 
             $("#loading").css("display", "block");
-        });
+
+            if(id === "business_detail"){
+                _base_url = "<?=base_url().add_index()?>_business/business_details";
+                _data = {bd_id: <?=$business->get_business_details()->id?>};
+            }
+            else if(id === "business_address"){
+                _base_url = "<?=base_url().add_index()?>_business/business_address";
+            }
+            ajaxSend(_base_url, _data);
+        });     
     });
 </script>

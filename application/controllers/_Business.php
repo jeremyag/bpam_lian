@@ -8,5 +8,13 @@
                 ));
             }
         }
+
+        public function business_details(){
+            if($this->input->get("bd_id")){
+                $this->load->view("business/business_details_view",array(
+                    "bd"=>$this->Business_Details_Model->get_business_details_from_id($this->input->get("bd_id"))
+                ));
+            }
+        }
     }
 ?>
