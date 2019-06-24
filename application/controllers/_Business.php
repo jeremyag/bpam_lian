@@ -40,5 +40,13 @@
                 ));
             }
         }
+
+        public function applications(){
+            if($this->input->get("b_id")){
+                $this->load->view("business/applications_view", array(
+                    "as"=>$this->Application_Model->get_all_application($filter = " AND a.`business_id` = ".$this->input->get("b_id"), $order_by = "a.`id` DESC", $limit = "0, 1000",$join = "", $type="all")
+                ));
+            }
+        }
     }
 ?>

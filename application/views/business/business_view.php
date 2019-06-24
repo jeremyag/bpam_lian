@@ -143,6 +143,11 @@
                 _data = {ecd_id: <?=$business->get_emergency_contact_details()->id?>};
             }
 
+            if(id === "applications"){
+                _base_url = "<?=base_url().add_index()?>_business/applications";
+                _data = {b_id: <?=$business->id?>};
+            }
+
             ajaxSend(_base_url, _data);
         });     
 
