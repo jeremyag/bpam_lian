@@ -54,7 +54,8 @@ class Admin extends CI_Controller
         $this->acccount_check();
 
         $data = array(
-            'view'=>'admin/businesses/businesses_view'
+            'view'=>'admin/businesses/businesses_view',
+            'businesses'=>$this->Business_Model->get_all_businesses()
         );
         $this->load->view('admin/main_view', $data);
     }
