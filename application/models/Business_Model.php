@@ -51,7 +51,7 @@
         public function get_emergency_contact_details(){
             $CI =& get_instance();
 
-            return $CI->Emergency_Contact_Details_Model->get_emergency_contact_details_from_id($this->emegency_contact_details_id);
+            return $CI->Emergency_Contact_Details_Model->get_emergency_contact_details_from_id($this->emergency_contact_details_id);
         }
 
         public function get_business_details(){

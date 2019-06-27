@@ -456,36 +456,105 @@
             if($this->session->userdata('application_form')){
                 $application_form = $this->session->userdata('application_form');
 
-                
-                // Insert Owner
-                $owner_id = $this->Owner_Model->insert($application_form["owner"]);
+                if($application_form["application"]["isNew"]){
+                    // THIS IS FOR NEW APPLICATIONS
 
-                // Insert Business_Address
-                $business_address_id = $this->Business_Address_Model->insert($application_form['business_address']);
+                    // Insert Owner
+                    $owner_id = $this->Owner_Model->insert($application_form["owner"]);
 
-                // Insert Business_Details
-                $business_details_id = $this->Business_Details_Model->insert($application_form['business_details']);
+                    // Insert Business_Address
+                    $business_address_id = $this->Business_Address_Model->insert($application_form['business_address']);
 
-                // Insert Emergency_Contact_Details
-                $emergency_contact_details_id = $this->Emergency_Contact_Details_Model->insert($application_form['emergency_contact']);
+                    // Insert Business_Details
+                    $business_details_id = $this->Business_Details_Model->insert($application_form['business_details']);
 
-                // Insert Business
-                $application_form['business']['emergency_contact_details_id'] = $emergency_contact_details_id;
-                $application_form['business']['owner_id'] = $owner_id;
-                $application_form['business']['business_details_id'] = $business_details_id;
-                $application_form['business']['business_address_id'] = $business_address_id;
+                    // Insert Emergency_Contact_Details
+                    $emergency_contact_details_id = $this->Emergency_Contact_Details_Model->insert($application_form['emergency_contact']);
 
-                $business_id = $this->Business_Model->insert($application_form['business']);
+                    // Insert Business
+                    $application_form['business']['emergency_contact_details_id'] = $emergency_contact_details_id;
+                    $application_form['business']['owner_id'] = $owner_id;
+                    $application_form['business']['business_details_id'] = $business_details_id;
+                    $application_form['business']['business_address_id'] = $business_address_id;
 
-                // Insert Lessor
-                if($application_form['lessor']['full_name'] != "" && $application_form['lessor']['full_address'] != ""){
-                    $lessor_id = $this->Lessor_Model->insert($application_form["lessor"]);
+                    $business_id = $this->Business_Model->insert($application_form['business']);
 
-                    // Insert Lessor_Details
-                    $application_form['lessor_details']['lessor_id'] = $lessor_id;
-                    $application_form['lessor_details']['business_id'] = $business_id;
+                    // Insert Lessor
+                    if($application_form['lessor']['full_name'] != "" && $application_form['lessor']['full_address'] != ""){
+                        $lessor_id = $this->Lessor_Model->insert($application_form["lessor"]);
 
-                    $lessor_details_id = $this->Lessor_Details_Model->insert($application_form['lessor_details']);
+                        // Insert Lessor_Details
+                        $application_form['lessor_details']['lessor_id'] = $lessor_id;
+                        $application_form['lessor_details']['business_id'] = $business_id;
+
+                        $lessor_details_id = $this->Lessor_Details_Model->insert($application_form['lessor_details']);
+                    }
+                }
+                else{
+                    print_r($application_form);
+                    // FOR RENEWALS
+                    
+                    // Update Owner
+                    $owner_id = $application_form["owner"]["id"];
+                    $owner = $application_form["owner"];
+                    unset($owner["id"]);
+
+                    $this->Owner_Model->update($owner_id, $owner);
+
+                    // Update Business_Address
+                    $business_address_id = $application_form["business_address"]["id"];
+                    $business_address = $application_form["business_address"];
+                    unset($business_address["id"]);
+
+                    $this->Business_Address_Model->update($business_address_id, $business_address);
+
+                    // Update Business_Details
+                    $business_details_id = $application_form["business_details"]["id"];
+                    $business_details = $application_form["business_details"];
+                    unset($business_details["id"]);
+
+                    $this->Business_Details_Model->update($business_details_id, $business_details);
+
+                    // Update Emergency_Contact_Details
+                    $emergency_contact_details_id = $application_form["emergency_contact"]["id"];
+                    $emergency_contact = $application_form["emergency_contact"];
+                    unset($emergency_contact["id"]);
+
+                    $this->Emergency_Contact_Details_Model->update($emergency_contact_details_id, $emergency_contact);
+
+                    // Update Business
+                    $business_id = $application_form["business"]["id"];
+                    $business = $application_form["business"];;
+                    unset($business["id"]);
+
+                    $this->Business_Model->update($business_id, $business);
+
+                    // Update Lessor
+                    if($application_form['lessor']['id'] != ""){
+                        $lessor_id = $application_form["lessor"]["id"];
+                        $lessor = $application_form["lessor"];
+                        unset($lessor["id"]);
+
+                        $this->Lessor_Model->update($lessor_id, $lessor);
+
+                        // Insert Lessor_Details
+                        $lessor_details_id = $application_form["lessor_details"]["id"];
+                        $lessor_details = $application_form["lessor_details"];
+                        unset($lessor_details["id"]);
+
+                        $this->Lessor_Details_Model->update($lessor_details_id, $lessor_details);
+                    }
+                    elseif($application_form["lessor"]["id"] == "" && $application_form["lessor"]["full_name"] != "" && $application_form["lessor"]["full_address"] != ""){
+                        $lessor_id = $this->Lessor_Model->insert($application_form["lessor"]);
+
+                        // Insert Lessor_Details
+                        $application_form['lessor_details']['lessor_id'] = $lessor_id;
+                        $application_form['lessor_details']['business_id'] = $business_id;
+
+                        $lessor_details_id = $this->Lessor_Details_Model->insert($application_form['lessor_details']);
+                    }
+
+                    // Update Lessor Lessor_Details
                 }
 
                 $application_form['application']['business_id'] = $business_id;
