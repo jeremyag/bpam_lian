@@ -735,7 +735,7 @@
 
         public function auto_license_search(){
             $keyword = $this->input->get("keyword");
-            $_filter = " AND bp_no LIKE '%$keyword%'";
+            $_filter = " AND b.bp_no != '' AND (CONCAT(b.bp_no, ' - ', b.business_name) LIKE '%$keyword%' OR b.bp_no LIKE '%$keyword%' OR b.business_name LIKE '%$keyword%')";
 
             $businesses = $this->Business_Model->get_all_businesses(
                 $filter = $_filter, 

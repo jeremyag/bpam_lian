@@ -87,6 +87,8 @@
 
     function renewal(){
         $('#collapseExample').collapse('toggle');
+        $("#registration_no").val("");
+        $("#license_no").val("");
     }
 
     open();
