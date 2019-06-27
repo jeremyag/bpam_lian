@@ -22,6 +22,14 @@
             return $this->db->insert_id();
         }
 
+        public function update($id, $ecd){
+            $update_column = build_update_columns($ecd);
+            
+            $sql = "UPDATE `emergency_contact_details` SET $update_column WHERE `id` = $id";
+
+            $this->db->query($sql);
+        }
+
         public function get_emergency_contact_details_from_id($id){
             $sql = "SELECT * FROM emergency_contact_details WHERE id = ?";
 
