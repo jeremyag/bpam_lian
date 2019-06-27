@@ -89,6 +89,14 @@
             return $this->db->insert_id();
         }
 
+        public function update($id, $b){
+            $update_column = build_update_columns($b);
+            
+            $sql = "UPDATE `business` SET $update_column WHERE `id` = $id";
+
+            $this->db->query($sql);
+        }
+
         public function get_all_businesses($filter = "", $order_by = "b.`id` DESC", $limit = "0, 1000",$join = "", $type="all"){
             $sql = "SELECT
                         *
