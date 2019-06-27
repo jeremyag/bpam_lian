@@ -48,6 +48,14 @@
             return $this->db->insert_id();
         }
 
+        public function update($id, $owner){
+            $update_column = build_update_columns($owner);
+            
+            $sql = "UPDATE `owner` SET $update_column WHERE `id` = $id";
+
+            $this->db->query($sql);
+        }
+
         public function get_owner_from_id($id){
             $sql = "SELECT * FROM `owner` WHERE id = ?";
 
