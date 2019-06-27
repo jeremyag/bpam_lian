@@ -33,6 +33,14 @@
             return $this->db->insert_id();
         }
 
+        public function update($id, $ba){
+            $update_column = build_update_columns($ba);
+            
+            $sql = "UPDATE `business_address` SET $update_column WHERE `id` = $id";
+
+            $this->db->query($sql);
+        }
+
         public function get_business_address_from_id($id){
             $sql = "SELECT * FROM `business_address` WHERE id = ?";
 
