@@ -372,7 +372,7 @@
 
                 $lessor_details = array(
                     'id'=>$application_form['lessor_details']["id"],
-                    'business_id'=>$application_form['lessor_details']["business_id"],
+                    'business_id'=>$application_form['business']["id"],
                     'lessor_id'=>$application_form['lessor_details']["lessor_id"],
                     'monthly_rental'=>$this->input->post('form_lessor_rental')
                 );

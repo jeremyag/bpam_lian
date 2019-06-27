@@ -328,6 +328,8 @@ class Admin extends CI_Controller
 
         $data = array('view'=>'admin/application/step5_view');
 
+        $data = array_merge($data, $this->setApplicationInstanceArray());
+
         if($this->input->post('submit')){
             redirect(add_index().'admin/submit_application');
         }
