@@ -24,6 +24,14 @@
             return $this->db->insert_id();
         }
 
+        public function update($id, $l){
+            $update_column = build_update_columns($l);
+            
+            $sql = "UPDATE `lessor` SET $update_column WHERE `id` = $id";
+
+            $this->db->query($sql);
+        }
+
         public function get_lessor_from_id($id){
             $sql = "SELECT * FROM lessor WHERE id = ?";
 
