@@ -796,6 +796,18 @@
                 "results" => $businesses
             ));
         }
+
+        public function auto_license_message(){
+            $no = $this->input->get("license_no");
+
+            $license = $this->License_Model->get_licenses_from_license_no($no);
+
+            if($license->get_status() == "Expired"){
+                echo '<div style="border: 1px solid #8a7d2b; margin-top: 5px; border-radius: 3px; padding: 5px; text-align: center">
+                                        <i class="fa fa-exclamation-triangle"></i> This license has been expired since '.$license->get_date_end().' ['.$license->get_license_expired_days().' day(s) ago]
+                                    </div>';
+            }
+        }
     }
 
 ?>

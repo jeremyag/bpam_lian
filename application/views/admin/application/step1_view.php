@@ -46,8 +46,12 @@
                                 <div id="auto-search">
                                 
                                 </div>
+                                <div id="message" style="margin-top: 25px">
+                                    
+                                </div>
                                 <script>
                                     $("#registration_no").on("keyup", function(e){
+                                        $("#message").empty();
                                         $("#business_id").val("");
                                         $("#registration_no").addClass("border-danger");
                                         $("#registration_no").removeClass("border-success");

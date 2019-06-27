@@ -13,6 +13,19 @@
             return "Expired";
         }
 
+        public function get_date_end($format = "Y-m-d"){
+            $date_end = new DateTime($this->date_end);
+            return $date_end->format($format);
+        }
+
+        public function get_license_expired_days(){
+            $current_date = new DateTime();
+            $date_end = new DateTime($this->date_end);
+            $sub = date_diff($current_date, $date_end);
+
+            return $sub->days;
+        }
+
         public function get_bootstrap_color(){
             if($this->get_status() == "Active"){
                 return "success";
@@ -47,6 +60,14 @@
                 return false;
             }
             
+        }
+
+        public function get_licenses_from_license_no($license){
+            $sql = "SELECT * FROM license WHERE license_no = '$license'";
+            
+            $query = $this->db->query($sql);
+
+            return $query->result("License")[0];
         }
 
         public function insert($array){

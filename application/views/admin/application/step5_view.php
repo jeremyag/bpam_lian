@@ -20,7 +20,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-bordered table-sm text-center">
-                                <!--                                                    TODO: To set showing of Capitalization / Gross for renewal-->
                                 <thead>
                                 <tr>
                                     <th rowspan="2">Line of Business</th>
