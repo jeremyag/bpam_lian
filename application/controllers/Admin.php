@@ -120,12 +120,11 @@ class Admin extends CI_Controller
         $data = array('view'=>'admin/application/step1_view');
 
         if($this->input->post('submit')){
+            // Create an empty application form;
             if($this->input->post("form_type_application") == 2){
-                // Get old record of business;
-                $orb = $this->Business_Model->get_business_from_id($this->input->post("business_id"));
+                $_business = $this->Business_Model->get_business_from_id($this->input->post("business_id"));
 
-                // Create an application instance based on dating records
-                $application =  array(
+                $application = array(
                     'id'=>'',
                     'code'=>'',
                     'isNew'=>0,
@@ -133,57 +132,146 @@ class Admin extends CI_Controller
                     'amendment_from'=>'',
                     'amendment_to'=>'',
                     'municipality'=>'Lian,Batangas',
-                    'business_id'=>$orb->id
+                    'business_id'=>$_business->id
                 );
 
-                $oro = $orb->get_owner();
+                $owner = (array) $_business->get_owner();
 
-                //Create Owner array instance
-                $owner = array(
-                    'id'=>$oro->id,
-                    'tin'=>$oro->tin,
-                    'last_name'=>$oro->last_name,
-                    'first_name'=>$oro->first_name,
-                    'middle_name'=>$oro->middle_name,
-                    'street'=>$oro->street,
-                    'brgy'=>$oro->brgy,
-                    'city'=>$oro->city,
-                    'province'=>$oro->province,
-                    'postal_code'=>$oro->postal_code,
-                    'email'=>$oro->email,
-                    'mobile'=>$oro->mobile,
-                    'telephone'=>$oro->telephone
+                $business = (array) $_business;
 
-                );
+                $business_address = (array) $_business->get_business_address();
 
-                //Create Business array instance
-                $business = array(
-                    'id'=>$orb->id,
-                    'bp_no'=>$orb->bp_no,
-                    'mode_of_payment'=>$orb->mode_of_payment,
-                    'dti_reg_no'=>$orb->dti_reg_no,
-                    'dti_reg_date'=>$orb->dti_reg_date,
-                    'type'=>$orb->type,
-                    'category'=>$orb->category,
-                    'tax_incentives'=>$orb->tax_incentives,
-                    'trade_name'=>$orb->trade_name,
-                    'business_name'=>$orb->business_name,
-                    'emergency_contact_details_id'=>$orb->emergency_contact_details_id,
-                    'owner_id'=>$orb->owner_id,
-                    'business_details_id'=>$orb->business_details_id,
-                    'business_address_id'=>$orb->business_address_id
-                );
+                $emergency_contact = (array) $_business->get_emergency_contact_details();
 
-                $orb = array(
-                    'application_form'=> array(
-                        'application'=>$application,
-                        'owner'=>$owner,
-                        'business'=>$business
-                    )
-                );
+                $business_details = (array) $_business->get_business_details();
 
-                $this->session->set_userdata($orb);
+                if($_business->get_lessor_details()){
+                    $lessor_details = (array) $_business->get_lessor_details();
+
+                    $lessor = (array) $_business->get_lessor_details()->get_lessor();
+                }
+                else{
+                    $lessor = array(
+                        'id'=>'',
+                        'full_name'=>'',
+                        'full_address'=>'',
+                        'contact'=>'',
+                        'email'=>''
+                    );
+
+                    $lessor_details = array(
+                        'id'=>'',
+                        'business_id'=>'',
+                        'lessor_id'=>'',
+                        'monthly_rental'=>''
+                    );
+                }
+
+                $business_activities = array();
             }
+            else{
+                $application = array(
+                        'id'=>'',
+                        'code'=>'',
+                        'isNew'=>1,
+                        'date_of_application'=>date("Y-m-d"),
+                        'amendment_from'=>'',
+                        'amendment_to'=>'',
+                        'municipality'=>'Lian,Batangas',
+                        'business_id'=>''
+                );
+
+                $owner = array(
+                    'id'=>'',
+                    'tin'=>'',
+                    'last_name'=>'',
+                    'first_name'=>'',
+                    'middle_name'=>'',
+                    'street'=>'',
+                    'brgy'=>'',
+                    'city'=>'',
+                    'province'=>'',
+                    'postal_code'=>'',
+                    'email'=>'',
+                    'mobile'=>'',
+                    'telephone'=>''
+                );
+                
+                $business = array(
+                    'id'=>'',
+                    'bp_no'=>'',
+                    'mode_of_payment'=>'',
+                    'dti_reg_no'=>'',
+                    'dti_reg_date'=>'',
+                    'type'=>'',
+                    'category'=>'',
+                    'tax_incentives'=>'',
+                    'trade_name'=>'',
+                    'business_name'=>'',
+                    'emergency_contact_details_id'=>'',
+                    'owner_id'=>'',
+                    'business_details_id'=>'',
+                    'business_address_id'=>''
+                );
+
+                $business_address = array(
+                    'id'=>'',
+                    'street'=>'',
+                    'brgy'=>'',
+                    'postal_code'=>'',
+                    'email'=>'',
+                    'mobile'=>'',
+                    'telephone'=>''
+                );
+
+                $emergency_contact = array(
+                    'id'=>'',
+                    'full_name'=>'',
+                    'telephone'=>'',
+                    'email'=>''
+                );
+
+                $business_details = array(
+                    'id'=>'',
+                    'business_area'=>'',
+                    'total_no_employees'=>'',
+                    'no_lgu_residing'=>''
+                );
+
+                $lessor = array(
+                    'id'=>'',
+                    'full_name'=>'',
+                    'full_address'=>'',
+                    'contact'=>'',
+                    'email'=>''
+                );
+
+                $lessor_details = array(
+                    'id'=>'',
+                    'business_id'=>'',
+                    'lessor_id'=>'',
+                    'monthly_rental'=>''
+                );
+
+                $business_activities = array();
+            }
+
+            $application_form = array(
+                "application_form"=>array(
+                    "application"=>$application,
+                    "owner"=>$owner,
+                    "business"=>$business,
+                    "business_address"=>$business_address,
+                    "emergency_contact" => $emergency_contact,
+                    "business_details" => $business_details,
+                    "lessor" => $lessor,
+                    "lessor_details" => $lessor_details,
+                    "business_activities"=>$business_activities
+                )
+            );
+
+            $this->session->set_userdata($application_form);
+            
             redirect(add_index().'admin/step2');
         }
         else if($this->input->post('cancel')){
