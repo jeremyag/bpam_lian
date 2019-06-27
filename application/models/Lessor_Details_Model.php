@@ -28,6 +28,14 @@
             return $this->db->insert_id();
         }
 
+        public function update($id, $ld){
+            $update_column = build_update_columns($ld);
+            
+            $sql = "UPDATE `lessor_details` SET $update_column WHERE `id` = $id";
+
+            $this->db->query($sql);
+        }
+
         public function get_lessor_details_from_business_id($id){
             $sql = "SELECT * FROM lessor_details WHERE business_id = ?";
 
