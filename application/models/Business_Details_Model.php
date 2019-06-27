@@ -22,6 +22,14 @@
             return $this->db->insert_id();
         }
 
+        public function update($id, $bd){
+            $update_column = build_update_columns($bd);
+            
+            $sql = "UPDATE `business_details` SET $update_column WHERE `id` = $id";
+
+            $this->db->query($sql);
+        }
+
         public function get_business_details_from_id($id){
             $sql = "SELECT * FROM business_details WHERE id = ?";
 
