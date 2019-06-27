@@ -54,6 +54,10 @@
 
             $this->db->query($sql, $array);
 
+            $updata = sprintf("UPDATE `business` SET bp_no = '%s' WHERE id = %s", $array["license_no"], $array["business_id"]);
+
+            $this->db->query($updata);
+
             return $this->db->insert_id();
         }
     }
