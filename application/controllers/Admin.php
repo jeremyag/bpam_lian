@@ -120,6 +120,70 @@ class Admin extends CI_Controller
         $data = array('view'=>'admin/application/step1_view');
 
         if($this->input->post('submit')){
+            if($this->input->post("form_type_application") == 2){
+                // Get old record of business;
+                $orb = $this->Business_Model->get_business_from_id($this->input->post("business_id"));
+
+                // Create an application instance based on dating records
+                $application =  array(
+                    'id'=>'',
+                    'code'=>'',
+                    'isNew'=>0,
+                    'date_of_application'=>date("Y-m-d"),
+                    'amendment_from'=>'',
+                    'amendment_to'=>'',
+                    'municipality'=>'Lian,Batangas',
+                    'business_id'=>$orb->id
+                );
+
+                $oro = $orb->get_owner();
+
+                //Create Owner array instance
+                $owner = array(
+                    'id'=>$oro->id,
+                    'tin'=>$oro->tin,
+                    'last_name'=>$oro->last_name,
+                    'first_name'=>$oro->first_name,
+                    'middle_name'=>$oro->middle_name,
+                    'street'=>$oro->street,
+                    'brgy'=>$oro->brgy,
+                    'city'=>$oro->city,
+                    'province'=>$oro->province,
+                    'postal_code'=>$oro->postal_code,
+                    'email'=>$oro->email,
+                    'mobile'=>$oro->mobile,
+                    'telephone'=>$oro->telephone
+
+                );
+
+                //Create Business array instance
+                $business = array(
+                    'id'=>$orb->id,
+                    'bp_no'=>$orb->bp_no,
+                    'mode_of_payment'=>$orb->mode_of_payment,
+                    'dti_reg_no'=>$orb->dti_reg_no,
+                    'dti_reg_date'=>$orb->dti_reg_date,
+                    'type'=>$orb->type,
+                    'category'=>$orb->category,
+                    'tax_incentives'=>$orb->tax_incentives,
+                    'trade_name'=>$orb->trade_name,
+                    'business_name'=>$orb->business_name,
+                    'emergency_contact_details_id'=>$orb->emergency_contact_details_id,
+                    'owner_id'=>$orb->owner_id,
+                    'business_details_id'=>$orb->business_details_id,
+                    'business_address_id'=>$orb->business_address_id
+                );
+
+                $orb = array(
+                    'application_form'=> array(
+                        'application'=>$application,
+                        'owner'=>$owner,
+                        'business'=>$business
+                    )
+                );
+
+                $this->session->set_userdata($orb);
+            }
             redirect(add_index().'admin/step2');
         }
         else if($this->input->post('cancel')){

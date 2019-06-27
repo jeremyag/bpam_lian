@@ -25,7 +25,7 @@
         let value = $(this).data("val");
         let real = $(this).data("real");
         $("#registration_no").val(value);
-        $("#license_no").val(real);
+        $("#business_id").val(real);
         $("#auto-search").empty();
     });
 </script>

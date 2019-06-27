@@ -287,6 +287,7 @@
             }
     
             if($this->input->post('cancel')){
+                $this->cancel_application();
                 redirect(add_index().'admin/applications');
             }
     
@@ -362,6 +363,7 @@
             }
 
             if($this->input->post('cancel')){
+                $this->cancel_application()();
                 redirect(add_index().'admin/applications');
             }
     
@@ -418,6 +420,7 @@
             }
 
             if($this->input->post('cancel')){
+                $this->cancel_application()();
                 redirect(add_index().'admin/applications');
             }
 
@@ -470,6 +473,7 @@
                 redirect(add_index().'Application_Controller/submit_application');
             }
             elseif($this->input->post('cancel')){
+                $this->cancel_application()();
                 redirect(add_index().'admin/applications');
             }
             elseif($this->input->post('back')){
@@ -530,6 +534,10 @@
 
                 redirect(add_index().'admin/submit_application?id='.$application_id);
             }
+        }
+
+        private function cancel_application(){
+            unset($_SESSION['application_form']);
         }
 
         public function view_other_information(){

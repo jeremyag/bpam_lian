@@ -34,7 +34,7 @@
                                     'name'=>'form_registration_no',
                                     'id'=>'registration_no'
                                 ))?>
-                                <input type="hidden" name="license_no">
+                                <input type="hidden" id="business_id" name="business_id">
                                 <div id="auto-search">
                                 
                                 </div>
