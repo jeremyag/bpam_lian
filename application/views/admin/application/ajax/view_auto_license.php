@@ -26,6 +26,11 @@
         let real = $(this).data("real");
         $("#registration_no").val(value);
         $("#business_id").val(real);
+        $("#registration_no").addClass("border-success");
+        $("#registration_no").removeClass("border-danger");
+        $("#loading").css("display", "none");
+        $("#wrong").css("display", "none");
+        $("#ok").css("display", "block");
         $("#auto-search").empty();
     });
 </script>

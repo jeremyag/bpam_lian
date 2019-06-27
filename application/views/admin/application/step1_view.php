@@ -29,17 +29,32 @@
                         <div class="card card-body">
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Current License No.:</label>
-                                <?php echo form_input(array(
-                                    'class'=>'form-control',
-                                    'name'=>'form_registration_no',
-                                    'id'=>'registration_no'
-                                ))?>
+                                <div style="position: sticky;">
+                                    <?php echo form_input(array(
+                                        'class'=>'form-control border-danger',
+                                        'name'=>'form_registration_no',
+                                        'id'=>'registration_no',
+                                        'autocomplete'=>'off'
+                                    ))?>
+                                    <span style="position: absolute; right: 15px; top: 12px;">
+                                        <i id="ok" class="fa fa-check-circle text-success" style="display: none"></i>
+                                        <i id="wrong" class="fa fa-times-circle text-danger"></i>
+                                        <img id="loading" src="<?=base_url().add_index()?>assets/img/loading.gif" style="width: 18px; display:none;">
+                                    </span>
+                                </div>
                                 <input type="hidden" id="business_id" name="business_id">
                                 <div id="auto-search">
                                 
                                 </div>
                                 <script>
                                     $("#registration_no").on("keyup", function(e){
+                                        $("#business_id").val("");
+                                        $("#registration_no").addClass("border-danger");
+                                        $("#registration_no").removeClass("border-success");
+                                        $("#loading").css("display", "block");
+                                        $("#wrong").css("display", "none");
+                                        $("#ok").css("display", "none");
+
                                         let _keyword = $(this).val();
                                         if(_keyword === ""){
                                             $("#auto-search").empty();
