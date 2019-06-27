@@ -4,7 +4,7 @@
         <?=form_open('Application_Controller/step4_submit')?>
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Application</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><?=$application->isNew ? "New Application" : "Renew Application" ?></h5>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-info">
@@ -12,6 +12,9 @@
                         <ol>
                             <li>Make sure to provide accurate information. An incomplete application form will not be saved to the database.</li>
                             <li>Ensure that the form are aligned to the document and all are complete and properly filled out.</li>
+                            <?php if(!$application->isNew): ?>
+                                <li><b><u>FOR RENEWAL APPLICATIONS</u></b> any changes in certain information will reflect once submitted.</li>
+                            <?php endif;?>
                         </ol>
                     </div>
                     <?php if($this->session->flashdata('step4_errors')): ?>

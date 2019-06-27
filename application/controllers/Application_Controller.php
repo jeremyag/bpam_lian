@@ -352,7 +352,7 @@
                 $application_form = $this->session->userdata('application_form');
 
                 $business_details = array(
-                    'id'=>'',
+                    'id'=>$application_form["business_details"]["id"],
                     'business_area'=>$this->input->post('form_business_area'),
                     'total_no_employees'=>$this->input->post('form_employee_no'),
                     'no_lgu_residing'=>$this->input->post('form_employee_lgu')
@@ -361,7 +361,7 @@
                 $application_form['business_details'] = $business_details;
 
                 $lessor = array(
-                    'id'=>'',
+                    'id'=>$application_form['lessor']["id"],
                     'full_name'=>$this->input->post('form_lessor_name'),
                     'full_address'=>$this->input->post('form_lessor_address'),
                     'contact'=>$this->input->post('form_lessor_contact'),
@@ -371,9 +371,9 @@
                 $application_form['lessor'] = $lessor;
 
                 $lessor_details = array(
-                    'id'=>'',
-                    'business_id'=>'',
-                    'lessor_id'=>'',
+                    'id'=>$application_form['lessor_details']["id"],
+                    'business_id'=>$application_form['lessor_details']["business_id"],
+                    'lessor_id'=>$application_form['lessor_details']["lessor_id"],
                     'monthly_rental'=>$this->input->post('form_lessor_rental')
                 );
 
