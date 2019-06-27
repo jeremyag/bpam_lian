@@ -89,16 +89,17 @@
             return $this->db->insert_id();
         }
 
-        public function get_all_businesses(){
+        public function get_all_businesses($filter = "", $order_by = "b.`id` DESC", $limit = "0, 1000",$join = "", $type="all"){
             $sql = "SELECT
                         *
                     FROM
                         `business` b
+                        $join
                     WHERE 
-                        1=1
+                        1 = 1
+                        $filter
                     ORDER BY
-                        b.id
-                    DESC";
+                        $order_by";
             
             $query = $this->db->query($sql);
 

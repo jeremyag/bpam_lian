@@ -732,6 +732,22 @@
 
             redirect(base_url().add_index()."_business?id=".$this->input->post("business_id"));
         }
+
+        public function auto_license_search(){
+            $keyword = $this->input->get("keyword");
+            $_filter = " AND bp_no LIKE '%$keyword%'";
+
+            $businesses = $this->Business_Model->get_all_businesses(
+                $filter = $_filter, 
+                $order_by = "b.`id` DESC", 
+                $limit = "0, 1000",
+                $join = "", 
+                $type="all"
+            );
+            $this->load->view("admin/application/ajax/view_auto_license", array(
+                "results" => $businesses
+            ));
+        }
     }
 
 ?>

@@ -28,11 +28,38 @@
                     <div class="collapse" id="collapseExample">
                         <div class="card card-body">
                             <div class="form-group">
-                                <label for="message-text" class="col-form-label">DTI/SEC/CDA Registration No.::</label>
+                                <label for="message-text" class="col-form-label">Current License No.:</label>
                                 <?php echo form_input(array(
                                     'class'=>'form-control',
-                                    'name'=>'form_registration_no'
+                                    'name'=>'form_registration_no',
+                                    'id'=>'registration_no'
                                 ))?>
+                                <input type="hidden" name="license_no">
+                                <div id="auto-search">
+                                
+                                </div>
+                                <script>
+                                    $("#registration_no").on("keyup", function(e){
+                                        let _keyword = $(this).val();
+                                        if(_keyword === ""){
+                                            $("#auto-search").empty();
+                                        }
+                                        else{
+                                            $.ajax({
+                                                url: "<?=base_url().add_index()?>Application_Controller/auto_license_search",
+                                                dataType: "html",
+                                                type: "get",
+                                                data: {
+                                                    keyword: _keyword
+                                                },
+                                                success: function(html){
+                                                    $("#auto-search").empty();
+                                                    $("#auto-search").append(html);
+                                                }
+                                            });
+                                        }
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>

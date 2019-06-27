@@ -55,7 +55,7 @@ class Admin extends CI_Controller
 
         $data = array(
             'view'=>'admin/businesses/businesses_view',
-            'businesses'=>$this->Business_Model->get_all_businesses()
+            'businesses'=>$this->Business_Model->get_all_businesses($filter = "", $order_by = "b.`id` DESC", $limit = "0, 1000",$join = "", $type="all")
         );
         $this->load->view('admin/main_view', $data);
     }
