@@ -287,7 +287,7 @@
                 $application_form = $this->session->userdata('application_form');
 
                 $business_address = array(
-                    'id'=>'',
+                    'id'=>$_SESSION["application_form"]["business_address"]["id"],
                     'street'=>$this->input->post('form_business_sitio'),
                     'brgy'=>$this->input->post('form_business_brgy'),
                     'postal_code'=>$this->input->post('form_business_postal'),
@@ -314,7 +314,7 @@
 
                 // Set full name, telephone, email (emergency)
                 $emergency_contact = array(
-                    'id'=>'',
+                    'id'=>$_SESSION["application_form"]["emergency_contact"]["id"],
                     'full_name'=>$this->input->post('form_emergency_person'),
                     'telephone'=>$this->input->post('form_emergency_contact'),
                     'email'=>$this->input->post('form_emergency_email')
@@ -334,7 +334,7 @@
             }
 
             if($this->input->post('cancel')){
-                $this->cancel_application()();
+                $this->cancel_application();
                 redirect(add_index().'admin/applications');
             }
     
@@ -391,7 +391,7 @@
             }
 
             if($this->input->post('cancel')){
-                $this->cancel_application()();
+                $this->cancel_application();
                 redirect(add_index().'admin/applications');
             }
 
@@ -444,7 +444,7 @@
                 redirect(add_index().'Application_Controller/submit_application');
             }
             elseif($this->input->post('cancel')){
-                $this->cancel_application()();
+                $this->cancel_application();
                 redirect(add_index().'admin/applications');
             }
             elseif($this->input->post('back')){
