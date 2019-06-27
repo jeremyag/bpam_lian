@@ -8,6 +8,7 @@
                 <th data-status="missing_docs" class="table-status-filter table-warning table-card-filter table-filter-btn">Missing Docs</th>
                 <?php endif;?>
                 <th data-status="assessment" class="table-status-filter table-success table-card-filter table-filter-btn">On Assessment</th>
+                <th data-status="needs-license" class="table-status-filter table-secondary table-card-filter table-filter-btn">Needs License</th>
                 <th data-status="done" class="table-status-filter table-primary table-card-filter table-filter-btn">Done</th>
             </tr>
         </table>
@@ -94,6 +95,7 @@
         <th>Owner</th>
         <th>Is Verified?</th>
         <th>Is Assessed?</th>
+        <th>Is Licensed?</th>
     </tr>
     </thead>
     <tbody id="rows">

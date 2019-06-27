@@ -119,7 +119,31 @@
                                 (SELECT COUNT(*) FROM assessment_fees WHERE application_id = a.id) > 0,
                             1,
                             0
-                            )) = 1 ";
+                            )) = 1
+                            AND
+                                (SELECT IF(
+                                    (SELECT 
+                                        COUNT(*)
+                                    FROM
+                                        license
+                                    WHERE application_id = a.id) > 0, 1, 0
+                                )) = 1";
+            }
+            elseif($status == "needs-license"){
+                $filter = "AND
+                            (SELECT IF(
+                                (SELECT COUNT(*) FROM assessment_fees WHERE application_id = a.id) > 0,
+                            1,
+                            0
+                            )) = 1 
+                            AND
+                                (SELECT IF(
+                                    (SELECT 
+                                        COUNT(*)
+                                    FROM
+                                        license
+                                    WHERE application_id = a.id) > 0, 1, 0
+                                )) = 0";
             }
             return $filter;
         }

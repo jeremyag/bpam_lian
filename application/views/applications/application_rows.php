@@ -18,7 +18,8 @@
     }
 
     $isVerified = ($a->get_current_status() == "unverified" || $a->get_current_status() == "missing-docs" ? '<i class="fa fa-times-circle text-danger"></i>' : '<i class="fa fa-check-circle text-success"></i>');
-    $isAssessed = ($a->get_current_status() == "done" ? '<i class="fa fa-check-circle text-success"></i>' : '<i class="fa fa-times-circle text-danger"></i>');
+    $isAssessed = ($a->get_current_status() == "needs-license" || $a->get_current_status() == "done" ? '<i class="fa fa-check-circle text-success"></i>' : '<i class="fa fa-times-circle text-danger"></i>');
+    $isLicensed = ($status->isLicensed == 1 ? '<i class="fa fa-check-circle text-success"></i>' : '<i class="fa fa-times-circle text-danger"></i>');
 ?>
 <tr class="<?=$color?> row-clickable" onclick="rowClick('view_application','id','<?=$a->id?>')">
     <?php $b = $a->get_business(); ?>
@@ -30,6 +31,7 @@
     <td><?=$b->get_owner()->get_full_name() ?></td>
     <td class="text-center"><?=$isVerified?></td>
     <td class="text-center"><?=$isAssessed?></td>
+    <td class="text-center"><?=$isLicensed?></td>
 </tr>
 <?php endforeach;?>
 <?php endif;?>

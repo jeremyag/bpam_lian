@@ -83,7 +83,10 @@
                 return "on-assessment";
             }
             elseif($status->isAssessed == 1){
-                return "done";
+                if($this->get_license()){
+                    return "done";
+                }
+                return "needs-license";
             }
         }
 
@@ -194,7 +197,15 @@
                             (SELECT COUNT(*) FROM assessment_fees WHERE application_id = $id) > 0,
                             1,
                             0
-                        ) AS isAssessed";
+                        ) AS isAssessed,
+                        IF(
+                            (SELECT 
+                                COUNT(*)
+                            FROM
+                                license
+                            WHERE application_id = $id) > 0, 1, 0
+                        ) AS isLicensed";
+
             
             $result = $this->db->query($sql);
 
