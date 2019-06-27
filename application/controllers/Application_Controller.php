@@ -217,64 +217,35 @@
             $this->form_validation->set_rules('form_trade_name', 'Trade Name/Franchise', 'required|trim');
             $this->form_validation->set_rules('form_business_name', 'Business Name', 'required|trim');
 
-            //Create application array instance
-            $application =  array(
-                'id'=>'',
-                'code'=>'',
-                'isNew'=>1,
-                'date_of_application'=>$this->input->post('form_date_application'),
-                'amendment_from'=>$this->input->post('form_amendment_from'),
-                'amendment_to'=>$this->input->post('form_amendment_to'),
-                'municipality'=>'Lian,Batangas',
-                'business_id'=>''
-            );
+            //Update application array instance
+            $application = $_SESSION["application_form"]["application"];
+            
+            $application["date_of_application"] = $this->input->post('form_date_application');
+            $application["amendment_from"] = $this->input->post('form_amendment_from');
+            $application["amendment_to"] = $this->input->post('form_amendment_to');
 
-            //Create Owner array instance
-            $owner = array(
-                'id'=>'',
-                'tin'=>$this->input->post('form_tin'),
-                'last_name'=>$this->input->post('form_taxpayer_last_name'),
-                'first_name'=>$this->input->post('form_taxpayer_first_name'),
-                'middle_name'=>$this->input->post('form_taxpayer_middle_name'),
-                'street'=>'',
-                'brgy'=>'',
-                'city'=>'',
-                'province'=>'',
-                'postal_code'=>'',
-                'email'=>'',
-                'mobile'=>'',
-                'telephone'=>''
+            //Update Owner array instance
+            $owner = $_SESSION["application_form"]["owner"];
 
-            );
+            $owner["tin"] = $this->input->post('form_tin');
+            $owner["last_name"] = $this->input->post('form_taxpayer_last_name');
+            $owner["first_name"] = $this->input->post('form_taxpayer_first_name');
+            $owner["middle_name"] = $this->input->post('form_taxpayer_middle_name');
 
-            //Create Business array instance
-            $business = array(
-                'id'=>'',
-                'bp_no'=>'',
-                'mode_of_payment'=>$this->input->post('form_mode_of_payment'),
-                'dti_reg_no'=>$this->input->post('form_dti_registration_no'),
-                'dti_reg_date'=>$this->input->post('form_dti_registration_date'),
-                'type'=>$this->input->post('form_type_of_business'),
-                'category'=>'',
-                'tax_incentives'=>$this->input->post('form_tax_incentives'),
-                'trade_name'=>$this->input->post('form_trade_name'),
-                'business_name'=>$this->input->post('form_business_name'),
-                'emergency_contact_details_id'=>'',
-                'owner_id'=>'',
-                'business_details_id'=>'',
-                'business_address_id'=>''
-            );
+            //Update Business array instance
+            $business = $_SESSION["application_form"]["business"];
 
-            $data = array(
-                'application_form'=> array(
-                    'application'=>$application,
-                    'owner'=>$owner,
-                    'business'=>$business
-                )
-            );
+            $business["mode_of_payment"] = $this->input->post('form_mode_of_payment');
+            $business["dti_reg_no"] = $this->input->post('form_dti_registration_no');
+            $business["dti_reg_date"] = $this->input->post('form_dti_registration_date');
+            $business["type"] = $this->input->post('form_type_of_business');
+            $business["tax_incentives"] = $this->input->post('form_tax_incentives');
+            $business["trade_name"] = $this->input->post('form_trade_name');
+            $business["business_name"] = $this->input->post('form_business_name');
 
-            $this->session->set_userdata($data);
-
+            $_SESSION["application_form"]["application"] = $application;
+            $_SESSION["application_form"]["owner"] = $owner;
+            $_SESSION["application_form"]["business"] = $business;
 
             if($this->input->post('submit')){
                 // Form validation fail.
