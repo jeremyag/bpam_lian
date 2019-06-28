@@ -70,6 +70,9 @@
             else if(id === "assessment-fees"){
                 _link += "settings_assessments";
             }
+            else if(id === "verification-documents"){
+                _link += "verification_documents";
+            }
             
 
             $(".settings-option").removeClass("bg-light");

@@ -208,6 +208,45 @@ $(function(){
 			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_general_settings");
 		}
 
+		if(gaction == "edit_verification_document"){
+			setGmodalTitle("Edit Verification Documents");
+
+			base_url = me.data("base_url") + "Settings_Controller/verification_documents_form";
+
+			_data = {
+				id: me.data("id"),
+				disabled: 0
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_verification_document");
+		}
+
+		if(gaction == "delete_verification_document"){
+			setGmodalTitle("Are you sure you want to delete this Verification Documents?");
+
+			base_url = me.data("base_url") + "Settings_Controller/verification_documents_form";
+
+			_data = {
+				id: me.data("id"),
+				disabled: 1
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/delete_verification_document");
+		}
+
+		if (gaction == "add_verification_document") {
+			setGmodalTitle("Add Verification Documents");
+
+			base_url = me.data("base_url") + "Settings_Controller/verification_documents_form";
+
+			_data = {
+				id: 0,
+				disabled: 0
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_verification_document");
+		}
+
 		if(base_url !== ""){
 			$.ajax({
 				url: base_url,
