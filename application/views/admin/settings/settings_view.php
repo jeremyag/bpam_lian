@@ -73,6 +73,9 @@
             else if(id === "verification-documents"){
                 _link += "verification_documents";
             }
+            else if(id === "business-categories"){
+                _link += "business_categories";
+            }
             
 
             $(".settings-option").removeClass("bg-light");

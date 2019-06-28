@@ -247,6 +247,48 @@ $(function(){
 			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_verification_document");
 		}
 
+		if(gaction == "edit_business_categories"){
+			setGmodalTitle("Edit Business Categories");
+
+			base_url = me.data("base_url") + "Settings_Controller/business_categories_form";
+
+			_data = {
+				id: me.data("id"),
+				disabled: "",
+				action: "edit"
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_business_categories");
+		}
+
+		if (gaction == "add_business_categories"){
+			setGmodalTitle("Add Business Categories");
+
+			base_url = me.data("base_url") + "Settings_Controller/business_categories_form";
+
+			_data = {
+				id: 0,
+				disabled: "",
+				action: "add"
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_business_categories");
+		}
+
+		if (gaction == "delete_business_categories") {
+			setGmodalTitle("Are you sure you want to delete this business category?");
+
+			base_url = me.data("base_url") + "Settings_Controller/business_categories_form";
+
+			_data = {
+				id: me.data("id"),
+				disabled: "disabled",
+				action: "delete"
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_business_categories");
+		}
+
 		if(base_url !== ""){
 			$.ajax({
 				url: base_url,

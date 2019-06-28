@@ -127,5 +127,45 @@
             }
             redirect(add_index()."admin/settings");
         }
+
+        public function business_categories(){
+            $this->load->view("admin/settings/ajax/settings_business_categories_view", array(
+                "business_categories"=>$this->Business_Categories_List_Model->get_all()
+            ));
+        }
+
+        public function business_categories_form(){
+            $bc = 0;
+            $disabled = $this->input->get("disabled");
+
+            if($this->input->get("id")){
+                $bc = $this->Business_Categories_List_Model->get_business_category_from_id($this->input->get("id"));
+            }
+
+            $this->load->view("admin/settings/form/business_categories_form", array(
+                "disabled"=>$disabled,
+                "bc"=>$bc,
+                "action"=>$this->input->get("action")
+            ));
+        }
+
+        public function submit_business_categories(){
+            if($this->input->post("action") == "edit"){
+                $this->Business_Categories_List_Model->update($this->input->post("id"), array(
+                    $this->input->post("name"),
+                    $this->input->post("definition")
+                ));
+            }
+            elseif($this->input->post("action") == "add"){
+                $this->Business_Categories_List_Model->insert(array(
+                    $this->input->post("name"),
+                    $this->input->post("definition")
+                ));
+            }
+            elseif($this->input->post("action") == "delete"){
+                $this->Business_Categories_List_Model->delete($this->input->post("id"));
+            }
+            redirect(add_index()."admin/settings");
+        }
     }
 ?>
