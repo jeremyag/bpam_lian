@@ -289,6 +289,48 @@ $(function(){
 			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_business_categories");
 		}
 
+		if (gaction == "edit_barangay") {
+			setGmodalTitle("Edit Barangay");
+
+			base_url = me.data("base_url") + "Settings_Controller/barangay_list_form";
+
+			_data = {
+				id: me.data("id"),
+				disabled: "",
+				action: "edit"
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_barangay");
+		}
+
+		if (gaction == "add_barangay") {
+			setGmodalTitle("Add Business Categories");
+
+			base_url = me.data("base_url") + "Settings_Controller/barangay_list_form";
+
+			_data = {
+				id: 0,
+				disabled: "",
+				action: "add"
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_barangay");
+		}
+
+		if (gaction == "delete_barangay") {
+			setGmodalTitle("Are you sure you want to delete this barangay?");
+
+			base_url = me.data("base_url") + "Settings_Controller/barangay_list_form";
+
+			_data = {
+				id: me.data("id"),
+				disabled: "disabled",
+				action: "delete"
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_barangay");
+		}
+
 		if(base_url !== ""){
 			$.ajax({
 				url: base_url,

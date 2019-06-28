@@ -102,6 +102,9 @@
             elseif($status == "on-assessment"){
                 $color = "success";
             }
+            elseif($status == "needs-license"){
+                $color = "secondary";
+            }
             elseif($status == "done"){
                 $color = "primary";
             }

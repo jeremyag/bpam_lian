@@ -59,7 +59,7 @@
         <div class="alert alert-<?=$application->get_bootstrap_color()?>">
             <div class="row">
                 <div class="col-md-6">
-                    <p><b>Status:</b> This application is marked as Done. You may now add the license.</p>
+                    <p><b>Status:</b> This application is marked as Finished. You may now add the license.</p>
                 </div>
                 <div class="col-md-6 text-right">
                     <a href="#" class="btn btn-primary gModal-btn" data-application_id="<?=$application->id?>" data-gaction="add_license" data-base_url="<?=base_url().add_index()?>" data-business_id="<?=$business->id?>">Add License</a>

@@ -76,7 +76,9 @@
             else if(id === "business-categories"){
                 _link += "business_categories";
             }
-            
+            else if(id === "barangay-list"){
+                _link += "barangay_list";
+            }
 
             $(".settings-option").removeClass("bg-light");
             $("#"+id).addClass("bg-light");

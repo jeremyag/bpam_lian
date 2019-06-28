@@ -167,5 +167,43 @@
             }
             redirect(add_index()."admin/settings");
         }
+
+        public function barangay_list(){
+            $this->load->view("admin/settings/ajax/settings_barangay_list_view", array(
+                "barangays"=>$this->Barangay_List_Model->get_all()
+            ));
+        }
+
+        public function barangay_list_form(){
+            $b = 0;
+            $disabled = $this->input->get("disabled");
+
+            if($this->input->get("id")){
+                $b = $this->Barangay_List_Model->get_barangay_from_id($this->input->get("id"));
+            }
+
+            $this->load->view("admin/settings/form/barangay_form", array(
+                "disabled"=>$disabled,
+                "b"=>$b,
+                "action"=>$this->input->get("action")
+            ));
+        }
+
+        public function submit_barangay(){
+            if($this->input->post("action") == "edit"){
+                $this->Barangay_List_Model->update($this->input->post("id"), array(
+                    $this->input->post("name")
+                ));
+            }
+            elseif($this->input->post("action") == "add"){
+                $this->Barangay_List_Model->insert(array(
+                    $this->input->post("name")
+                ));
+            }
+            elseif($this->input->post("action") == "delete"){
+                $this->Barangay_List_Model->delete($this->input->post("id"));
+            }
+            redirect(add_index()."admin/settings");
+        }
     }
 ?>
