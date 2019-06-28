@@ -6,7 +6,7 @@
         <br><br>
         <div class="card">
             <div class="card-header">
-                <br>
+                <h3><?=$business->business_name?> Information</h3>
             </div>
             <div class="card-body">
                 <table class="table table-hover" style="width: 70%">

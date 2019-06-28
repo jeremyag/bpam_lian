@@ -1,3 +1,5 @@
+<h5>Assessment Fees</h5>
+<hr>
 <table class="table table-bordered table-sm">
     <thead>
         <tr>

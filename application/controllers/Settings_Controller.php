@@ -54,5 +54,28 @@
 
             redirect(add_index()."admin/settings");
         }
+
+        public function general_settings(){
+            $view = "admin/settings/ajax/settings_general_view";
+            $this->load->view($view,array(
+                "settings"=>$this->General_Settings_Model->get_all()
+            ));
+        }
+
+        public function general_settings_form(){
+            $this->load->view("admin/settings/form/general_settings_form",array(
+                "settings"=>$this->General_Settings_Model->get_general_settings_from_id($this->input->get("id"))
+            ));
+        }
+
+        public function submit_general_settings(){
+            if($this->input->post("settings_value")){
+                $this->General_Settings_Model->update($this->input->post("id"), array(
+                    $this->input->post("name"),
+                    $this->input->post("settings_value")
+                ));
+            }
+            redirect(add_index()."admin/settings");
+        }
     }
 ?>

@@ -191,9 +191,21 @@ $(function(){
 				b_id: me.data("business_id"),
 				a_id: me.data("application_id"),
 				action: "add"
-			}
+			};
 
 			setGmodalFormAction(me.data("base_url") + "Application_Controller/add_license_form");
+		}
+
+		if(gaction == "settings_edit_general"){
+			setGmodalTitle("Edit Settings");
+
+			base_url = me.data("base_url")+"Settings_Controller/general_settings_form";
+
+			_data = {
+				id: me.data("id")
+			};
+
+			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_general_settings");
 		}
 
 		if(base_url !== ""){
