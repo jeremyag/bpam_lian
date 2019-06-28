@@ -131,7 +131,7 @@ class Admin extends CI_Controller
                     'date_of_application'=>date("Y-m-d"),
                     'amendment_from'=>'',
                     'amendment_to'=>'',
-                    'municipality'=>'Lian,Batangas',
+                    'municipality'=>$this->General_Settings_Model->get_municipality()->settings_value.', '.$this->General_Settings_Model->get_province()->settings_value,
                     'business_id'=>$_business->id
                 );
 
@@ -177,7 +177,7 @@ class Admin extends CI_Controller
                         'date_of_application'=>date("Y-m-d"),
                         'amendment_from'=>'',
                         'amendment_to'=>'',
-                        'municipality'=>'Lian,Batangas',
+                        'municipality'=>$this->General_Settings_Model->get_municipality()->settings_value.', '.$this->General_Settings_Model->get_province()->settings_value,
                         'business_id'=>''
                 );
 
@@ -300,7 +300,10 @@ class Admin extends CI_Controller
 
         $this->checkApplicationExist();
 
-        $data = array('view'=>'admin/application/step3_view');
+        $data = array(
+            'view'=>'admin/application/step3_view',
+            'brgy'=>$this->Barangay_List_Model->get_all_formatted()
+        );
 
         if($this->session->userdata('application_form')){
             $data = array_merge($data, $this->setApplicationInstanceArray());

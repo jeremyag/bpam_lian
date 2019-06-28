@@ -678,7 +678,8 @@
                 if($this->input->get("id")){
                     $this->load->view("applications/other_information_form", array(
                         "business"=>$this->Business_Model->get_business_from_id($this->input->get("id")),
-                        "application"=>$this->Application_Model->get_application_from_id($this->input->get("app_id"))
+                        "application"=>$this->Application_Model->get_application_from_id($this->input->get("app_id")),
+                        "brgy"=>$this->Barangay_List_Model->get_all_formatted()
                     ));
                 }
             }

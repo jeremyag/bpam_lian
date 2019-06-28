@@ -40,14 +40,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label>Barangay:</label>
-<!--                                TODO: Update Barangays-->
                                 <?php echo form_dropdown(array(
                                     'class'=>'form-control',
                                     'name'=>'form_business_brgy'
-                                ), array(
-                                    'Brgy. 2'=>'Brgy. 2',
-                                    'Brgy. 1'=>'Brgy 1'
-                                ), ($isset ? $business_address->brgy : ''))?>
+                                ), $brgy, ($isset ? $business_address->brgy : ''))?>
                             </div>
                         </div>
                         <br>

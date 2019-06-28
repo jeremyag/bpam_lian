@@ -116,7 +116,7 @@
                                 _____________
                                 <?php endif;?>
                                 <br>
-                                CITY/MUNICIPALITY: <span style="border-bottom: 1px solid black;">Lian, Batangas</span>
+                                CITY/MUNICIPALITY: <span style="border-bottom: 1px solid black;"><?=$this->General_Settings_Model->get_municipality()->settings_value.', '.$this->General_Settings_Model->get_province()->settings_value?></span>
                                 </b>
                             </div>
                         </td>
@@ -499,7 +499,7 @@
                                         <td class="not" style="border-bottom: 1px solid black"></td>
                                     </tr>
                                     <tr>
-                                        <td class="not text-center">{ ENTER BPO }</td>
+                                        <td class="not text-center"><?=$this->General_Settings_Model->get_bplo()->settings_value?></td>
                                     </tr>
                                 </table>
                                 <br/>

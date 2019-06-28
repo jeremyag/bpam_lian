@@ -39,5 +39,17 @@
 
             return $query->result('Business_Category');
         }
+
+        public function get_all_formatted(){
+            $brgy = $this->get_all();
+
+            $return = array();
+
+            foreach($brgy as $b){
+                $return = array_merge($return, array($b->name => $b->name));
+            }
+
+            return $return;
+        }
     }
 ?>

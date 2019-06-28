@@ -24,7 +24,7 @@
                             Log in
                         </div>
                         <div class="card-body">
-                            <h4 class="alert alert-info">Business Permit Applications Manager - Lian Municipality</h4>
+                            <h4 class="alert alert-info">Business Permit Applications Manager - <?=$this->General_Settings_Model->get_municipality()->settings_value?> Municipality</h4>
                             <br>
                             <div class="form-group">
                                 <?php

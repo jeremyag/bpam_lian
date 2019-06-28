@@ -26,5 +26,29 @@
 
             return $query->result('General_Settings');
         }
+
+        public function get_municipality(){
+            $sql = "SELECT * FROM `general_settings` WHERE id = 1";
+
+            $query = $this->db->query($sql);
+
+            return $query->row(0, 'General_Settings');
+        }
+
+        public function get_province(){
+            $sql = "SELECT * FROM `general_settings` WHERE id = 2";
+
+            $query = $this->db->query($sql);
+
+            return $query->row(0, 'General_Settings');
+        }
+
+        public function get_bplo(){
+            $sql = "SELECT * FROM `general_settings` WHERE id = 3";
+
+            $query = $this->db->query($sql);
+
+            return $query->row(0, 'General_Settings');
+        }
     }
 ?>

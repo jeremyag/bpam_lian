@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>BPAM - Lian Municipality: Administrator</title>
+    <title>BPAM - <?=$this->General_Settings_Model->get_municipality()->settings_value?> Municipality: Administrator</title>
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome/css/all.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bpm_lian.css">
@@ -12,7 +12,7 @@
 </head>
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index: 1; width: 100%; position: fixed;">
-    <a class="navbar-brand" href="<?php echo base_url().add_index()?>admin">BPAM - Lian Municipality</a>
+    <a class="navbar-brand" href="<?php echo base_url().add_index()?>admin">BPAM - <?=$this->General_Settings_Model->get_municipality()->settings_value?> Municipality</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

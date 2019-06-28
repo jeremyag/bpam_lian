@@ -19,8 +19,8 @@
         }
 
         public function get_full_address(){
-            // TODO: Update the Lian, Batangas 
-            return $this->street . ", " . $this->brgy . ", " . "Lian, Batangas";
+            $CI =& get_instance();
+            return $this->street . ", " . $this->brgy . ", " . $CI->General_Settings_Model->get_municipality()->settings_value.", " .$CI->General_Settings_Model->get_province()->settings_value;
         }
     }
 
