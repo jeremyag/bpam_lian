@@ -1,6 +1,6 @@
 <div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <?php echo form_open(); ?>
+        <form method="post" action="<?=base_url().add_index()?>admin/step1">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">New Application</h5>
@@ -39,7 +39,7 @@
                                     <span style="position: absolute; right: 15px; top: 12px;">
                                         <i id="ok" class="fa fa-check-circle text-success" style="display: none"></i>
                                         <i id="wrong" class="fa fa-times-circle text-danger"></i>
-                                        <img id="loading" src="<?=base_url().add_index()?>assets/img/loading.gif" style="width: 18px; display:none;">
+                                        <img id="loading" src="<?=base_url()?>assets/img/loading.gif" style="width: 18px; display:none;">
                                     </span>
                                 </div>
                                 <input type="hidden" id="business_id" name="business_id">
@@ -96,7 +96,7 @@
                     ))?>
                 </div>
             </div>
-        <?php echo form_close(); ?>
+        </form>
     </div>
 </div>
 <script>
