@@ -34,7 +34,7 @@
             <div class="card-body">
 
                 <br>
-                <?php echo form_open('Account_Controller/update'); ?>
+                <form method="post" action="<?=base_url().add_index()?>Account_Controller/update">
                     <?=form_hidden('id',$profile->id)?>
                     <table class="table table-bordered">
                         <tr>
@@ -187,7 +187,7 @@
                         </button>
 
                     </div>
-                <?php echo form_close(); ?>
+                </form>
             </div>
         </div>
     </div>

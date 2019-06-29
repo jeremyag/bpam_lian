@@ -4,7 +4,7 @@
             //Set boolean if application already exist.
             $isSet = isset($application);
         ?>
-        <?php echo form_open('Application_Controller/step2_submit'); ?>
+        <form method="post" action='<?=base_url().add_index()?>Application_Controller/step2_submit'>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><?=$application->isNew ? "New Application" : "Renew Application" ?></h5>
@@ -265,7 +265,7 @@
                     ))?>
                     </div>
             </div>
-        <?php echo form_close(); ?>
+        </form>
     </div>
 </div>
 <script>

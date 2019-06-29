@@ -14,7 +14,7 @@
                 <h4>Register Account</h4>
             </div>
             <div class="card-body">
-                <?php echo form_open('Account_Controller/register'); ?>
+                <form method="post" action="<?=base_url().add_index()?>Account_Controller/register">
                 <div class="row">
                     <div class="col-md-4">
                         <label>First name:</label>
@@ -113,7 +113,7 @@
                         'name'=>'submit'
                     ))?>
                 </div>
-                <?php echo form_close(); ?>
+                </form>
             </div>
         </div>
     </div>

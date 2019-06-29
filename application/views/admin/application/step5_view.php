@@ -1,6 +1,6 @@
 <div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <?php echo form_open('Application_Controller/step5_submit'); ?>
+        <form method="post" action="<?=base_url().add_index()?>Application_Controller/step5_submit">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><?=$application->isNew ? "New Application" : "Renew Application" ?></h5>
@@ -166,7 +166,7 @@
                     ))?>
                 </div>
             </div>
-        <?php echo form_close(); ?>
+        </form>
     </div>
 </div>
 

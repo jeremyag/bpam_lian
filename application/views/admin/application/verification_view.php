@@ -1,6 +1,6 @@
 <div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <?=form_open('Application_Controller/verify')?>
+        <form method="post" action="<?=base_url().add_index()?>Application_Controller/verify">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">II. LGU SECTION</h5>
@@ -108,7 +108,7 @@
                     <button type="submit" value="submit" name="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> Verify</button>
                 </div>
             </div>
-        <?=form_close()?>
+        </form>
     </div>
 </div>
 

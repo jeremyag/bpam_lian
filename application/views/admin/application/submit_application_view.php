@@ -1,6 +1,6 @@
 <div data-backdrop="static" data-keyboard="false" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" id="myModal" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <?php echo form_open(); ?>
+        <form method="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-check-circle text-success"></i> Application Submitted! </h5>
@@ -16,7 +16,7 @@
                     <button type="submit" value="submit" name="submit" class="btn btn-primary">Yes <i class="fa fa-chevron-right"></i> </button>
                 </div>
             </div>
-        <?php echo form_close(); ?>
+        </form>
     </div>
 </div>
 
