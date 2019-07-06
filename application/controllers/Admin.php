@@ -53,9 +53,28 @@ class Admin extends CI_Controller
     public function businesses(){
         $this->acccount_check();
 
+        if($this->input->get("status") == "active"){
+            $join = " INNER JOIN `license` l ON b.bp_no = l.license_no ";
+            $filter = " AND NOW() BETWEEN l.date_start AND l.date_end";
+        }
+        elseif($this->input->get("status") == "no-license"){
+            $join = "";
+            $filter = " AND b.bp_no = '' ";
+        }
+        elseif($this->input->get("status") == "expired"){
+            $join = " INNER JOIN `license` l ON b.bp_no = l.license_no ";
+            $filter = " AND NOW() NOT BETWEEN l.date_start AND l.date_end";
+        }
+        else{
+            $join = "";
+            $filter = "";
+        }
+
+        $businesses = $this->Business_Model->get_all_businesses($filter = $filter, $order_by = "b.`id` DESC", $limit = "0, 1000",$join = $join, $type="all");
+
         $data = array(
             'view'=>'admin/businesses/businesses_view',
-            'businesses'=>$this->Business_Model->get_all_businesses($filter = "", $order_by = "b.`id` DESC", $limit = "0, 1000",$join = "", $type="all")
+            'businesses'=>$businesses
         );
         $this->load->view('admin/main_view', $data);
     }
