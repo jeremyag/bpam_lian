@@ -138,6 +138,9 @@
                         <td colspan="12">Business Name: <span class="value"><?=$business->business_name?></span></td>
                     </tr>
                     <tr>
+                        <td colspan="12">Category: <span class="value"><?=$business->category?></span></td>
+                    </tr>
+                    <tr>
                         <td colspan="12">Trade Name / Franchise: <span class="value"><?=$business->trade_name?></span></td>
                     </tr>
                 </table>

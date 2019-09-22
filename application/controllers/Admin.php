@@ -53,25 +53,45 @@ class Admin extends CI_Controller
     public function businesses(){
         $this->acccount_check();
 
-        if($this->input->get("status") == "active"){
-            $join = " INNER JOIN `license` l ON b.bp_no = l.license_no ";
-            $filter = " AND NOW() BETWEEN l.date_start AND l.date_end";
+        if($this->input->get("quick-search")){
+            $businesses = $this->Business_Model->search($this->input->get("quick-search"));
         }
-        elseif($this->input->get("status") == "no-license"){
-            $join = "";
-            $filter = " AND b.bp_no = '' ";
-        }
-        elseif($this->input->get("status") == "expired"){
-            $join = " INNER JOIN `license` l ON b.bp_no = l.license_no ";
-            $filter = " AND NOW() NOT BETWEEN l.date_start AND l.date_end";
+        elseif($this->input->get("filter_business_no")){
+            $businesses = $this->Business_Model->filter(
+                $business_no = $this->input->get("filter_business_no"), 
+                $business_name = $this->input->get("filter_business_name"), 
+                $category = $this->input->get("filter_business_category"), 
+                $owner = $this->input->get("filter_owner"), 
+                $barangay = $this->input->get("address")
+            );
         }
         else{
-            $join = "";
-            $filter = "";
+            if($this->input->get("status") == "active"){
+                $join = " INNER JOIN `license` l ON b.bp_no = l.license_no ";
+                $filter = " AND NOW() BETWEEN l.date_start AND l.date_end
+                            AND b.isClosed = 0 ";
+            }
+            elseif($this->input->get("status") == "no-license"){
+                $join = "";
+                $filter = " AND b.bp_no = '' 
+                            AND b.isClosed = 0 ";
+            }
+            elseif($this->input->get("status") == "expired"){
+                $join = " INNER JOIN `license` l ON b.bp_no = l.license_no ";
+                $filter = " AND NOW() NOT BETWEEN l.date_start AND l.date_end
+                            AND b.isClosed = 0 ";
+            }
+            elseif($this->input->get("status") == "closed"){
+                $join = "";
+                $filter = " AND b.isClosed = 1 ";
+            }
+            else{
+                $join = "";
+                $filter = "";
+            }
+            
+            $businesses = $this->Business_Model->get_all_businesses($filter = $filter, $order_by = "b.`id` DESC", $limit = "0, 1000",$join = $join, $type="all");
         }
-
-        $businesses = $this->Business_Model->get_all_businesses($filter = $filter, $order_by = "b.`id` DESC", $limit = "0, 1000",$join = $join, $type="all");
-
         $data = array(
             'view'=>'admin/businesses/businesses_view',
             'businesses'=>$businesses
@@ -304,7 +324,8 @@ class Admin extends CI_Controller
         $this->acccount_check();
 
         $data = array(
-            'view'=>'admin/application/step2_view'
+            'view'=>'admin/application/step2_view',
+            'business_categories'=>$this->Business_Categories_List_Model->get_all()
         );
 
         if($this->session->userdata('application_form')){

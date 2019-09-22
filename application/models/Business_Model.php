@@ -14,6 +14,7 @@
         public $owner_id;
         public $business_details_id;
         public $business_address_id;
+        public $isClosed;
 
         public function set_instance_array($arr){
             $this->id = $arr['id'];
@@ -76,13 +77,13 @@
         public function get_current_license(){
             $CI =& get_instance();
 
-            return $CI->get_licenses_from_business_id($this->id, "current");
+            return $CI->License_Model->get_licenses_from_business_id($this->id, "current");
         }
     }
 
     class Business_Model extends CI_Model{
         public function insert($business){
-            $sql = "INSERT INTO business (`id`, `bp_no`, `mode_of_payment`, `dti_reg_no`, `dti_reg_date`, `type`, `category`, `tax_incentives`, `trade_name`, `business_name`, `emergency_contact_details_id`, `owner_id`, `business_details_id`, `business_address_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO business (`id`, `bp_no`, `mode_of_payment`, `dti_reg_no`, `dti_reg_date`, `type`, `category`, `tax_incentives`, `trade_name`, `business_name`, `emergency_contact_details_id`, `owner_id`, `business_details_id`, `business_address_id`, `isClosed`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $this->db->query($sql, $business);
 
@@ -99,7 +100,7 @@
 
         public function get_all_businesses($filter = "", $order_by = "b.`id` DESC", $limit = "0, 1000",$join = "", $type="all"){
             $sql = "SELECT
-                        *
+                        b.*
                     FROM
                         `business` b
                         $join
@@ -128,6 +129,77 @@
             $query = $this->db->query($sql, $id);
 
             return $query->row(0);
+        }
+
+        public function search($keyword = ""){
+            $filter = ""; 
+
+            $join = "INNER JOIN 
+                        emergency_contact_details ecd
+                            ON
+                                b.emergency_contact_details_id = ecd.id
+                    INNER JOIN
+                        `owner` o
+                            ON
+                                b.owner_id = o.id
+                    INNER JOIN
+                        business_details bd
+                            ON
+                                b.business_details_id = bd.id
+                    INNER JOIN
+                        business_address ba
+                            ON
+                                b.business_address_id = ba.id
+                    LEFT JOIN
+                        lessor_details ld
+                            ON
+                                ld.business_id = b.id
+                    LEFT JOIN
+                        lessor l
+                            ON
+                                l.id = ld.lessor_id
+                    LEFT JOIN
+                        license li
+                            ON
+                                li.business_id = b.id";
+
+            $keywords = explode(" ", $keyword);
+
+            foreach($keywords as $keyword){
+                $filter .= " AND (".build_search_filter($this->Table_Model->get_columns("business"), $keyword, "b").
+                " OR ".build_search_filter($this->Table_Model->get_columns("emergency_contact_details"), $keyword, "ecd").
+                " OR ".build_search_filter($this->Table_Model->get_columns("owner"), $keyword, "o").
+                " OR ".build_search_filter($this->Table_Model->get_columns("business_details"), $keyword, "bd").
+                " OR ".build_search_filter($this->Table_Model->get_columns("business_address"), $keyword, "ba").
+                " OR ".build_search_filter($this->Table_Model->get_columns("lessor_details"), $keyword, "ld").
+                " OR ".build_search_filter($this->Table_Model->get_columns("lessor"), $keyword, "l").
+                " OR ".build_search_filter($this->Table_Model->get_columns("license"), $keyword, "li")." )";
+            }
+
+            return $this->get_all_businesses($filter = $filter, $order_by = "b.`id` DESC", $limit = "0, 1000",$join = $join, $type="all");
+        }
+
+        public function filter($business_no = "", $business_name = "", $category = "", $owner = "", $barangay = ""){
+            $filter = "";
+
+            $join = "INNER JOIN 
+                        owner o
+                            ON 
+                                o.id = b.owner_id
+                    INNER JOIN
+                        business_address ba
+                            ON
+                                ba.id = b.business_address_id";
+            
+            $filter = " AND (
+                                b.id = $business_no AND 
+                                b.business_name LIKE '%$business_name%' AND 
+                                b.category LIKE '%$category%' AND 
+                                CONCAT(o.first_name, ' ', o.middle_name, ' ', o.last_name) LIKE '%$owner%' AND
+                                ba.brgy LIKE '%$barangay%'
+                            )";
+            
+            return $this->get_all_businesses($filter = $filter, $order_by = "b.`id` DESC", $limit = "0, 1000",$join = $join, $type="all");
         }
     }
 ?>

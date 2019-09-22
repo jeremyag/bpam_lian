@@ -34,6 +34,7 @@ $(function(){
 	let setGmodalMessage = function(message){
 		$("#gModal-body").empty();
 		$("#gModal-body").html(message);
+		$("#g-loading").css("display", "none");
 	}
 
 	$(".gModal-btn").on("click", function () {
@@ -329,6 +330,36 @@ $(function(){
 			};
 
 			setGmodalFormAction(me.data("base_url") + "Settings_Controller/submit_barangay");
+		}
+
+		if(gaction == "close_business") {
+			setGmodalTitle("Close the Business.");
+
+			setGmodalMessage("Are you sure you want to close this Business? <input type='hidden' name='business_id' value='"+me.data("id")+"'>");
+
+			setGmodalFormAction(me.data("base_url") + "_Business/close_business")
+		}
+
+		if(gaction == "reopen_business") {
+			setGmodalTitle("Reopen Business.");
+
+			setGmodalMessage("Are you sure you want to reopen this Business? <input type='hidden' name='business_id' value='"+me.data("id")+"'>");
+
+			setGmodalFormAction(me.data("base_url") + "_Business/reopen_business")
+		}
+
+		if (gaction == "edit_business") {
+			setGmodalTitle("Edit Business");
+
+			base_url = me.data("base_url") + "_Business/business_form_view";
+
+			_data = {
+				business_id: me.data("id")
+			};
+
+			_type = "get";
+
+			setGmodalFormAction(me.data("base_url") + "_Business/business_form_submit");
 		}
 
 		if(base_url !== ""){

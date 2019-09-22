@@ -216,6 +216,7 @@
             $this->form_validation->set_rules('form_taxpayer_middle_name', 'Middle Name', 'required|trim');
             $this->form_validation->set_rules('form_trade_name', 'Trade Name/Franchise', 'required|trim');
             $this->form_validation->set_rules('form_business_name', 'Business Name', 'required|trim');
+            $this->form_validation->set_rules('form_business_category', 'Business Category', 'required|trim');
 
             //Update application array instance
             $application = $_SESSION["application_form"]["application"];
@@ -239,6 +240,7 @@
             $business["dti_reg_no"] = $this->input->post('form_dti_registration_no');
             $business["dti_reg_date"] = $this->input->post('form_dti_registration_date');
             $business["type"] = $this->input->post('form_type_of_business');
+            $business["category"] = $this->input->post('form_business_category');
             $business["tax_incentives"] = $this->input->post('form_tax_incentives');
             $business["trade_name"] = $this->input->post('form_trade_name');
             $business["business_name"] = $this->input->post('form_business_name');
@@ -476,6 +478,7 @@
                     $application_form['business']['owner_id'] = $owner_id;
                     $application_form['business']['business_details_id'] = $business_details_id;
                     $application_form['business']['business_address_id'] = $business_address_id;
+                    $application_form['business']['isClosed'] = 0;
 
                     $business_id = $this->Business_Model->insert($application_form['business']);
 
@@ -667,7 +670,8 @@
                     $first_name = $this->input->post("form_taxpayer_first_name"), 
                     $middle_name = $this->input->post("form_taxpayer_middle_name"), 
                     $business_name = $this->input->post("form_business_name"), 
-                    $trade_name = $this->input->post("form_trade_name"));
+                    $trade_name = $this->input->post("form_trade_name"),
+                    $category = $this->input->post("form_category"));
 
                 redirect(base_url().add_index()."admin/view_application?id=".$this->input->post("application_id"));
             }

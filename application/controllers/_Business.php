@@ -67,5 +67,60 @@
                 ));
             }
         }
+
+        public function close_business(){
+            if($this->input->post("business_id")){
+                $this->Business_Model->update(
+                    $this->input->post("business_id"),
+                    array(
+                        "isClosed" => "1"
+                    )
+                );
+            }
+            redirect(add_index().'_business?id='.$this->input->post("business_id"));
+        }
+
+        public function reopen_business(){
+            if($this->input->post("business_id")){
+                $this->Business_Model->update(
+                    $this->input->post("business_id"),
+                    array(
+                        "isClosed" => "0"
+                    )
+                );
+            }
+            redirect(add_index().'_business?id='.$this->input->post("business_id"));
+        }
+
+        public function business_form_view(){
+            if($this->input->get("business_id")){
+                $business = $this->Business_Model->get_business_from_id($this->input->get("business_id"));
+                $this->load->view(
+                    "business/business_form_view",
+                    array(
+                        "business" => $business
+                    )
+                );
+            }
+        }
+
+        public function business_form_submit(){
+            if($this->input->post("business_id")){
+                $this->Business_Model->update(
+                    $this->input->post("business_id"),
+                    array(
+                        "trade_name" => $this->input->post("form_trade_name"),
+                        "business_name" => $this->input->post("form_business_name"),
+                        "mode_of_payment" => $this->input->post("form_mode_of_payment"),
+                        "dti_reg_no" => $this->input->post("form_reg_no"),
+                        "dti_reg_date" => $this->input->post("form_reg_date"),
+                        "category" => $this->input->post("form_category"),
+                        "type" => $this->input->post("form_type_of_business"),
+                        "tax_incentives" => $this->input->post("form_tax_incentives")
+                    )
+                );
+            }
+            redirect(add_index().'_business?id='.$this->input->post("business_id"));
+        }
     }
 ?>

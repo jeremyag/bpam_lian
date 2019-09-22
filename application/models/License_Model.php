@@ -10,6 +10,9 @@
             if(date("Y-m-d") <= $this->date_end){
                 return "Active";
             }
+            elseif($this->date_end == ""){
+                return "No License";
+            }
             return "Expired";
         }
 
@@ -45,7 +48,13 @@
 
             $query = $this->db->query($sql);
 
-            return $query->result("License");
+            if($query->result()){
+                if($type == "current"){
+                    return $query->result("License")[0];
+                }
+                return $query->result("License");
+            }
+            return new License;
         }
 
         public function get_licenses_from_application_id($application_id){

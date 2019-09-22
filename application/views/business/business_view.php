@@ -9,46 +9,57 @@
                 <h3><?=$business->business_name?> Information</h3>
             </div>
             <div class="card-body">
-                <table class="table table-hover" style="width: 70%">
-                    <tbody>
-                        <tr>
-                            <th>License No.:</th>
-                            <td><?=$business->bp_no?></td>
-                        </tr>
-                        <tr>
-                            <th>Trade Name:</th>
-                            <td><?=$business->trade_name?></td>
-                        </tr>
-                        <tr>
-                            <th>Business Name:</th>
-                            <td><?=$business->business_name?></td>
-                        </tr>
-                        <tr>
-                            <th>Mode of Payment:</th>
-                            <td><?=$business->mode_of_payment?></td>
-                        </tr>
-                        <tr>
-                            <th>DTI Registration No:</th>
-                            <td><?=$business->dti_reg_no?></td>
-                        </tr>
-                        <tr>
-                            <th>DTI Registration Date:</th>
-                            <td><?=$business->dti_reg_date?></td>
-                        </tr>
-                        <tr>
-                            <th>Category:</th>
-                            <td><?=$business->category?></td>
-                        </tr>
-                        <tr>
-                            <th>Type:</th>
-                            <td><?=$business->type?></td>
-                        </tr>
-                        <tr>
-                            <th>Tax Incentives:</th>
-                            <td><?=$business->tax_incentives?></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="row">
+                    <table class="table table-hover col-md-9">
+                        <tbody>
+                            <tr>
+                                <th>License No.:</th>
+                                <td><?=$business->bp_no?></td>
+                            </tr>
+                            <tr>
+                                <th>Trade Name:</th>
+                                <td><?=$business->trade_name?></td>
+                            </tr>
+                            <tr>
+                                <th>Business Name:</th>
+                                <td><?=$business->business_name?></td>
+                            </tr>
+                            <tr>
+                                <th>Mode of Payment:</th>
+                                <td><?=$business->mode_of_payment?></td>
+                            </tr>
+                            <tr>
+                                <th>DTI Registration No:</th>
+                                <td><?=$business->dti_reg_no?></td>
+                            </tr>
+                            <tr>
+                                <th>DTI Registration Date:</th>
+                                <td><?=$business->dti_reg_date?></td>
+                            </tr>
+                            <tr>
+                                <th>Category:</th>
+                                <td><?=$business->category?></td>
+                            </tr>
+                            <tr>
+                                <th>Type:</th>
+                                <td><?=$business->type?></td>
+                            </tr>
+                            <tr>
+                                <th>Tax Incentives:</th>
+                                <td><?=$business->tax_incentives?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-3">
+                        <?php if($business->isClosed):?>
+                        <button type="button" data-base_url="<?=base_url().add_index()?>" data-gaction="reopen_business" data-id="<?=$business->id?>" class="btn btn-success gModal-btn" style="width: 100%">Reopen</button>
+                        <?php else:?>
+                        <button type="button" data-base_url="<?=base_url().add_index()?>" data-gaction="edit_business" data-id="<?=$business->id?>" class="btn btn-secondary gModal-btn" style="width: 100%">Edit</button>
+                        <br>
+                        <button type="button" data-base_url="<?=base_url().add_index()?>" data-gaction="close_business" data-id="<?=$business->id?>" class="btn btn-danger gModal-btn" style="width: 100%">Close</button>
+                        <?php endif;?>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card">

@@ -215,7 +215,7 @@
             return $result->row(0);
         }
 
-        public function update_basic_information($application_id, $mode_of_payment, $date_application, $dti_reg_no, $tin, $dti_reg_date, $type, $amendment_from, $amendment_to, $tax_incentives, $last_name, $first_name, $middle_name, $business_name, $trade_name){
+        public function update_basic_information($application_id, $mode_of_payment, $date_application, $dti_reg_no, $tin, $dti_reg_date, $type, $amendment_from, $amendment_to, $tax_incentives, $last_name, $first_name, $middle_name, $business_name, $trade_name, $category){
             $application = $this->Application_Model->get_application_from_id($application_id);
 
             $business = $application->get_business();
@@ -231,7 +231,8 @@
                         `type` = '$type',
                         `tax_incentives` = '$tax_incentives',
                         `business_name` = '$business_name',
-                        `trade_name` = '$trade_name'
+                        `trade_name` = '$trade_name',
+                        `category` = '$category'
                     WHERE 
                         `id` = $business_id";
 

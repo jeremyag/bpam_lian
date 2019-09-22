@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php if(count($l)):?>
+        <?php if(is_array($l)):?>
         <?php foreach($l as $a):?>
         <tr class="table-<?=$a->get_bootstrap_color()?>">
             <td><?=$a->license_no?></td>

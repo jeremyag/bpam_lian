@@ -32,11 +32,12 @@
                         </script>
                     </div>
                     <div class="col-md-6">
-                        <form>
+                        <form class="filter">
                             <div class="input-group">
-                                <input type="text" name="quick-search" class="form-control" placeholder="Quick search" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+                                <!-- <input type="hidden" name="status" value="<?=$this->input->get("status")?>"> -->
+                                <input type="text" name="quick-search" value="<?=$this->input->get("quick-search")?>" class="form-control" placeholder="Quick search" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
                                 <div class="input-group-append" id="button-addon4">
-                                    <button id="search" class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
+                                    <button id="search" class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
                                 </div>
                             </div>
                             <div class="text-right">
@@ -75,7 +76,7 @@
                             </table>
                             <br>
                             <div class="text-right">
-                                <button class="btn btn-secondary" id="filter-submit">Filter</button><br>
+                                <button class="btn btn-secondary" type="submit" name="submit-filter" id="filter-submit">Filter</button><br>
                             </div>
                         </div>
                     </div>
@@ -101,7 +102,16 @@
                             <td><?=$b->category?></td>
                             <td><?=$b->get_owner()->get_full_name()?></td>
                             <td><?=$b->get_business_address()->get_full_address()?></td>
-                            <td>Active</td>
+                            <?php
+                                $status = $b->get_current_license()->get_status();
+                                if($status == "Active"){
+                                    $status .= " <i class='fa fa-check-circle text-success'></i>";
+                                }
+                                else{
+                                    $status .= " <i class='fa fa-times-circle text-danger'></i>";
+                                }
+                            ?>
+                            <td><?=$status?></td>
                             <td class="text-center">
                                 <i class="fa fa-chevron-right"></i>
                             </td>

@@ -195,6 +195,16 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
+                            <label>Business Category</label>
+                            <select class="form-control" name="form_business_category">
+                                <?php foreach($business_categories as $bc):?>
+                                    <option value="<?=$bc->name?>"><?=$bc->name?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <label>Business Name:</label>
                             <?php echo form_input(array(
                                 'class'=>'form-control',

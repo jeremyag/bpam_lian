@@ -196,3 +196,21 @@
         ?>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <label>Category:</label>
+            <?php
+
+                $business_categories = $this->Business_Categories_List_Model->get_all();
+                $categories = array();
+                foreach($business_categories as $bc){
+                    $categories[$bc->name] = $bc->name;
+                }
+
+                echo form_dropdown(array(
+                    'class'=>'form-control',
+                    'name' => 'form_category'
+                ),$categories,$business->category);
+            ?>
+    </div>
+</div>
