@@ -362,6 +362,19 @@ $(function(){
 			setGmodalFormAction(me.data("base_url") + "_Business/business_form_submit");
 		}
 
+
+		if(gaction == "edit_business_details"){
+			setGmodalTitle("Edit Business Details");
+
+			base_url = me.data("base_url") + "_Business/business_details_form";
+			
+			_data = {
+				business_details_id: me.data("id")
+			};
+
+			setGmodalFormAction(me.data("base_url") + "_Business/business_details_form_submit");
+		}
+
 		if(base_url !== ""){
 			$.ajax({
 				url: base_url,

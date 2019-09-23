@@ -122,5 +122,32 @@
             }
             redirect(add_index().'_business?id='.$this->input->post("business_id"));
         }
+
+        public function business_details_form(){
+            if($this->input->get("business_details_id")){
+                $bd = $this->Business_Details_Model->get_business_details_from_id($this->input->get("business_details_id"));
+                $this->load->view(
+                    "business/business_details_form",
+                    array(
+                        "bd" => $bd
+                    )
+                );
+            }
+        }
+
+        public function business_details_form_submit(){
+            if($this->input->post("business_details_id")){
+                $this->Business_Details_Model->update(
+                    $this->input->post("business_details_id"),
+                    array(
+                        "business_area" => $this->input->post("business_area"),
+                        "total_no_employees" => $this->input->post("total_no_employees"),
+                        "no_lgu_residing" => $this->input->post("no_lgu_residing")
+                    )
+                );
+            }
+            // Todo: Add Business ID to redirect.
+            redirect(add_index().'_business?id='.$this->input->post("business_id"));
+        }
     }
 ?>
