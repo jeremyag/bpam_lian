@@ -12,6 +12,7 @@
         public function business_details(){
             if($this->input->get("bd_id")){
                 $this->load->view("business/business_details_view",array(
+                    "business"=>$this->Business_Model->get_business_from_id($this->input->get("business_id")),
                     "bd"=>$this->Business_Details_Model->get_business_details_from_id($this->input->get("bd_id"))
                 ));
             }
@@ -126,10 +127,12 @@
         public function business_details_form(){
             if($this->input->get("business_details_id")){
                 $bd = $this->Business_Details_Model->get_business_details_from_id($this->input->get("business_details_id"));
+                $business = $this->Business_Model->get_business_from_id($this->input->get("business"));
                 $this->load->view(
                     "business/business_details_form",
                     array(
-                        "bd" => $bd
+                        "bd" => $bd,
+                        "business" => $business
                     )
                 );
             }

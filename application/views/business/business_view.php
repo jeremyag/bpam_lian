@@ -118,7 +118,8 @@
         }
 
         let _data = {
-            bd_id: <?=$business->get_business_details()->id?>
+            bd_id: <?=$business->get_business_details()->id?>,
+            business_id: <?=$business->id?>
         };
 
         let _base_url = "<?=base_url().add_index()?>_business/business_details";
@@ -136,7 +137,10 @@
 
             if(id === "business_details"){
                 _base_url = "<?=base_url().add_index()?>_business/business_details";
-                _data = {bd_id: <?=$business->get_business_details()->id?>};
+                _data = {
+                    bd_id: <?=$business->get_business_details()->id?>,
+                    business_id: <?=$business->id?>
+                };
             }
             
             if(id === "business_address"){

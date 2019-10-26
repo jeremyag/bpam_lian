@@ -1,5 +1,6 @@
 <div class="row">
     <table class="table">
+        <input type="hidden" value="<?=$business->id?>" name="business_id">
         <tbody>
             <input type="hidden" value="<?=$bd->id?>" name="business_details_id">
             <tr>

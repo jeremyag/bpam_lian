@@ -369,7 +369,8 @@ $(function(){
 			base_url = me.data("base_url") + "_Business/business_details_form";
 			
 			_data = {
-				business_details_id: me.data("id")
+				business_details_id: me.data("id"),
+				business: me.data("business_id")
 			};
 
 			setGmodalFormAction(me.data("base_url") + "_Business/business_details_form_submit");
