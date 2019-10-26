@@ -56,13 +56,12 @@ class Admin extends CI_Controller
         if($this->input->get("quick-search")){
             $businesses = $this->Business_Model->search($this->input->get("quick-search"));
         }
-        elseif($this->input->get("filter_business_no")){
+        elseif(
+            $this->input->get("filter_categories") ||  $this->input->get("filter_brgy")  
+        ){
             $businesses = $this->Business_Model->filter(
-                $business_no = $this->input->get("filter_business_no"), 
-                $business_name = $this->input->get("filter_business_name"), 
-                $category = $this->input->get("filter_business_category"), 
-                $owner = $this->input->get("filter_owner"), 
-                $barangay = $this->input->get("address")
+                $category = $this->input->get("filter_categories"), 
+                $brgy = $this->input->get("filter_brgy"), 
             );
         }
         else{

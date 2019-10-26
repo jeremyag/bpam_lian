@@ -179,7 +179,7 @@
             return $this->get_all_businesses($filter = $filter, $order_by = "b.`id` DESC", $limit = "0, 1000",$join = $join, $type="all");
         }
 
-        public function filter($business_no = "", $business_name = "", $category = "", $owner = "", $barangay = ""){
+        public function filter($category = "", $barangay = ""){
             $filter = "";
 
             $join = "INNER JOIN 
@@ -192,10 +192,7 @@
                                 ba.id = b.business_address_id";
             
             $filter = " AND (
-                                b.id = $business_no AND 
-                                b.business_name LIKE '%$business_name%' AND 
                                 b.category LIKE '%$category%' AND 
-                                CONCAT(o.first_name, ' ', o.middle_name, ' ', o.last_name) LIKE '%$owner%' AND
                                 ba.brgy LIKE '%$barangay%'
                             )";
             
