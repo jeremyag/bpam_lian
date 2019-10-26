@@ -161,7 +161,10 @@
 
             if(id === "emergency_contact"){
                 _base_url = "<?=base_url().add_index()?>_business/emergency_contact_details";
-                _data = {ecd_id: <?=$business->get_emergency_contact_details()->id?>};
+                _data = {
+                    ecd_id: <?=$business->get_emergency_contact_details()->id?>,
+                    business_id: <?=$business->id?>
+                };
             }
 
             if(id === "applications"){

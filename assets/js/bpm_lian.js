@@ -404,6 +404,20 @@ $(function(){
 
 		}
 
+		if(gaction == "edit_emergency_contact_details"){
+			setGmodalTitle("Edit Emergency Contact Details");
+
+			base_url = me.data("base_url") + "_Business/emergency_contact_details_form";
+			
+			_data = {
+				emergency_contact_details_id: me.data("id"),
+				business_id: me.data("business_id")
+			};
+
+			setGmodalFormAction(me.data("base_url") + "_Business/emergency_contact_details_form_submit");
+
+		}
+
 		if(base_url !== ""){
 			$.ajax({
 				url: base_url,

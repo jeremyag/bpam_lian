@@ -39,7 +39,8 @@
         public function emergency_contact_details(){
             if($this->input->get("ecd_id")){
                 $this->load->view("business/emergency_contact_details_view", array(
-                    "ecd"=>$this->Emergency_Contact_Details_Model->get_emergency_contact_details_from_id($this->input->get("ecd_id"))
+                    "ecd"=>$this->Emergency_Contact_Details_Model->get_emergency_contact_details_from_id($this->input->get("ecd_id")),
+                    "business" => $this->Business_Model->get_business_from_id($this->input->get("business_id"))
                 ));
             }
         }
@@ -225,6 +226,39 @@
                         "email" => $this->input->post("email"),
                         "mobile" => $this->input->post("mobile"),
                         "telephone" => $this->input->post("telephone")
+                    )
+                );
+            }
+
+            redirect(add_index().'_business?id='.$this->input->post("business_id"));
+        }
+
+        public function emergency_contact_details_form()
+        {
+            if($this->input->get("emergency_contact_details_id"))
+            {
+                $this->load->view(
+                    "business/emergency_contact_details_form",
+                    array(
+                        "ecd" => $this->Emergency_Contact_Details_Model->get_emergency_contact_details_from_id(
+                            $this->input->get("emergency_contact_details_id")
+                        ),
+                        "business" => $this->Business_Model->get_business_from_id($this->input->get("business_id"))
+                    )
+                );
+            }
+        }
+
+        public function emergency_contact_details_form_submit()
+        {
+            if($this->input->post("emergency_contact_details_id"))
+            {
+                $this->Emergency_Contact_Details_Model->update(
+                    $this->input->post("emergency_contact_details_id"),
+                    array(
+                        "full_name" => $this->input->post("full_name"),
+                        "telephone" => $this->input->post("telephone"),
+                        "email" => $this->input->post("email")
                     )
                 );
             }
