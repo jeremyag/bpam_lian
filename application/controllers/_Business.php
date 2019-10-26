@@ -30,7 +30,8 @@
         public function owner_details(){
             if($this->input->get("o_id")){
                 $this->load->view("business/owner_details_view", array(
-                    "o"=>$this->Owner_Model->get_owner_from_id($this->input->get("o_id"))
+                    "o"=>$this->Owner_Model->get_owner_from_id($this->input->get("o_id")),
+                    "business" => $this->Business_Model->get_business_from_id($this->input->get("business_id"))
                 ));
             }
         }
@@ -189,6 +190,46 @@
 
                 redirect(add_index().'_business?id='.$this->input->post("business_id"));
             }
+        }
+
+        public function owner_form()
+        {
+            if($this->input->get("owner_id"))
+            {
+                $this->load->view(
+                    "business/owner_form",
+                    array(
+                        "o" => $this->Owner_Model->get_owner_from_id($this->input->get("owner_id")),
+                        "business" => $this->Business_Model->get_business_from_id($this->input->get("business_id"))
+                    )
+                );
+            }
+        }
+
+        public function owner_form_submit()
+        {
+            if($this->input->post("owner_id"))
+            {
+                $this->Owner_Model->update(
+                    $this->input->post("owner_id"),
+                    array(
+                        "tin" => $this->input->post("tin"),
+                        "last_name" => $this->input->post("last_name"),
+                        "first_name" => $this->input->post("first_name"),
+                        "middle_name" => $this->input->post("middle_name"),
+                        "street" => $this->input->post("street"),
+                        "brgy" => $this->input->post("brgy"),
+                        "city" => $this->input->post("city"),
+                        "province" => $this->input->post("province"),
+                        "postal_code" => $this->input->post("postal_code"),
+                        "email" => $this->input->post("email"),
+                        "mobile" => $this->input->post("mobile"),
+                        "telephone" => $this->input->post("telephone")
+                    )
+                );
+            }
+
+            redirect(add_index().'_business?id='.$this->input->post("business_id"));
         }
     }
 ?>

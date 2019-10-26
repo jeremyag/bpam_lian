@@ -390,6 +390,20 @@ $(function(){
 
 		}
 
+		if(gaction == "edit_owner_details"){
+			setGmodalTitle("Edit Owner Details");
+
+			base_url = me.data("base_url") + "_Business/owner_form";
+			
+			_data = {
+				owner_id: me.data("id"),
+				business_id: me.data("business_id")
+			};
+
+			setGmodalFormAction(me.data("base_url") + "_Business/owner_form_submit");
+
+		}
+
 		if(base_url !== ""){
 			$.ajax({
 				url: base_url,

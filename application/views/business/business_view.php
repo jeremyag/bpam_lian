@@ -153,7 +153,10 @@
 
             if(id === "owner_details"){
                 _base_url = "<?=base_url().add_index()?>_business/owner_details";
-                _data = {o_id: <?=$business->get_owner()->id?>};
+                _data = {
+                    o_id: <?=$business->get_owner()->id?>,
+                    business_id: <?=$business->id?>
+                };
             }
 
             if(id === "emergency_contact"){
