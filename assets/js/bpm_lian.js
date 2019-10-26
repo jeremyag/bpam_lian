@@ -418,6 +418,21 @@ $(function(){
 
 		}
 
+		if(gaction == "edit_lessor"){
+			setGmodalTitle("Edit Lessor Details");
+
+			base_url = me.data("base_url") + "_Business/lessor_form";
+			
+			_data = {
+				lessor_details_id: me.data("id"),
+				lessor_id: me.data("lessor_id"),
+				business_id: me.data("business_id")
+			};
+
+			setGmodalFormAction(me.data("base_url") + "_Business/lessor_form_submit");
+
+		}
+
 		if(base_url !== ""){
 			$.ajax({
 				url: base_url,

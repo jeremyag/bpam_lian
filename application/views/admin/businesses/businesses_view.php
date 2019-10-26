@@ -51,27 +51,32 @@
                 <br>
                 <form>
                     <div class="collapse" id="more-filters">
-                        <div class="card card-body">
+                    <div class="card card-body">
                             <table>
                                 <tr>
-                                    <th>Business #:</th>
-                                    <td colspan="2"><input name="filter_business_no" type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <th>Business Name:</th>
-                                    <td colspan="2"><input name="filter_business_name" type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
                                     <th>Category:</th>
-                                    <td colspan="2"><input name="filter_business_category" type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <th>Owner:</th>
-                                    <td colspan="2"><input name="filter_owner" type="text" class="form-control"></td>
+                                    <td colspan="2">
+                                        <?php 
+                                        $categories = $this->Business_Categories_List_Model->get_all_formatted();
+
+                                        echo form_dropdown(array(
+                                        'class'=>'form-control',
+                                            'name'=>'filter_categories'
+                                        ), $categories)?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>Barangay:</th>
-                                    <td colspan="2"><input name="adress" type="text" class="form-control"></td>
+                                    <td colspan="2">
+                                        
+                                        <?php 
+                                        $brgy = $this->Barangay_List_Model->get_all_formatted();
+
+                                        echo form_dropdown(array(
+                                        'class'=>'form-control',
+                                            'name'=>'filter_brgy'
+                                        ), $brgy)?>
+                                    </td>
                                 </tr>
                             </table>
                             <br>

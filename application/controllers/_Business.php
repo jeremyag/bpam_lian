@@ -59,7 +59,8 @@
                 
                 $this->load->view("business/lessor_view", array(
                     "ld"=>$ld,
-                    "l"=>$ld->get_lessor()
+                    "l"=>$ld->get_lessor(),
+                    "business" => $this->Business_Model->get_business_from_id($this->input->get("business_id"))
                 ));
             }
         }
@@ -261,6 +262,46 @@
                         "email" => $this->input->post("email")
                     )
                 );
+            }
+
+            redirect(add_index().'_business?id='.$this->input->post("business_id"));
+        }
+
+        public function lessor_form()
+        {
+            if($this->input->get("lessor_id"))
+            {
+                $this->load->view(
+                    "business/lessor_form",
+                    array(
+                        "ld" => $this->Lessor_Details_Model->get_lessor_details_from_id($this->input->get("lessor_details_id")),
+                        "l" => $this->Lessor_Model->get_lessor_from_id($this->input->get("lessor_id")),
+                        "business" => $this->Business_Model->get_business_from_id($this->input->get("business_id"))
+                    )
+                );
+            }
+        }
+
+        public function lessor_form_submit()
+        {
+            if($this->input->post("lessor_id"))
+            {
+                $this->Lessor_Model->update(
+                    $this->input->post("lessor_id"),
+                    array(
+                        "full_name" => $this->input->post("full_name"),
+                        "full_address" => $this->input->post("full_address"),
+                        "contact" => $this->input->post("contact"),
+                        "email" => $this->input->post("email")
+                    )
+                );
+
+                $this->Lessor_Details_Model->update(
+                    $this->input->post("lessor_details_id"),
+                    array(
+                        "monthly_rental" => $this->input->post("monthly_rental")
+                    )
+                    );
             }
 
             redirect(add_index().'_business?id='.$this->input->post("business_id"));

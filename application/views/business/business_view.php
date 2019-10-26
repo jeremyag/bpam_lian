@@ -174,7 +174,10 @@
 
             if(id === "lessor"){
                 _base_url = "<?=base_url().add_index()?>_business/lessor";
-                _data = {ld_id: <?=$business->get_lessor_details() ? $business->get_lessor_details()->id : "'NULL'"?>};
+                _data = {
+                    ld_id: <?=$business->get_lessor_details() ? $business->get_lessor_details()->id : "'NULL'"?>,
+                    business_id: <?=$business->id?>
+                };
             }
 
             if(id === "licenses"){
