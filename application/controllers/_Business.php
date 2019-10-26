@@ -21,7 +21,8 @@
         public function business_address(){
             if($this->input->get("ba_id")){
                 $this->load->view("business/business_address_view", array(
-                    "ba"=>$this->Business_Address_Model->get_business_address_from_id($this->input->get("ba_id"))
+                    "ba"=>$this->Business_Address_Model->get_business_address_from_id($this->input->get("ba_id")),
+                    "business" => $this->Business_Model->get_business_from_id($this->input->get("business_id"))
                 ));
             }
         }
@@ -149,8 +150,45 @@
                     )
                 );
             }
-            // Todo: Add Business ID to redirect.
             redirect(add_index().'_business?id='.$this->input->post("business_id"));
+        }
+
+        public function business_address_form(){
+            if($this->input->get("business_address_id"))
+            {
+                $this->load->view(
+                    "business/business_address_form",
+                    array(
+                        "ba" => $this->Business_Address_Model->get_business_address_from_id(
+                            $this->input->get("business_address_id")
+                        ),
+                        "business" => $this->Business_Model->get_business_from_id(
+                            $this->input->get("business_id")
+                        ),
+                        "brgy" => $this->Barangay_List_Model->get_all_formatted()
+                    )
+                );
+            }
+        }
+
+        public function business_address_form_submit()
+        {
+            if($this->input->post("business_address_id"))
+            {
+                $this->Business_Address_Model->update(
+                    $this->input->post("business_address_id"),
+                    array(
+                        "street" => $this->input->post("street"),
+                        "brgy" => $this->input->post("brgy"),
+                        "postal_code" => $this->input->post("postal_code"),
+                        "email" => $this->input->post("email"),
+                        "mobile" => $this->input->post("mobile"),
+                        "telephone" => $this->input->post("telephone")
+                    )
+                );
+
+                redirect(add_index().'_business?id='.$this->input->post("business_id"));
+            }
         }
     }
 ?>

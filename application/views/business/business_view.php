@@ -145,7 +145,10 @@
             
             if(id === "business_address"){
                 _base_url = "<?=base_url().add_index()?>_business/business_address";
-                _data = {ba_id: <?=$business->get_business_address()->id?>};
+                _data = {
+                    ba_id: <?=$business->get_business_address()->id?>,
+                    business_id: <?=$business->id?>
+                };
             }
 
             if(id === "owner_details"){
