@@ -3,9 +3,52 @@
     {
         public function ranks()
         {
+            header('Content-Type: application/json');
+
+            $result = array();
+            $filter = "";
+
             // Rankings of Business Categories
+            if($this->input->get("business_categories"))
+            {
+
+                if(!$this->input->get("isClosed"))
+                {
+                    $filter .= "AND b.isClosed <> 1 "; 
+                }
+
+                if($this->input->get("included"))
+                {
+                    $included = explode(",", $this->input->get("included"));
+
+                    $filter .= "AND b.category IN ( ";
+                    for($i = 0; $i < count($included); $i++)
+                    {
+                        if($i == count($included)-1)
+                        {
+                            $filter .= "'".$included[$i]."'";
+                        }
+                        else
+                        {
+                            $filter .= "'".$included[$i]. "', ";
+                        }
+                    }
+                    $filter .= " ) ";
+                }
+                $query = $this->Analytics_Model->ranks("business_categories", $filter);
+                if($query)
+                {
+                    foreach($query as $q)
+                    {
+                        $result["category"][] = $q->category;
+                        $result["count"][] = $q->count;
+                    }
+                }
+            }
 
             // Rankings of Type of Business
+
+            echo json_encode($result);
         }
 
         public function report()

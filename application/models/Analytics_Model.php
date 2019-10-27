@@ -18,4 +18,27 @@
 
             return $query->row(0);
         }
+
+        public function ranks($type = "business_categories", $filter = "")
+        {
+            if($type == "business_categories")
+            {
+                $sql = "SELECT
+                            b.category,
+                            COUNT(*) AS `count`
+                        FROM
+                            business b
+                        WHERE 
+                            1=1
+                            $filter
+                        GROUP BY
+                            b.category
+                        ORDER BY 
+                            `count` DESC";
+                
+                $query = $this->db->query($sql);
+
+                return $query->result();
+            }
+        }
     }
