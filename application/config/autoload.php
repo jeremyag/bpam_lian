@@ -151,5 +151,6 @@ $autoload['model'] = array(
     'License_Model',
     'General_Settings_Model',
     'Business_Categories_List_Model',
-    'Barangay_List_Model'
+    'Barangay_List_Model',
+    'Analytics_Model'
 );
