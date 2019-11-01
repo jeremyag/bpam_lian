@@ -128,6 +128,14 @@
             return $this->db->insert_id();
         }
 
+        public function update($id, $a){
+            $update_column = build_update_columns($a);
+            
+            $sql = "UPDATE `application` SET $update_column WHERE `id` = $id";
+
+            $this->db->query($sql);
+        }
+
         public function count($filter = "", $join = ""){
             $sql = "SELECT
                         COUNT(*) as total
