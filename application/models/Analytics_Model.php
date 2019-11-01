@@ -35,10 +35,25 @@
                             b.category
                         ORDER BY 
                             `count` DESC";
-                
-                $query = $this->db->query($sql);
-
-                return $query->result();
             }
+            elseif($type == "business_type")
+            {
+                $sql = "SELECT
+                            b.type as `business_type`,
+                            COUNT(*) as `count`
+                        FROM
+                            business b
+                        WHERE 
+                            1=1
+                            $filter
+                        GROUP BY
+                            b.type
+                        ORDER BY
+                            `count` DESC";
+            }
+
+            $query = $this->db->query($sql);
+
+            return $query->result();
         }
     }
