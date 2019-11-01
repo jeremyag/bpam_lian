@@ -609,8 +609,10 @@
                 $verifications = $this->input->post('verification');
                 $inserts = array();
                 $not_accomplished = array();
+                $application_id = 0;
                 foreach($verifications as $v){
                     $v['application'] = intval($v['application']);
+                    $application_id = $v["application"];
                     if($v['id'] != ""){
                             $v['id'] = intval($v['id']);
 
@@ -626,6 +628,16 @@
                 }
 
                 $this->session->set_flashdata('not_accomplished', $not_accomplished);
+
+                if(count($not_accomplished) == 0 && $application_id)
+                {
+                    $this->Application_Model->update($application_id, array("status"=>"on-assessment"));
+                }
+                else 
+                {
+                    $this->Application_Model->update($application_id, array("status"=>"missing-docs"));
+                }
+                
                 redirect(add_index().'admin/check_verification');
             }
         }
@@ -776,12 +788,14 @@
         public function license_form(){
             $this->load->view("applications/license_form", array(
                 "business_id" => $this->input->get("b_id"),
-                "applicaiton_id"=>$this->input->get("a_id")
+                "application_id"=>$this->input->get("a_id")
             ));
         }
 
         public function add_license_form(){
-            $this->License_Model->insert($this->input->post());
+            $license = $this->License_Model->insert($this->input->post());
+
+            $this->Application_Model->update($this->input->post("application_id"), array("status"=>"done"));
 
             redirect(base_url().add_index()."_business?id=".$this->input->post("business_id"));
         }

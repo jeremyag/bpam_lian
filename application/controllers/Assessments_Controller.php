@@ -21,6 +21,8 @@
                     foreach($assessments as $a){
                         $this->Assessment_Fees_Model->insert($a);
                     }
+
+                    $this->Application_Model->update($id, array("status"=>"needs-license"));
                     redirect(add_index()."treasurer/view_application?id=".$id);
                 }
             }

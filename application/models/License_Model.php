@@ -80,7 +80,8 @@
         }
 
         public function insert($array){
-            $sql = "INSERT INTO license (id, license_no, date_start, date_end, business_id, application_id) VALUES ('', ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO license (id, license_no, date_start, date_end, business_id, application_id) 
+                    VALUES ('', '".$array["license_no"]."', '".$array["date_start"]."', '".$array["date_end"]."', '".$array["business_id"]."', '".$array["application_id"]."')";
 
             $this->db->query($sql, $array);
 
