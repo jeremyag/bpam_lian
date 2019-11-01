@@ -8,14 +8,14 @@
             $result = array();
             $filter = "";
 
+            if(!$this->input->get("openOnly"))
+            {
+                $filter .= "AND b.isClosed <> 1 "; 
+            }
+
             // Rankings of Business Categories
             if($this->input->get("business_categories"))
             {
-
-                if(!$this->input->get("isClosed"))
-                {
-                    $filter .= "AND b.isClosed <> 1 "; 
-                }
 
                 if($this->input->get("included"))
                 {
@@ -41,6 +41,38 @@
                     foreach($query as $q)
                     {
                         $result["category"][] = $q->category;
+                        $result["count"][] = $q->count;
+                    }
+                }
+            }
+
+            if($this->input->get("business_type"))
+            {
+                if($this->input->get("included"))
+                {
+                    $included = explode(",", $this->input->get("included"));
+
+                    $filter .= "AND b.type IN ( ";
+                    for($i = 0; $i < count($included); $i++)
+                    {
+                        if($i == count($included) - 1)
+                        {
+                            $filter .= "'".$included[$i]."'";
+                        }
+                        else
+                        {
+                            $filter .= "'".$included[$i]."'";
+                        }
+                    }
+                    $filter .= " ) ";
+                }
+
+                $query = $this->Analytics_Model->ranks("business_type", $filter);
+                if($query)
+                {
+                    foreach($query as $q)
+                    {
+                        $result["business_type"][] = $q->business_type;
                         $result["count"][] = $q->count;
                     }
                 }
