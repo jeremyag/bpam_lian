@@ -18,9 +18,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url().add_index(); ?>treasurer"><i class="fa fa-home"></i> Home</a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url().add_index(); ?>treasurer/assessments"><i class="fa fa-file"></i> Assessments</a>
             </li>

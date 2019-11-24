@@ -456,7 +456,7 @@ class Admin extends CI_Controller
             redirect('/');
        }
        
-       if($this->session->userdata('user_position') != 'Administrator'){
+       if(!in_array($this->session->userdata('user_position'), array("Administrator", "Checker"))){
            redirect('/');
        }
     }

@@ -63,7 +63,7 @@
                             'user_id'=>$user->id,
                             'user_position'=>$user->position
                         ));
-                        if($user->position == "Administrator"){
+                        if($user->position == "Administrator" || $user->position == "Checker"){
                             redirect(add_index().'admin/');
                         }
 

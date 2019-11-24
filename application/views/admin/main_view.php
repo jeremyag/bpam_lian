@@ -29,12 +29,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url().add_index(); ?>admin/businesses"><i class="fa fa-building"></i> Businesses</a>
             </li>
+            <?php if($this->session->userdata('user_position') == "Administrator"):?>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url().add_index()?>admin/accounts"><i class="fa fa-users"></i> Accounts</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url().add_index()?>admin/settings"><i class="fa fa-cog"></i> Settings</a>
             </li>
+            <?php endif;?>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url().add_index()?>admin/logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
             </li>
