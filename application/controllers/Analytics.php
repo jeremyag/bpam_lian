@@ -61,7 +61,7 @@
                         }
                         else
                         {
-                            $filter .= "'".$included[$i]."'";
+                            $filter .= "'".$included[$i]."',";
                         }
                     }
                     $filter .= " ) ";
@@ -227,5 +227,59 @@
             }
 
             echo json_encode($result);
+        }
+
+        public function business_type(){
+            $data = array(
+                'view'=>'analytics/index_view',
+                'subview'=>'analytics/business_type_view',
+                'reportTitle'=>'Reports - Business Type'
+            );
+
+            $this->load->view('admin/main_view', $data);
+        }
+
+        public function business_categories()
+        {
+            $data = array(
+                'view'=>'analytics/index_view',
+                'subview'=>'analytics/business_categories_view',
+                'reportTitle'=>'Reports - Business Categories'
+            );
+
+            $this->load->view('admin/main_view', $data);
+        }
+
+        public function application_by_day()
+        {
+            $data = array(
+                'view'=>'analytics/index_view',
+                'subview'=>'analytics/application_by_day_view',
+                'reportTitle'=>'Reports - Application by Day'
+            );
+
+            $this->load->view('admin/main_view', $data);
+        }
+
+        public function application_by_status()
+        {
+            $data = array(
+                'view'=>'analytics/index_view',
+                'subview'=>'analytics/application_by_status_view',
+                'reportTitle'=>'Reports - Application by Status'
+            );
+
+            $this->load->view('admin/main_view', $data);
+        }
+
+        public function businesses_by_status()
+        {
+            $data = array(
+                'view'=>'analytics/index_view',
+                'subview'=>'analytics/businesses_by_status_view',
+                'reportTitle'=>'Reports - Businesses By Status'
+            );
+
+            $this->load->view('admin/main_view', $data);
         }
     }

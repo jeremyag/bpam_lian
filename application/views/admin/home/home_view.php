@@ -95,6 +95,9 @@
                     }); 
                 </script>
             </div>
+            <div class="card-footer">
+                <a href="<?=base_url().add_index()?>analytics/business_categories">View Details</a>                
+            </div>
         </div>
     </div>
     <div class="col-md-6">
@@ -118,7 +121,7 @@
                                 var myChart = new Chart(ctx, {
                                     type: 'pie',
                                     data: {
-                                        labels: data.category,
+                                        labels: data.business_type,
                                         datasets: [{
                                             label: 'Business Type',
                                             data: data.count,
@@ -156,6 +159,9 @@
                     }); 
                 </script>
             </div>
+            <div class="card-footer">
+                <a href="<?=base_url().add_index()?>analytics/business_type">View Details</a>                
+            </div>
         </div>
     </div>
 </div>
@@ -164,7 +170,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5>Applications by Day (Past 7 Days)</h5>
+                <h5>Applications by Day</h5>
             </div>
             <div class="card-body">
                 <canvas id="application_by_day" width="400" height="100"></canvas>
@@ -184,7 +190,7 @@
                                     data: {
                                         labels: data.date_of_application,
                                         datasets: [{
-                                            label: 'Business Type',
+                                            label: 'Application By Date',
                                             data: data.count,
                                             backgroundColor: [
                                                 'rgba(255, 99, 132, 0.2)',
@@ -219,6 +225,9 @@
                         });
                     }); 
                 </script>
+            </div>
+            <div class="card-footer">
+                <a href="<?=base_url().add_index()?>analytics/application_by_day">View Details</a>                
             </div>
         </div>
     </div>
@@ -284,6 +293,9 @@
                     }); 
                 </script>
             </div>
+            <div class="card-footer">
+                <a href="<?=base_url().add_index()?>analytics/application_by_status">View Details</a>                
+            </div>
         </div>
     </div>
     <div class="col-md-6">
@@ -344,6 +356,9 @@
                         });
                     }); 
                 </script>
+            </div>
+            <div class="card-footer">
+                <a href="<?=base_url().add_index()?>analytics/businesses_by_status">View Details</a>                
             </div>
         </div>
     </div>

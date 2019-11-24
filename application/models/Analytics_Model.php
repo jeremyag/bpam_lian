@@ -87,7 +87,7 @@
                         GROUP BY
                             a.date_of_application
                         ORDER BY
-                            `count` DESC";
+                            a.`date_of_application` ASC";
             }
             elseif($type == "business_by_status")
             {
