@@ -145,6 +145,7 @@
 
             $result = array();
             $inList = "";
+            $filter = "";
             if($this->input->get("included"))
             {
                 $included = explode(",", $this->input->get("included"));
