@@ -138,4 +138,93 @@
 
             echo json_encode($result);
         }
+
+        public function reports()
+        {
+            header('Content-Type: application/json');
+
+            $result = array();
+            $inList = "";
+            if($this->input->get("included"))
+            {
+                $included = explode(",", $this->input->get("included"));
+
+                for($i = 0; $i < count($included); $i++)
+                {
+                    if($i == count($included)-1)
+                    {
+                        $inList .= "'".$included[$i]."'";
+                    }
+                    else
+                    {
+                        $inList .= "'".$included[$i]. "', ";
+                    }
+                }
+            }
+
+            if($this->input->get("between"))
+            {
+                $between = explode(",", $this->input->get("between"));
+            }
+
+            if($this->input->get("application_by_status"))
+            {
+                if($this->input->get("included"))
+                {
+                    $filter = "AND a.status IN ( $inList ) ";
+                }
+                $query = $this->Analytics_Model->reports("application_by_status", $filter);
+
+                if($query)
+                {
+                    foreach($query as $q)
+                    {
+                        $result["status"][] = $q->status;
+                        $result["count"][] = $q->count;
+                    }
+                }
+            }
+
+            if($this->input->get("application_by_day"))
+            {
+                if($this->input->get("between"))
+                {
+                    $filter = sprintf(
+                        " AND a.date_of_application BETWEEN '%s' AND '%s'",
+                        $between[0], $between[1]
+                    );
+                }
+
+                $query = $this->Analytics_Model->reports("application_by_day", $filter);
+
+                if($query)
+                {
+                    foreach($query as $q)
+                    {
+                        $result["date_of_application"][] = $q->date_of_application;
+                        $result["count"][] = $q->count;
+                    }
+                }
+            }
+
+            if($this->input->get("business_by_status"))
+            {
+                if($this->input->get("included"))
+                {
+                    $filter = "AND t.status IN ( $inList ) ";
+                }
+                $query = $this->Analytics_Model->reports("business_by_status", $filter);
+
+                if($query)
+                {
+                    foreach($query as $q)
+                    {
+                        $result["status"][] = $q->status;
+                        $result["count"][] = $q->count;
+                    }
+                }
+            }
+
+            echo json_encode($result);
+        }
     }
